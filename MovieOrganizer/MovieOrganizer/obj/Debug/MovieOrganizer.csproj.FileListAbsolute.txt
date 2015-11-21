@@ -1,0 +1,1 @@
+c:\users\malcolm\documents\visual studio 2015\Projects\MovieOrganizer\MovieOrganizer\bin\Debug\MovieOrganizer.exe.config

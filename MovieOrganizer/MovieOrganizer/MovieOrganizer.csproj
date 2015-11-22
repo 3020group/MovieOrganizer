@@ -52,6 +52,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="moviePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="moviePanel.Designer.cs">
+      <DependentUpon>moviePanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TabScreen.cs">
@@ -60,6 +66,9 @@
     <Compile Include="TabScreen.Designer.cs">
       <DependentUpon>TabScreen.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="moviePanel.resx">
+      <DependentUpon>moviePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

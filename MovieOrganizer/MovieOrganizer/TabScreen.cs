@@ -103,5 +103,20 @@ namespace MovieOrganizer
             }
 
         }
+
+        private void settingsTab_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pPictureEditBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void moviePanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

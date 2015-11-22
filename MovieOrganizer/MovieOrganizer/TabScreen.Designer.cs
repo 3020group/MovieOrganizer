@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.uInfoPanel = new System.Windows.Forms.Panel();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.usernameLabel = new System.Windows.Forms.Label();
@@ -35,10 +36,18 @@
             this.tabPanel = new System.Windows.Forms.Panel();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.searchTab = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.ssPanel = new System.Windows.Forms.Panel();
+            this.containsRadio = new System.Windows.Forms.RadioButton();
+            this.exactRadio = new System.Windows.Forms.RadioButton();
+            this.advancedSearchLink = new System.Windows.Forms.LinkLabel();
+            this.searchButton = new System.Windows.Forms.Button();
+            this.resultsPanel = new System.Windows.Forms.Panel();
+            this.moviePanel1 = new MovieOrganizer.moviePanel(this.components);
             this.collectionTab = new System.Windows.Forms.TabPage();
             this.suggestionsTab = new System.Windows.Forms.TabPage();
             this.settingsTab = new System.Windows.Forms.TabPage();
-            this.applyButton = new System.Windows.Forms.Button();
             this.pLockPanel = new System.Windows.Forms.Panel();
             this.pLockBox = new System.Windows.Forms.CheckBox();
             this.newProfilebutton = new System.Windows.Forms.Button();
@@ -51,6 +60,7 @@
             this.browseButton = new System.Windows.Forms.Button();
             this.picturePathBox = new System.Windows.Forms.TextBox();
             this.npPanel = new System.Windows.Forms.Panel();
+            this.applyButton = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.passwordBox = new System.Windows.Forms.TextBox();
             this.nameBox = new System.Windows.Forms.TextBox();
@@ -62,6 +72,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).BeginInit();
             this.tabPanel.SuspendLayout();
             this.tabControl.SuspendLayout();
+            this.searchTab.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.ssPanel.SuspendLayout();
+            this.resultsPanel.SuspendLayout();
             this.settingsTab.SuspendLayout();
             this.pLockPanel.SuspendLayout();
             this.dirPanel.SuspendLayout();
@@ -132,12 +146,104 @@
             // searchTab
             // 
             this.searchTab.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.searchTab.Controls.Add(this.panel1);
+            this.searchTab.Controls.Add(this.resultsPanel);
             this.searchTab.Location = new System.Drawing.Point(4, 22);
             this.searchTab.Name = "searchTab";
             this.searchTab.Size = new System.Drawing.Size(889, 515);
             this.searchTab.TabIndex = 0;
             this.searchTab.Text = "Search";
             this.searchTab.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.ssPanel);
+            this.panel1.Controls.Add(this.advancedSearchLink);
+            this.panel1.Controls.Add(this.searchButton);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(887, 100);
+            this.panel1.TabIndex = 0;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(3, 14);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(270, 29);
+            this.textBox1.TabIndex = 1;
+            // 
+            // ssPanel
+            // 
+            this.ssPanel.Controls.Add(this.containsRadio);
+            this.ssPanel.Controls.Add(this.exactRadio);
+            this.ssPanel.Location = new System.Drawing.Point(8, 43);
+            this.ssPanel.Name = "ssPanel";
+            this.ssPanel.Size = new System.Drawing.Size(92, 54);
+            this.ssPanel.TabIndex = 3;
+            // 
+            // containsRadio
+            // 
+            this.containsRadio.AutoSize = true;
+            this.containsRadio.Location = new System.Drawing.Point(3, 26);
+            this.containsRadio.Name = "containsRadio";
+            this.containsRadio.Size = new System.Drawing.Size(66, 17);
+            this.containsRadio.TabIndex = 1;
+            this.containsRadio.TabStop = true;
+            this.containsRadio.Text = "Contains";
+            this.containsRadio.UseVisualStyleBackColor = true;
+            // 
+            // exactRadio
+            // 
+            this.exactRadio.AutoSize = true;
+            this.exactRadio.Location = new System.Drawing.Point(3, 3);
+            this.exactRadio.Name = "exactRadio";
+            this.exactRadio.Size = new System.Drawing.Size(52, 17);
+            this.exactRadio.TabIndex = 0;
+            this.exactRadio.TabStop = true;
+            this.exactRadio.Text = "Exact";
+            this.exactRadio.UseVisualStyleBackColor = true;
+            // 
+            // advancedSearchLink
+            // 
+            this.advancedSearchLink.AutoSize = true;
+            this.advancedSearchLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.advancedSearchLink.Location = new System.Drawing.Point(106, 46);
+            this.advancedSearchLink.Name = "advancedSearchLink";
+            this.advancedSearchLink.Size = new System.Drawing.Size(182, 25);
+            this.advancedSearchLink.TabIndex = 4;
+            this.advancedSearchLink.TabStop = true;
+            this.advancedSearchLink.Text = "Advanced Search";
+            // 
+            // searchButton
+            // 
+            this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchButton.Location = new System.Drawing.Point(279, 14);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(95, 29);
+            this.searchButton.TabIndex = 2;
+            this.searchButton.Text = "Search";
+            this.searchButton.UseVisualStyleBackColor = true;
+            // 
+            // resultsPanel
+            // 
+            this.resultsPanel.BackColor = System.Drawing.Color.Gray;
+            this.resultsPanel.Controls.Add(this.moviePanel1);
+            this.resultsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.resultsPanel.Location = new System.Drawing.Point(0, 0);
+            this.resultsPanel.Name = "resultsPanel";
+            this.resultsPanel.Size = new System.Drawing.Size(887, 513);
+            this.resultsPanel.TabIndex = 0;
+            // 
+            // moviePanel1
+            // 
+            this.moviePanel1.BackColor = System.Drawing.Color.White;
+            this.moviePanel1.Location = new System.Drawing.Point(111, 151);
+            this.moviePanel1.Name = "moviePanel1";
+            this.moviePanel1.Size = new System.Drawing.Size(200, 200);
+            this.moviePanel1.TabIndex = 2;
             // 
             // collectionTab
             // 
@@ -173,24 +279,14 @@
             this.settingsTab.TabIndex = 3;
             this.settingsTab.Text = "Settings";
             this.settingsTab.UseVisualStyleBackColor = true;
+            this.settingsTab.Click += new System.EventHandler(this.settingsTab_Click);
             this.settingsTab.Enter += new System.EventHandler(this.settingsTab_Enter);
-            // 
-            // applyButton
-            // 
-            this.applyButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.applyButton.Location = new System.Drawing.Point(233, 148);
-            this.applyButton.Name = "applyButton";
-            this.applyButton.Size = new System.Drawing.Size(160, 33);
-            this.applyButton.TabIndex = 4;
-            this.applyButton.Text = "Apply";
-            this.applyButton.UseVisualStyleBackColor = true;
             // 
             // pLockPanel
             // 
-            this.pLockPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pLockPanel.Controls.Add(this.pLockBox);
             this.pLockPanel.Controls.Add(this.newProfilebutton);
-            this.pLockPanel.Location = new System.Drawing.Point(638, 298);
+            this.pLockPanel.Location = new System.Drawing.Point(509, 328);
             this.pLockPanel.Name = "pLockPanel";
             this.pLockPanel.Size = new System.Drawing.Size(200, 64);
             this.pLockPanel.TabIndex = 3;
@@ -217,11 +313,10 @@
             // 
             // dirPanel
             // 
-            this.dirPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.dirPanel.Controls.Add(this.addButton);
             this.dirPanel.Controls.Add(this.dirBox);
             this.dirPanel.Controls.Add(this.dirLabel);
-            this.dirPanel.Location = new System.Drawing.Point(411, 17);
+            this.dirPanel.Location = new System.Drawing.Point(7, 255);
             this.dirPanel.Name = "dirPanel";
             this.dirPanel.Size = new System.Drawing.Size(454, 200);
             this.dirPanel.TabIndex = 2;
@@ -242,7 +337,7 @@
             this.dirBox.Location = new System.Drawing.Point(5, 30);
             this.dirBox.Multiline = true;
             this.dirBox.Name = "dirBox";
-            this.dirBox.Size = new System.Drawing.Size(333, 106);
+            this.dirBox.Size = new System.Drawing.Size(392, 106);
             this.dirBox.TabIndex = 1;
             // 
             // dirLabel
@@ -259,27 +354,27 @@
             // 
             // picturePanel
             // 
-            this.picturePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picturePanel.Controls.Add(this.pPictureEditBox);
             this.picturePanel.Controls.Add(this.browseButton);
             this.picturePanel.Controls.Add(this.picturePathBox);
-            this.picturePanel.Location = new System.Drawing.Point(126, 223);
+            this.picturePanel.Location = new System.Drawing.Point(434, 17);
             this.picturePanel.Name = "picturePanel";
             this.picturePanel.Size = new System.Drawing.Size(455, 219);
             this.picturePanel.TabIndex = 1;
             // 
             // pPictureEditBox
             // 
-            this.pPictureEditBox.Location = new System.Drawing.Point(31, 40);
+            this.pPictureEditBox.Location = new System.Drawing.Point(3, 40);
             this.pPictureEditBox.Name = "pPictureEditBox";
-            this.pPictureEditBox.Size = new System.Drawing.Size(224, 174);
+            this.pPictureEditBox.Size = new System.Drawing.Size(195, 159);
             this.pPictureEditBox.TabIndex = 2;
             this.pPictureEditBox.TabStop = false;
+            this.pPictureEditBox.Click += new System.EventHandler(this.pPictureEditBox_Click);
             // 
             // browseButton
             // 
             this.browseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.browseButton.Location = new System.Drawing.Point(284, -1);
+            this.browseButton.Location = new System.Drawing.Point(280, 7);
             this.browseButton.Name = "browseButton";
             this.browseButton.Size = new System.Drawing.Size(98, 31);
             this.browseButton.TabIndex = 1;
@@ -290,14 +385,13 @@
             // picturePathBox
             // 
             this.picturePathBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.picturePathBox.Location = new System.Drawing.Point(3, 3);
+            this.picturePathBox.Location = new System.Drawing.Point(3, 4);
             this.picturePathBox.Name = "picturePathBox";
             this.picturePathBox.Size = new System.Drawing.Size(271, 31);
             this.picturePathBox.TabIndex = 0;
             // 
             // npPanel
             // 
-            this.npPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.npPanel.Controls.Add(this.applyButton);
             this.npPanel.Controls.Add(this.textBox2);
             this.npPanel.Controls.Add(this.passwordBox);
@@ -307,14 +401,24 @@
             this.npPanel.Controls.Add(this.nameLabel);
             this.npPanel.Location = new System.Drawing.Point(7, 17);
             this.npPanel.Name = "npPanel";
-            this.npPanel.Size = new System.Drawing.Size(398, 200);
+            this.npPanel.Size = new System.Drawing.Size(398, 219);
             this.npPanel.TabIndex = 0;
+            // 
+            // applyButton
+            // 
+            this.applyButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.applyButton.Location = new System.Drawing.Point(237, 166);
+            this.applyButton.Name = "applyButton";
+            this.applyButton.Size = new System.Drawing.Size(160, 33);
+            this.applyButton.TabIndex = 4;
+            this.applyButton.Text = "Apply";
+            this.applyButton.UseVisualStyleBackColor = true;
             // 
             // textBox2
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(233, 111);
+            this.textBox2.Location = new System.Drawing.Point(235, 111);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(160, 31);
             this.textBox2.TabIndex = 5;
@@ -323,7 +427,7 @@
             // 
             this.passwordBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.passwordBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passwordBox.Location = new System.Drawing.Point(233, 74);
+            this.passwordBox.Location = new System.Drawing.Point(235, 74);
             this.passwordBox.Name = "passwordBox";
             this.passwordBox.Size = new System.Drawing.Size(160, 31);
             this.passwordBox.TabIndex = 4;
@@ -332,7 +436,7 @@
             // 
             this.nameBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.nameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameBox.Location = new System.Drawing.Point(233, 7);
+            this.nameBox.Location = new System.Drawing.Point(235, 7);
             this.nameBox.Name = "nameBox";
             this.nameBox.Size = new System.Drawing.Size(160, 31);
             this.nameBox.TabIndex = 3;
@@ -383,6 +487,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).EndInit();
             this.tabPanel.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
+            this.searchTab.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.ssPanel.ResumeLayout(false);
+            this.ssPanel.PerformLayout();
+            this.resultsPanel.ResumeLayout(false);
             this.settingsTab.ResumeLayout(false);
             this.pLockPanel.ResumeLayout(false);
             this.pLockPanel.PerformLayout();
@@ -428,5 +538,14 @@
         private System.Windows.Forms.Panel pLockPanel;
         private System.Windows.Forms.CheckBox pLockBox;
         private System.Windows.Forms.Button newProfilebutton;
+        private System.Windows.Forms.LinkLabel advancedSearchLink;
+        private System.Windows.Forms.Panel ssPanel;
+        private System.Windows.Forms.RadioButton containsRadio;
+        private System.Windows.Forms.RadioButton exactRadio;
+        private System.Windows.Forms.Button searchButton;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Panel resultsPanel;
+        private System.Windows.Forms.Panel panel1;
+        private moviePanel moviePanel1;
     }
 }

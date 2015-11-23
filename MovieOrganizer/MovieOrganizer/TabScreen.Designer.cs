@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.uInfoPanel = new System.Windows.Forms.Panel();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.usernameLabel = new System.Windows.Forms.Label();
@@ -36,6 +35,7 @@
             this.tabPanel = new System.Windows.Forms.Panel();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.searchTab = new System.Windows.Forms.TabPage();
+            this.resultsPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.ssPanel = new System.Windows.Forms.Panel();
@@ -43,8 +43,6 @@
             this.exactRadio = new System.Windows.Forms.RadioButton();
             this.advancedSearchLink = new System.Windows.Forms.LinkLabel();
             this.searchButton = new System.Windows.Forms.Button();
-            this.resultsPanel = new System.Windows.Forms.Panel();
-            this.moviePanel1 = new MovieOrganizer.moviePanel(this.components);
             this.collectionTab = new System.Windows.Forms.TabPage();
             this.suggestionsTab = new System.Windows.Forms.TabPage();
             this.settingsTab = new System.Windows.Forms.TabPage();
@@ -75,7 +73,6 @@
             this.searchTab.SuspendLayout();
             this.panel1.SuspendLayout();
             this.ssPanel.SuspendLayout();
-            this.resultsPanel.SuspendLayout();
             this.settingsTab.SuspendLayout();
             this.pLockPanel.SuspendLayout();
             this.dirPanel.SuspendLayout();
@@ -146,14 +143,24 @@
             // searchTab
             // 
             this.searchTab.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.searchTab.Controls.Add(this.panel1);
             this.searchTab.Controls.Add(this.resultsPanel);
+            this.searchTab.Controls.Add(this.panel1);
             this.searchTab.Location = new System.Drawing.Point(4, 22);
             this.searchTab.Name = "searchTab";
             this.searchTab.Size = new System.Drawing.Size(889, 515);
             this.searchTab.TabIndex = 0;
             this.searchTab.Text = "Search";
             this.searchTab.UseVisualStyleBackColor = true;
+            // 
+            // resultsPanel
+            // 
+            this.resultsPanel.AutoScroll = true;
+            this.resultsPanel.BackColor = System.Drawing.Color.Gray;
+            this.resultsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.resultsPanel.Location = new System.Drawing.Point(0, 100);
+            this.resultsPanel.Name = "resultsPanel";
+            this.resultsPanel.Size = new System.Drawing.Size(887, 413);
+            this.resultsPanel.TabIndex = 5;
             // 
             // panel1
             // 
@@ -226,24 +233,7 @@
             this.searchButton.TabIndex = 2;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
-            // 
-            // resultsPanel
-            // 
-            this.resultsPanel.BackColor = System.Drawing.Color.Gray;
-            this.resultsPanel.Controls.Add(this.moviePanel1);
-            this.resultsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.resultsPanel.Location = new System.Drawing.Point(0, 0);
-            this.resultsPanel.Name = "resultsPanel";
-            this.resultsPanel.Size = new System.Drawing.Size(887, 513);
-            this.resultsPanel.TabIndex = 0;
-            // 
-            // moviePanel1
-            // 
-            this.moviePanel1.BackColor = System.Drawing.Color.White;
-            this.moviePanel1.Location = new System.Drawing.Point(111, 151);
-            this.moviePanel1.Name = "moviePanel1";
-            this.moviePanel1.Size = new System.Drawing.Size(200, 200);
-            this.moviePanel1.TabIndex = 2;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // collectionTab
             // 
@@ -279,7 +269,6 @@
             this.settingsTab.TabIndex = 3;
             this.settingsTab.Text = "Settings";
             this.settingsTab.UseVisualStyleBackColor = true;
-            this.settingsTab.Click += new System.EventHandler(this.settingsTab_Click);
             this.settingsTab.Enter += new System.EventHandler(this.settingsTab_Enter);
             // 
             // pLockPanel
@@ -369,7 +358,6 @@
             this.pPictureEditBox.Size = new System.Drawing.Size(195, 159);
             this.pPictureEditBox.TabIndex = 2;
             this.pPictureEditBox.TabStop = false;
-            this.pPictureEditBox.Click += new System.EventHandler(this.pPictureEditBox_Click);
             // 
             // browseButton
             // 
@@ -492,7 +480,6 @@
             this.panel1.PerformLayout();
             this.ssPanel.ResumeLayout(false);
             this.ssPanel.PerformLayout();
-            this.resultsPanel.ResumeLayout(false);
             this.settingsTab.ResumeLayout(false);
             this.pLockPanel.ResumeLayout(false);
             this.pLockPanel.PerformLayout();
@@ -544,8 +531,7 @@
         private System.Windows.Forms.RadioButton exactRadio;
         private System.Windows.Forms.Button searchButton;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Panel resultsPanel;
         private System.Windows.Forms.Panel panel1;
-        private moviePanel moviePanel1;
+        private System.Windows.Forms.FlowLayoutPanel resultsPanel;
     }
 }

@@ -11,16 +11,18 @@ namespace MovieOrganizer
 {
     public partial class moviePanel : Panel
     {
+
         public moviePanel(string title)
         {
             InitializeComponent();
 
-            //set the movie poster to the correct size
-            moviePosterBox.Size = new System.Drawing.Size((this.Size.Height*4)/5,(this.Size.Height*3)/4);
-            moviePosterBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            moviePosterBox.Show();
-            movieTitle.Text = title;
-            
+            moviePosterBox.Size = new System.Drawing.Size((this.Size.Height * 2) / 3, (this.Size.Height * 3) / 4);
+            moviePosterBox.Location = new System.Drawing.Point((this.Size.Width - moviePosterBox.Size.Width) / 2, (this.Size.Width - moviePosterBox.Size.Width) / 4);
+            moviePosterBox.ImageLocation = getImage();
+
+            movieTitle.Text = "test";
+            movieTitle.Show();
+            this.movieTitle.Location = new System.Drawing.Point((this.Size.Width / 2), moviePosterBox.Location.X + moviePosterBox.Size.Height);
         }
 
         public moviePanel(IContainer container)
@@ -28,6 +30,15 @@ namespace MovieOrganizer
             container.Add(this);
 
             InitializeComponent();
+
+            moviePosterBox.Size = new System.Drawing.Size((this.Size.Height * 2) / 3, (this.Size.Height * 3) / 4);
+            moviePosterBox.Location = new System.Drawing.Point((this.Size.Width - moviePosterBox.Size.Width)/2, (this.Size.Width - moviePosterBox.Size.Width) / 4);
+            moviePosterBox.ImageLocation = getImage();
+
+            movieTitle.Text = "test";
+            Console.WriteLine(movieTitle.Text);
+            movieTitle.Show();
+            this.movieTitle.Location = new System.Drawing.Point((this.Size.Width / 2), moviePosterBox.Location.X + moviePosterBox.Size.Height);
         }
 
         private void moviePosterBox_Click(object sender, EventArgs e)
@@ -37,13 +48,20 @@ namespace MovieOrganizer
 
         private void moviePanel_Resize(object sender, EventArgs e) 
         {
-            moviePosterBox.Size = new System.Drawing.Size((this.Size.Height * 4) / 5, (this.Size.Height * 3) / 4);
-            
+            moviePosterBox.Size = new System.Drawing.Size((this.Size.Height * 2) / 3, (this.Size.Height * 3) / 4);
+            moviePosterBox.Location = new System.Drawing.Point((this.Size.Width - moviePosterBox.Size.Width) / 2, (this.Size.Width - moviePosterBox.Size.Width)/4);
+            this.movieTitle.Location = new System.Drawing.Point((this.Size.Width/2)-(movieTitle.Size.Width/2),moviePosterBox.Location.X + moviePosterBox.Size.Height);
         }
 
         private void moviePosterBox_Paint(object sender, PaintEventArgs e)
         {
             
+        }
+
+        private string getImage()
+        {
+            //TODO: this should search for teh image on imdb based on the title
+            return "pinheadLarry.jpg";
         }
     }
 }

@@ -104,19 +104,26 @@ namespace MovieOrganizer
 
         }
 
-        private void settingsTab_Click(object sender, EventArgs e)
+        private void searchButton_Click(object sender, EventArgs e)
         {
-
+            //This should account for what the user type into the search bar
+            populateResults(null);
         }
 
-        private void pPictureEditBox_Click(object sender, EventArgs e)
+        private void populateResults(string search)
         {
+            //TODO: should load movies from the database based on search
 
+            for(int i=0;i<20;i++)
+            {
+                moviePanel p = new moviePanel("hello");
+                p.Size = new System.Drawing.Size(90,120);
+                p.Anchor = AnchorStyles.None;
+                p.Dock = DockStyle.None;
+                p.Margin = new Padding(20);
+                resultsPanel.Controls.Add(p);
+            }
         }
 
-        private void moviePanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }

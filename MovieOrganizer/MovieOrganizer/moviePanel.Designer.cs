@@ -40,30 +40,33 @@
             this.moviePosterBox.Location = new System.Drawing.Point(10, 10);
             this.moviePosterBox.Name = "moviePosterBox";
             this.moviePosterBox.Size = new System.Drawing.Size(100, 50);
+            this.moviePosterBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.moviePosterBox.TabIndex = 0;
             this.moviePosterBox.TabStop = false;
             this.moviePosterBox.Click += new System.EventHandler(this.moviePosterBox_Click);
             this.moviePosterBox.Paint += new System.Windows.Forms.PaintEventHandler(this.moviePosterBox_Paint);
-            this.Controls.Add(moviePosterBox);
-            this.moviePosterBox.ImageLocation = "pinheadLarry.jpg";
-            this.moviePosterBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             // 
             // movieTitle
             // 
             this.movieTitle.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.movieTitle.AutoSize = true;
-            this.movieTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.movieTitle.Location = new System.Drawing.Point(0, 0);
+            this.movieTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.movieTitle.Location = new System.Drawing.Point(0, 84);
             this.movieTitle.Name = "movieTitle";
-            this.movieTitle.Size = new System.Drawing.Size(100, 23);
+            this.movieTitle.Size = new System.Drawing.Size(59, 16);
             this.movieTitle.TabIndex = 0;
             this.movieTitle.Text = "<TITLE>";
+            this.movieTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // moviePanel
             // 
+            this.Controls.Add(this.movieTitle);
+            this.Controls.Add(this.moviePosterBox);
             this.Resize += new System.EventHandler(this.moviePanel_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.moviePosterBox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
+            this.BackColor = System.Drawing.Color.White;
 
         }
 

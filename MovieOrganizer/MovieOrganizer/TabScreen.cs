@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+
 namespace MovieOrganizer
 {
     public partial class TabScreen : Form
@@ -46,9 +47,17 @@ namespace MovieOrganizer
             pPictureEditBox.ImageLocation = imageLocation;
             pPictureEditBox.SizeMode = PictureBoxSizeMode.StretchImage;
 
-            loadPaths(dirBox);
+           // loadPaths(dirBox);
 
         }
+
+        private void collectionTab_Enter(object sender, EventArgs e)
+        {
+            sortComboBox.Text = "Alphebetical";
+
+            //TODO: load the movies initially
+        }
+
 
         private void loadPaths(TextBox box)
         {
@@ -107,12 +116,14 @@ namespace MovieOrganizer
         private void searchButton_Click(object sender, EventArgs e)
         {
             //This should account for what the user type into the search bar
-            populateResults(null);
+            populateResults(resultsPanel,null);
         }
 
-        private void populateResults(string search)
+        private void populateResults(FlowLayoutPanel flow,string search)
         {
             //TODO: should load movies from the database based on search
+
+            flow.Controls.Clear();
 
             for(int i=0;i<20;i++)
             {
@@ -121,9 +132,30 @@ namespace MovieOrganizer
                 p.Anchor = AnchorStyles.None;
                 p.Dock = DockStyle.None;
                 p.Margin = new Padding(20);
-                resultsPanel.Controls.Add(p);
+                flow.Controls.Add(p);
             }
         }
 
+        private void watchedCkeckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            updateCollection();
+        }
+
+        private void updateCollection()
+        {
+            string filter = ""; //filter should be constructed based on filter settings
+
+            populateResults(collectionPanel, filter);
+        }
+
+        private void ownedCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            updateCollection();
+        }
+
+        private void sortComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateCollection();
+        }
     }
 }

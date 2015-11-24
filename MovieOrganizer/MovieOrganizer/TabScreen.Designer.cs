@@ -1,4 +1,6 @@
-﻿namespace MovieOrganizer
+﻿using System;
+
+namespace MovieOrganizer
 {
     partial class TabScreen
     {
@@ -44,6 +46,13 @@
             this.advancedSearchLink = new System.Windows.Forms.LinkLabel();
             this.searchButton = new System.Windows.Forms.Button();
             this.collectionTab = new System.Windows.Forms.TabPage();
+            this.collectionPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.collectionFilterPanel = new System.Windows.Forms.Panel();
+            this.ownedCheckBox = new System.Windows.Forms.CheckBox();
+            this.watchedCkeckBox = new System.Windows.Forms.CheckBox();
+            this.showLabel = new System.Windows.Forms.Label();
+            this.sortComboBox = new System.Windows.Forms.ComboBox();
+            this.sortByLabel = new System.Windows.Forms.Label();
             this.suggestionsTab = new System.Windows.Forms.TabPage();
             this.settingsTab = new System.Windows.Forms.TabPage();
             this.pLockPanel = new System.Windows.Forms.Panel();
@@ -73,6 +82,8 @@
             this.searchTab.SuspendLayout();
             this.panel1.SuspendLayout();
             this.ssPanel.SuspendLayout();
+            this.collectionTab.SuspendLayout();
+            this.collectionFilterPanel.SuspendLayout();
             this.settingsTab.SuspendLayout();
             this.pLockPanel.SuspendLayout();
             this.dirPanel.SuspendLayout();
@@ -94,6 +105,7 @@
             // 
             // logoPictureBox
             // 
+            this.logoPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.logoPictureBox.Location = new System.Drawing.Point(706, 3);
             this.logoPictureBox.Name = "logoPictureBox";
             this.logoPictureBox.Size = new System.Drawing.Size(188, 64);
@@ -111,6 +123,7 @@
             // 
             // profilePictureBox
             // 
+            this.profilePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.profilePictureBox.Location = new System.Drawing.Point(3, 3);
             this.profilePictureBox.Name = "profilePictureBox";
             this.profilePictureBox.Size = new System.Drawing.Size(73, 64);
@@ -239,12 +252,97 @@
             // 
             this.collectionTab.AllowDrop = true;
             this.collectionTab.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.collectionTab.Controls.Add(this.collectionPanel);
+            this.collectionTab.Controls.Add(this.collectionFilterPanel);
             this.collectionTab.Location = new System.Drawing.Point(4, 22);
             this.collectionTab.Name = "collectionTab";
             this.collectionTab.Size = new System.Drawing.Size(889, 515);
             this.collectionTab.TabIndex = 1;
             this.collectionTab.Text = "Collection";
             this.collectionTab.UseVisualStyleBackColor = true;
+            this.collectionTab.Enter += new System.EventHandler(this.collectionTab_Enter);
+            // 
+            // collectionPanel
+            // 
+            this.collectionPanel.AutoScroll = true;
+            this.collectionPanel.BackColor = System.Drawing.Color.Gray;
+            this.collectionPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.collectionPanel.Location = new System.Drawing.Point(0, 86);
+            this.collectionPanel.Name = "collectionPanel";
+            this.collectionPanel.Size = new System.Drawing.Size(887, 427);
+            this.collectionPanel.TabIndex = 0;
+            // 
+            // collectionFilterPanel
+            // 
+            this.collectionFilterPanel.Controls.Add(this.ownedCheckBox);
+            this.collectionFilterPanel.Controls.Add(this.watchedCkeckBox);
+            this.collectionFilterPanel.Controls.Add(this.showLabel);
+            this.collectionFilterPanel.Controls.Add(this.sortComboBox);
+            this.collectionFilterPanel.Controls.Add(this.sortByLabel);
+            this.collectionFilterPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.collectionFilterPanel.Location = new System.Drawing.Point(0, 0);
+            this.collectionFilterPanel.Name = "collectionFilterPanel";
+            this.collectionFilterPanel.Size = new System.Drawing.Size(887, 86);
+            this.collectionFilterPanel.TabIndex = 0;
+            // 
+            // ownedCheckBox
+            // 
+            this.ownedCheckBox.AutoSize = true;
+            this.ownedCheckBox.Checked = true;
+            this.ownedCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ownedCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ownedCheckBox.Location = new System.Drawing.Point(373, 50);
+            this.ownedCheckBox.Name = "ownedCheckBox";
+            this.ownedCheckBox.Size = new System.Drawing.Size(69, 20);
+            this.ownedCheckBox.TabIndex = 4;
+            this.ownedCheckBox.Text = "Owned";
+            this.ownedCheckBox.UseVisualStyleBackColor = true;
+            this.ownedCheckBox.CheckedChanged += new System.EventHandler(this.ownedCheckBox_CheckedChanged);
+            // 
+            // watchedCkeckBox
+            // 
+            this.watchedCkeckBox.AutoSize = true;
+            this.watchedCkeckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.watchedCkeckBox.Location = new System.Drawing.Point(373, 24);
+            this.watchedCkeckBox.Name = "watchedCkeckBox";
+            this.watchedCkeckBox.Size = new System.Drawing.Size(81, 20);
+            this.watchedCkeckBox.TabIndex = 3;
+            this.watchedCkeckBox.Text = "Watched";
+            this.watchedCkeckBox.UseVisualStyleBackColor = true;
+            this.watchedCkeckBox.CheckedChanged += new System.EventHandler(this.watchedCkeckBox_CheckedChanged);
+            // 
+            // showLabel
+            // 
+            this.showLabel.AutoSize = true;
+            this.showLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.showLabel.Location = new System.Drawing.Point(296, 19);
+            this.showLabel.Name = "showLabel";
+            this.showLabel.Size = new System.Drawing.Size(71, 25);
+            this.showLabel.TabIndex = 2;
+            this.showLabel.Text = "Show:";
+            // 
+            // sortComboBox
+            // 
+            this.sortComboBox.FormattingEnabled = true;
+            this.sortComboBox.Items.AddRange(new object[] {
+            "Alphebetical",
+            "Rating",
+            "Year"});
+            this.sortComboBox.Location = new System.Drawing.Point(94, 23);
+            this.sortComboBox.Name = "sortComboBox";
+            this.sortComboBox.Size = new System.Drawing.Size(121, 21);
+            this.sortComboBox.TabIndex = 1;
+            this.sortComboBox.SelectedIndexChanged += new System.EventHandler(this.sortComboBox_SelectedIndexChanged);
+            // 
+            // sortByLabel
+            // 
+            this.sortByLabel.AutoSize = true;
+            this.sortByLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sortByLabel.Location = new System.Drawing.Point(2, 19);
+            this.sortByLabel.Name = "sortByLabel";
+            this.sortByLabel.Size = new System.Drawing.Size(86, 25);
+            this.sortByLabel.TabIndex = 0;
+            this.sortByLabel.Text = "Sort by:";
             // 
             // suggestionsTab
             // 
@@ -353,6 +451,7 @@
             // 
             // pPictureEditBox
             // 
+            this.pPictureEditBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pPictureEditBox.Location = new System.Drawing.Point(3, 40);
             this.pPictureEditBox.Name = "pPictureEditBox";
             this.pPictureEditBox.Size = new System.Drawing.Size(195, 159);
@@ -480,6 +579,9 @@
             this.panel1.PerformLayout();
             this.ssPanel.ResumeLayout(false);
             this.ssPanel.PerformLayout();
+            this.collectionTab.ResumeLayout(false);
+            this.collectionFilterPanel.ResumeLayout(false);
+            this.collectionFilterPanel.PerformLayout();
             this.settingsTab.ResumeLayout(false);
             this.pLockPanel.ResumeLayout(false);
             this.pLockPanel.PerformLayout();
@@ -533,5 +635,12 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.FlowLayoutPanel resultsPanel;
+        private System.Windows.Forms.FlowLayoutPanel collectionPanel;
+        private System.Windows.Forms.Panel collectionFilterPanel;
+        private System.Windows.Forms.ComboBox sortComboBox;
+        private System.Windows.Forms.Label sortByLabel;
+        private System.Windows.Forms.CheckBox ownedCheckBox;
+        private System.Windows.Forms.CheckBox watchedCkeckBox;
+        private System.Windows.Forms.Label showLabel;
     }
 }

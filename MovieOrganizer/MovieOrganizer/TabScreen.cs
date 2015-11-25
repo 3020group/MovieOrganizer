@@ -47,7 +47,7 @@ namespace MovieOrganizer
             pPictureEditBox.ImageLocation = imageLocation;
             pPictureEditBox.SizeMode = PictureBoxSizeMode.StretchImage;
 
-           // loadPaths(dirBox);
+           loadPaths(dirBox);
 
         }
 
@@ -56,6 +56,54 @@ namespace MovieOrganizer
             sortComboBox.Text = "Alphebetical";
 
             //TODO: load the movies initially
+        }
+
+        private void suggestionsTab_Enter(object sender, EventArgs e)
+        {
+            suggestFlow.Controls.Clear();
+
+            generateSuggestions();
+        }
+
+        private void generateSuggestions()
+        {
+            for(int i=0;i<10;i++)
+            {
+                Panel p = new Panel();
+
+                formatSuggestionPanel(p);
+
+                //need to add a label to tell what the suggestion is, and then add a flowlayoutpanel to store the movies
+                Label l = new Label();
+                l.Text = "Because you watched <MOVIE>, you might like more movies with <ACTOR>: ";
+                l.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                l.Dock = DockStyle.Top;
+
+                Panel seperator = new Panel();
+                seperator.Size = new Size((9 * suggestFlow.Size.Width) / 10, 30);
+                seperator.BackColor = Color.Transparent;
+                seperator.Dock = DockStyle.Top;
+
+                FlowLayoutPanel innerFlow = new FlowLayoutPanel();
+                innerFlow.AutoScroll = true;
+                innerFlow.AutoSize = false;
+                innerFlow.WrapContents = false;
+
+                p.Controls.Add(innerFlow);
+                innerFlow.Dock = DockStyle.Fill;
+                populateResults(innerFlow, null);
+
+                p.Controls.Add(seperator);
+                p.Controls.Add(l);
+                suggestFlow.Controls.Add(p);
+            }
+        }
+
+        private void formatSuggestionPanel(Panel p)
+        {
+            p.Size = new Size((9 * suggestFlow.Size.Width) / 10, 225);
+            p.BorderStyle = BorderStyle.FixedSingle;
+            p.Margin = new Padding((suggestFlow.Size.Width - p.Size.Width) / 2, 0,0,30);
         }
 
 
@@ -131,7 +179,8 @@ namespace MovieOrganizer
                 p.Size = new System.Drawing.Size(90,120);
                 p.Anchor = AnchorStyles.None;
                 p.Dock = DockStyle.None;
-                p.Margin = new Padding(20);
+                p.Margin = new Padding(20,5,0,0);
+                p.BorderStyle = BorderStyle.FixedSingle;
                 flow.Controls.Add(p);
             }
         }

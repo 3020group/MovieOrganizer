@@ -54,6 +54,7 @@ namespace MovieOrganizer
             this.sortComboBox = new System.Windows.Forms.ComboBox();
             this.sortByLabel = new System.Windows.Forms.Label();
             this.suggestionsTab = new System.Windows.Forms.TabPage();
+            this.suggestFlow = new System.Windows.Forms.FlowLayoutPanel();
             this.settingsTab = new System.Windows.Forms.TabPage();
             this.pLockPanel = new System.Windows.Forms.Panel();
             this.pLockBox = new System.Windows.Forms.CheckBox();
@@ -84,6 +85,7 @@ namespace MovieOrganizer
             this.ssPanel.SuspendLayout();
             this.collectionTab.SuspendLayout();
             this.collectionFilterPanel.SuspendLayout();
+            this.suggestionsTab.SuspendLayout();
             this.settingsTab.SuspendLayout();
             this.pLockPanel.SuspendLayout();
             this.dirPanel.SuspendLayout();
@@ -347,12 +349,26 @@ namespace MovieOrganizer
             // suggestionsTab
             // 
             this.suggestionsTab.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.suggestionsTab.Controls.Add(this.suggestFlow);
             this.suggestionsTab.Location = new System.Drawing.Point(4, 22);
             this.suggestionsTab.Name = "suggestionsTab";
             this.suggestionsTab.Size = new System.Drawing.Size(889, 515);
             this.suggestionsTab.TabIndex = 2;
             this.suggestionsTab.Text = "Suggestions";
             this.suggestionsTab.UseVisualStyleBackColor = true;
+            this.suggestionsTab.Enter += new System.EventHandler(this.suggestionsTab_Enter);
+            // 
+            // suggestFlow
+            // 
+            this.suggestFlow.AutoScroll = true;
+            this.suggestFlow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.suggestFlow.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.suggestFlow.Location = new System.Drawing.Point(0, 0);
+            this.suggestFlow.Name = "suggestFlow";
+            this.suggestFlow.Padding = new System.Windows.Forms.Padding(0, 0, 0, 100);
+            this.suggestFlow.Size = new System.Drawing.Size(887, 513);
+            this.suggestFlow.TabIndex = 0;
+            this.suggestFlow.WrapContents = false;
             // 
             // settingsTab
             // 
@@ -582,6 +598,7 @@ namespace MovieOrganizer
             this.collectionTab.ResumeLayout(false);
             this.collectionFilterPanel.ResumeLayout(false);
             this.collectionFilterPanel.PerformLayout();
+            this.suggestionsTab.ResumeLayout(false);
             this.settingsTab.ResumeLayout(false);
             this.pLockPanel.ResumeLayout(false);
             this.pLockPanel.PerformLayout();
@@ -642,5 +659,6 @@ namespace MovieOrganizer
         private System.Windows.Forms.CheckBox ownedCheckBox;
         private System.Windows.Forms.CheckBox watchedCkeckBox;
         private System.Windows.Forms.Label showLabel;
+        private System.Windows.Forms.FlowLayoutPanel suggestFlow;
     }
 }

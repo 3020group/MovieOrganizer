@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Text.RegularExpressions;
 
 namespace MovieOrganizer
 {
@@ -35,7 +36,16 @@ namespace MovieOrganizer
 
         private void TabScreen_Resize(object sender, EventArgs e)
         {
-            tabControl.ItemSize = new Size(tabControl.Width / tabControl.TabCount - 1, 30);
+
+            int newWidth = tabControl.Width / tabControl.TabCount - 1;
+
+            if(newWidth <= 0)
+            {
+                newWidth = 0;
+            }
+
+            tabControl.ItemSize = new Size(newWidth, 30);
+            
         }
 
         private void settingsTab_Enter(object sender, EventArgs e)
@@ -47,7 +57,7 @@ namespace MovieOrganizer
             pPictureEditBox.ImageLocation = imageLocation;
             pPictureEditBox.SizeMode = PictureBoxSizeMode.StretchImage;
 
-           loadPaths(dirBox);
+           //loadPaths(dirBox);
 
         }
 
@@ -132,7 +142,7 @@ namespace MovieOrganizer
                 addToPath(fb.SelectedPath);
             }
 
-            loadPaths(dirBox);
+            //loadPaths(dirBox);
         
         }
 
@@ -157,6 +167,19 @@ namespace MovieOrganizer
                 profilePictureBox.ImageLocation = imageLocation;
                 pPictureEditBox.ImageLocation = imageLocation;
                 //TODO: update the user's account in xml so the path is current
+
+                var doc = System.Xml.Linq.XDocument.Load("users.xml");
+
+                foreach (var element in doc.Element("users").Elements())
+                {
+                    if (element.Element("name").Value.Equals(username))
+                    {
+                        //now we have the node were looking for
+                        element.Element("pic").Value = imageLocation;
+                    }
+                }
+
+                doc.Save("users.xml");
             }
 
         }
@@ -206,5 +229,102 @@ namespace MovieOrganizer
         {
             updateCollection();
         }
+
+        private void nameBox_Validating(object sender, CancelEventArgs e)
+        {
+            Regex re = new Regex(@"^[a-z|A-Z]\w\w+$");
+
+            if(!re.IsMatch(nameBox.Text))
+            {
+                e.Cancel=true;
+                nameBoxErrorProvider.SetError(nameBox, "Invalid username");
+            }
+        }
+
+        private void passwordBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void passwordBox_Validating(object sender, CancelEventArgs e)
+        {
+            Regex re = new Regex(@"^\w+\d(\d*|\w*)+$");
+
+            if (!re.IsMatch(passwordBox.Text))
+            {
+                e.Cancel = true;
+                nameBoxErrorProvider.SetError(passwordBox, "Invalid password");
+            }
+        }
+
+        private void nameBox_Validated(object sender, EventArgs e)
+        {
+            nameBoxErrorProvider.SetError(nameBox, "");
+        }
+
+        private void passwordBox_Validated(object sender, EventArgs e)
+        {
+            nameBoxErrorProvider.SetError(passwordBox, "");
+        }
+
+        private void textBox2_Validating(object sender, CancelEventArgs e)
+        {
+            if (!textBox2.Text.Equals(passwordBox.Text))
+            {
+                e.Cancel = true;
+                nameBoxErrorProvider.SetError(textBox2, "Passwords do not match");
+            }
+        }
+
+        private void textBox2_Validated(object sender, EventArgs e)
+        {
+            nameBoxErrorProvider.SetError(textBox2, "");
+        }
+
+        private void applyButton_Click(object sender, EventArgs e)
+        {
+            if (passwordBox.Text.Equals("") && !textBox2.Equals(""))
+            {
+                passwordBox.Focus();
+                nameBoxErrorProvider.SetError(passwordBox, "Invalid password");
+            }
+            else if (!textBox2.Text.Equals(passwordBox.Text))
+            {
+                textBox2.Focus();
+                nameBoxErrorProvider.SetError(textBox2, "Passwords do not match");
+            }
+            else
+            {
+                nameBoxErrorProvider.SetError(passwordBox, "");
+                nameBoxErrorProvider.SetError(textBox2, "");
+
+                //at this point everything has been updated
+                //now we need to update the xml to reflect changes
+
+                var doc = System.Xml.Linq.XDocument.Load("users.xml");
+
+                foreach (var element in doc.Element("users").Elements())
+                {
+                    if (element.Element("name").Value.Equals(username))
+                    {
+                        //now we have the node were looking for
+                        if(!username.Equals(nameBox.Text))
+                        {
+                            username = nameBox.Text;
+                            usernameLabel.Text = username;
+                            element.Element("name").Value = username;
+                        }
+
+                        if(!passwordBox.Text.Equals(""))
+                        {
+                            element.Element("password").Value = passwordBox.Text;
+                        }
+                    }
+                }
+
+                doc.Save("users.xml");
+            }
+        }
+
     }
 }

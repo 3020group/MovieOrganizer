@@ -30,6 +30,7 @@ namespace MovieOrganizer
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.uInfoPanel = new System.Windows.Forms.Panel();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.usernameLabel = new System.Windows.Forms.Label();
@@ -75,6 +76,7 @@ namespace MovieOrganizer
             this.passwordReLabel = new System.Windows.Forms.Label();
             this.passwordLabel = new System.Windows.Forms.Label();
             this.nameLabel = new System.Windows.Forms.Label();
+            this.nameBoxErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.uInfoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).BeginInit();
@@ -92,6 +94,7 @@ namespace MovieOrganizer
             this.picturePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pPictureEditBox)).BeginInit();
             this.npPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nameBoxErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // uInfoPanel
@@ -460,9 +463,9 @@ namespace MovieOrganizer
             this.picturePanel.Controls.Add(this.pPictureEditBox);
             this.picturePanel.Controls.Add(this.browseButton);
             this.picturePanel.Controls.Add(this.picturePathBox);
-            this.picturePanel.Location = new System.Drawing.Point(434, 17);
+            this.picturePanel.Location = new System.Drawing.Point(480, 17);
             this.picturePanel.Name = "picturePanel";
-            this.picturePanel.Size = new System.Drawing.Size(455, 219);
+            this.picturePanel.Size = new System.Drawing.Size(409, 219);
             this.picturePanel.TabIndex = 1;
             // 
             // pPictureEditBox
@@ -504,45 +507,58 @@ namespace MovieOrganizer
             this.npPanel.Controls.Add(this.nameLabel);
             this.npPanel.Location = new System.Drawing.Point(7, 17);
             this.npPanel.Name = "npPanel";
+            this.npPanel.Padding = new System.Windows.Forms.Padding(0, 0, 13, 0);
             this.npPanel.Size = new System.Drawing.Size(398, 219);
             this.npPanel.TabIndex = 0;
             // 
             // applyButton
             // 
             this.applyButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.applyButton.Location = new System.Drawing.Point(237, 166);
+            this.applyButton.Location = new System.Drawing.Point(222, 166);
+            this.applyButton.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.applyButton.Name = "applyButton";
             this.applyButton.Size = new System.Drawing.Size(160, 33);
             this.applyButton.TabIndex = 4;
             this.applyButton.Text = "Apply";
             this.applyButton.UseVisualStyleBackColor = true;
+            this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
             // 
             // textBox2
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(235, 111);
+            this.textBox2.Location = new System.Drawing.Point(222, 111);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(160, 31);
             this.textBox2.TabIndex = 5;
+            this.textBox2.Validating += new System.ComponentModel.CancelEventHandler(this.textBox2_Validating);
+            this.textBox2.Validated += new System.EventHandler(this.textBox2_Validated);
             // 
             // passwordBox
             // 
             this.passwordBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.passwordBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passwordBox.Location = new System.Drawing.Point(235, 74);
+            this.passwordBox.Location = new System.Drawing.Point(222, 74);
+            this.passwordBox.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.passwordBox.Name = "passwordBox";
             this.passwordBox.Size = new System.Drawing.Size(160, 31);
             this.passwordBox.TabIndex = 4;
+            this.passwordBox.TextChanged += new System.EventHandler(this.passwordBox_TextChanged);
+            this.passwordBox.Validating += new System.ComponentModel.CancelEventHandler(this.passwordBox_Validating);
+            this.passwordBox.Validated += new System.EventHandler(this.passwordBox_Validated);
             // 
             // nameBox
             // 
             this.nameBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.nameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameBox.Location = new System.Drawing.Point(235, 7);
+            this.nameBox.Location = new System.Drawing.Point(222, 7);
+            this.nameBox.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.nameBox.Name = "nameBox";
             this.nameBox.Size = new System.Drawing.Size(160, 31);
             this.nameBox.TabIndex = 3;
+            this.nameBox.Validating += new System.ComponentModel.CancelEventHandler(this.nameBox_Validating);
+            this.nameBox.Validated += new System.EventHandler(this.nameBox_Validated);
             // 
             // passwordReLabel
             // 
@@ -573,6 +589,10 @@ namespace MovieOrganizer
             this.nameLabel.Size = new System.Drawing.Size(74, 25);
             this.nameLabel.TabIndex = 0;
             this.nameLabel.Text = "Name:";
+            // 
+            // nameBoxErrorProvider
+            // 
+            this.nameBoxErrorProvider.ContainerControl = this;
             // 
             // TabScreen
             // 
@@ -609,6 +629,7 @@ namespace MovieOrganizer
             ((System.ComponentModel.ISupportInitialize)(this.pPictureEditBox)).EndInit();
             this.npPanel.ResumeLayout(false);
             this.npPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nameBoxErrorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -660,5 +681,6 @@ namespace MovieOrganizer
         private System.Windows.Forms.CheckBox watchedCkeckBox;
         private System.Windows.Forms.Label showLabel;
         private System.Windows.Forms.FlowLayoutPanel suggestFlow;
+        private System.Windows.Forms.ErrorProvider nameBoxErrorProvider;
     }
 }

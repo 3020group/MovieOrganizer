@@ -17,7 +17,7 @@ namespace MovieOrganizer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
-            Application.Run(new TabScreen("derp","pinheadLarry.jpg"));
+            Application.Run(new TabScreen("joe","pinheadLarry.jpg"));
         }
     }
 }

@@ -12,7 +12,7 @@ namespace MovieOrganizer
     public partial class moviePanel : Panel
     {
 
-        public moviePanel(string title)
+        public moviePanel(Movie m)
         {
             InitializeComponent();
 
@@ -20,7 +20,7 @@ namespace MovieOrganizer
             moviePosterBox.Location = new System.Drawing.Point((this.Size.Width - moviePosterBox.Size.Width) / 2, (this.Size.Width - moviePosterBox.Size.Width) / 4);
             moviePosterBox.ImageLocation = getImage();
 
-            movieTitle.Text = "test";
+            movieTitle.Text = m.Title;
             movieTitle.Show();
             this.movieTitle.Location = new System.Drawing.Point((this.Size.Width / 2), moviePosterBox.Location.X + moviePosterBox.Size.Height);
         }

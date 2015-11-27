@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Linq;
 using System.Text.RegularExpressions;
 
 namespace MovieOrganizer
@@ -101,7 +102,7 @@ namespace MovieOrganizer
 
                 p.Controls.Add(innerFlow);
                 innerFlow.Dock = DockStyle.Fill;
-                populateResults(innerFlow, null);
+                populateResults(innerFlow, null,"");
 
                 p.Controls.Add(seperator);
                 p.Controls.Add(l);
@@ -187,25 +188,47 @@ namespace MovieOrganizer
         private void searchButton_Click(object sender, EventArgs e)
         {
             //This should account for what the user type into the search bar
-            populateResults(resultsPanel,null);
+            populateResults(resultsPanel,textBox1.Text,"exact");
         }
 
-        private void populateResults(FlowLayoutPanel flow,string search)
+        private void populateResults(FlowLayoutPanel flow,string search,string searchType)
         {
-            //TODO: should load movies from the database based on search
+            //TODO: currently this is an exact search for a title. This should be changed to include not-exact searches
 
             flow.Controls.Clear();
 
-            for(int i=0;i<20;i++)
+            List<Movie> movies= new List<Movie>();
+            XDocument doc = System.Xml.Linq.XDocument.Load("movies.xml");
+
+            foreach (XElement element in doc.Element("movielist").Elements())
             {
-                moviePanel p = new moviePanel("hello");
-                p.Size = new System.Drawing.Size(90,120);
+                //TODO: allow for different search types 
+                if(searchType.Equals("exact"))
+                {
+                    if (string.Equals(element.Element("title").Value.Trim(), search, StringComparison.OrdinalIgnoreCase))
+                    {
+                        Console.WriteLine("im here");
+                        //we have found the node were looking for
+                        movies.Add(new Movie(element));
+                    }
+                }
+            }
+
+            Console.WriteLine(movies.Count);
+
+            //now the results need to be added to moviePanels and put on the panel
+            foreach(Movie movie in movies)
+            {
+                //TODO: add option for custom moviePanel sizes
+                moviePanel p = new moviePanel(movies[0]);
+                p.Size = new System.Drawing.Size(110, 130);
                 p.Anchor = AnchorStyles.None;
                 p.Dock = DockStyle.None;
-                p.Margin = new Padding(20,5,0,0);
+                p.Margin = new Padding(20, 5, 0, 0);
                 p.BorderStyle = BorderStyle.FixedSingle;
                 flow.Controls.Add(p);
             }
+          
         }
 
         private void watchedCkeckBox_CheckedChanged(object sender, EventArgs e)
@@ -217,7 +240,7 @@ namespace MovieOrganizer
         {
             string filter = ""; //filter should be constructed based on filter settings
 
-            populateResults(collectionPanel, filter);
+            populateResults(collectionPanel, filter,"");
         }
 
         private void ownedCheckBox_CheckedChanged(object sender, EventArgs e)

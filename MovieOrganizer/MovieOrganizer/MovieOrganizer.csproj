@@ -64,6 +64,13 @@
     <Compile Include="Form3.Designer.cs">
       <DependentUpon>Form3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Movie.cs" />
+    <Compile Include="moviePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="moviePanel.Designer.cs">
+      <DependentUpon>moviePanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +79,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
     <Compile Include="UserControl1.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -81,11 +89,22 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+=======
+    <Compile Include="TabScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabScreen.Designer.cs">
+      <DependentUpon>TabScreen.cs</DependentUpon>
+    </Compile>
+>>>>>>> origin/master
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form3.resx">
       <DependentUpon>Form3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="moviePanel.resx">
+      <DependentUpon>moviePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewUser.resx">
       <DependentUpon>NewUser.cs</DependentUpon>
@@ -99,8 +118,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <EmbeddedResource Include="UserControl1.resx">
       <DependentUpon>UserControl1.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="TabScreen.resx">
+      <DependentUpon>TabScreen.cs</DependentUpon>
+>>>>>>> origin/master
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -114,6 +138,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="paths.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

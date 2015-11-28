@@ -349,5 +349,9 @@ namespace MovieOrganizer
             }
         }
 
+        private void TabScreen_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

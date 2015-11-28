@@ -31,7 +31,7 @@ namespace MovieOrganizer
 
         private void NewUser_Load(object sender, EventArgs e)
         {
-            ProfilePic.Image = Image.FromFile("defaultPic.png");
+            ProfilePic.Image = Image.FromFile("defaultPic.jpg");
         }
 
         private void Browse_Click(object sender, EventArgs e)
@@ -130,7 +130,7 @@ namespace MovieOrganizer
 
 
             // Adding pic
-            string picPath = "defaultPic.png";
+            string picPath = "defaultPic.jpg";
             XmlNode picNode = doc.CreateElement("pic");
 
             if (!FileName.Text.Equals("Choose File"))

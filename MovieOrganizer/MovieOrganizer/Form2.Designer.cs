@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.Poster = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Title = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -43,16 +43,16 @@
             this.button1 = new System.Windows.Forms.Button();
             this.NewTag = new System.Windows.Forms.TextBox();
             this.Description = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Poster)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // Poster
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(12, 45);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(235, 208);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.Poster.Location = new System.Drawing.Point(12, 45);
+            this.Poster.Name = "Poster";
+            this.Poster.Size = new System.Drawing.Size(235, 208);
+            this.Poster.TabIndex = 0;
+            this.Poster.TabStop = false;
             // 
             // label1
             // 
@@ -79,7 +79,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.label3.Location = new System.Drawing.Point(253, 144);
+            this.label3.Location = new System.Drawing.Point(253, 201);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(89, 18);
             this.label3.TabIndex = 3;
@@ -89,7 +89,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.label4.Location = new System.Drawing.Point(253, 204);
+            this.label4.Location = new System.Drawing.Point(253, 235);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 18);
             this.label4.TabIndex = 4;
@@ -99,7 +99,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.label6.Location = new System.Drawing.Point(253, 90);
+            this.label6.Location = new System.Drawing.Point(253, 172);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(88, 18);
             this.label6.TabIndex = 6;
@@ -109,7 +109,7 @@
             // 
             this.ParentalRating.AutoSize = true;
             this.ParentalRating.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.ParentalRating.Location = new System.Drawing.Point(313, 204);
+            this.ParentalRating.Location = new System.Drawing.Point(313, 235);
             this.ParentalRating.Name = "ParentalRating";
             this.ParentalRating.Size = new System.Drawing.Size(145, 18);
             this.ParentalRating.TabIndex = 7;
@@ -119,7 +119,7 @@
             // 
             this.Released.AutoSize = true;
             this.Released.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.Released.Location = new System.Drawing.Point(347, 144);
+            this.Released.Location = new System.Drawing.Point(347, 201);
             this.Released.Name = "Released";
             this.Released.Size = new System.Drawing.Size(94, 18);
             this.Released.TabIndex = 8;
@@ -130,7 +130,7 @@
             // 
             this.Director.AutoSize = true;
             this.Director.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.Director.Location = new System.Drawing.Point(347, 90);
+            this.Director.Location = new System.Drawing.Point(347, 172);
             this.Director.Name = "Director";
             this.Director.Size = new System.Drawing.Size(104, 18);
             this.Director.TabIndex = 9;
@@ -138,7 +138,6 @@
             // 
             // Starring
             // 
-            this.Starring.AutoSize = true;
             this.Starring.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.Starring.Location = new System.Drawing.Point(322, 45);
             this.Starring.Name = "Starring";
@@ -185,10 +184,9 @@
             // 
             // Description
             // 
-            this.Description.AutoSize = true;
             this.Description.Location = new System.Drawing.Point(13, 339);
             this.Description.Name = "Description";
-            this.Description.Size = new System.Drawing.Size(116, 17);
+            this.Description.Size = new System.Drawing.Size(551, 179);
             this.Description.TabIndex = 15;
             this.Description.Text = "<DESCRIPTION>";
             // 
@@ -211,11 +209,11 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Title);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.Poster);
             this.Name = "MovieInfo";
             this.Text = "Movie Information";
             this.Load += new System.EventHandler(this.Form2_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Poster)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,7 +221,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox Poster;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label Title;
         private System.Windows.Forms.Label label3;

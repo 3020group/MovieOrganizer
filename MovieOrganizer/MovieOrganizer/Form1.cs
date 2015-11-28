@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using WatTmdb.V3;
 
 namespace MovieOrganizer
 {
@@ -19,9 +20,14 @@ namespace MovieOrganizer
     */
     public partial class HomeScreen : Form
     {
+        
         public HomeScreen()
         {
             InitializeComponent();
+
+            //TestForm tf = new TestForm();
+            //tf.Show();
+
 
             // Populate profile view control from XML database
             // ProfilePanel
@@ -61,8 +67,7 @@ namespace MovieOrganizer
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            MovieInfo mi = new MovieInfo();
-            mi.Show();
+         //   MovieInfo mi = new MovieInfo(null);
         }
 
         private void button2_Click(object sender, EventArgs e)

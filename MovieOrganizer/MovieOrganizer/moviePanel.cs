@@ -11,14 +11,15 @@ namespace MovieOrganizer
 {
     public partial class moviePanel : Panel
     {
-
+        Movie m;
         public moviePanel(Movie m)
         {
+            this.m = m;
             InitializeComponent();
 
             moviePosterBox.Size = new System.Drawing.Size((this.Size.Height * 2) / 3, (this.Size.Height * 3) / 4);
             moviePosterBox.Location = new System.Drawing.Point((this.Size.Width - moviePosterBox.Size.Width) / 2, (this.Size.Width - moviePosterBox.Size.Width) / 4);
-            moviePosterBox.ImageLocation = getImage();
+            moviePosterBox.ImageLocation = m.Poster;
 
             movieTitle.Text = m.Title;
             movieTitle.Show();
@@ -33,9 +34,9 @@ namespace MovieOrganizer
 
             moviePosterBox.Size = new System.Drawing.Size((this.Size.Height * 2) / 3, (this.Size.Height * 3) / 4);
             moviePosterBox.Location = new System.Drawing.Point((this.Size.Width - moviePosterBox.Size.Width)/2, (this.Size.Width - moviePosterBox.Size.Width) / 4);
-            moviePosterBox.ImageLocation = getImage();
+            moviePosterBox.ImageLocation = m.Poster;
 
-            movieTitle.Text = "test";
+            movieTitle.Text = m.Title;
             Console.WriteLine(movieTitle.Text);
             movieTitle.Show();
             this.movieTitle.Location = new System.Drawing.Point((this.Size.Width / 2), moviePosterBox.Location.X + moviePosterBox.Size.Height);
@@ -58,10 +59,6 @@ namespace MovieOrganizer
             
         }
 
-        private string getImage()
-        {
-            //TODO: this should search for teh image on imdb based on the title
-            return "pinheadLarry.jpg";
-        }
+       
     }
 }

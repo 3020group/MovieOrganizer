@@ -12,18 +12,21 @@ namespace MovieOrganizer
 {
     public partial class ProfileSelector : UserControl
     {
+        private string myPath;
         public ProfileSelector(string user, string imagePath)
         {
- 
+
             InitializeComponent();
             this.UserName.Text = user;
 
-            if (imagePath.Equals("Choose File") || imagePath.Equals("defaultPic.png") )
+            if (imagePath.Equals("Choose File") || imagePath.Equals("defaultPic.jpg") )
             {
-                this.ProfilePic.Image = Image.FromFile("defaultPic.png");
+                myPath = "defaultPic.jpg";
+                this.ProfilePic.Image = Image.FromFile("defaultPic.jpg");
             }
             else
             {
+                myPath = imagePath;
                 this.ProfilePic.Image = Image.FromFile(imagePath);
             }
 
@@ -32,6 +35,8 @@ namespace MovieOrganizer
         private void profilePic_Click(object sender, EventArgs e)
         {
             // This is where we go to tabview
+            TabScreen ts = new TabScreen(this.UserName.Text, myPath);
+            ts.Show();
         }
 
         private void ProfileSelector_Load(object sender, EventArgs e)
@@ -41,8 +46,7 @@ namespace MovieOrganizer
 
         private void ProfileSelector_MouseClick(object sender, MouseEventArgs e)
         {
-            // Load user from XML DB. Pass user to tab view
-            MessageBox.Show("okay this is where we open the tabs");
+
         }
     }
 }

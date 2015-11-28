@@ -12,9 +12,7 @@ using System.IO;
 namespace MovieOrganizer
 {
     /* TODO: Help Module
-    - Update label text upon selected index changed. Consider a starting label.
-        -Key, Value dictionary of topic -> Description
-    - Manage label dimensions upon filling
+    - Write Text Files corresponding to help topics. Find all help topics
     */
     public partial class HelpModule : Form
     {

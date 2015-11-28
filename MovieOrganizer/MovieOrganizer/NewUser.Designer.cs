@@ -36,12 +36,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.MaxRating = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.ProfilePic = new System.Windows.Forms.PictureBox();
             this.FileName = new System.Windows.Forms.Label();
             this.Browse = new System.Windows.Forms.Button();
             this.PictureSelecter = new System.Windows.Forms.OpenFileDialog();
+            this.adminBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePic)).BeginInit();
             this.SuspendLayout();
             // 
@@ -120,18 +121,18 @@
             this.label5.TabIndex = 8;
             this.label5.Text = "Max Rating:";
             // 
-            // comboBox1
+            // MaxRating
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.MaxRating.FormattingEnabled = true;
+            this.MaxRating.Items.AddRange(new object[] {
             "None",
             "PG-14",
             "PG",
             "G"});
-            this.comboBox1.Location = new System.Drawing.Point(178, 310);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(100, 24);
-            this.comboBox1.TabIndex = 9;
+            this.MaxRating.Location = new System.Drawing.Point(178, 310);
+            this.MaxRating.Name = "MaxRating";
+            this.MaxRating.Size = new System.Drawing.Size(100, 24);
+            this.MaxRating.TabIndex = 9;
             // 
             // button1
             // 
@@ -178,16 +179,30 @@
             // 
             this.PictureSelecter.FileName = "PictureSelect";
             // 
+            // adminBox
+            // 
+            this.adminBox.AutoSize = true;
+            this.adminBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.8F);
+            this.adminBox.Location = new System.Drawing.Point(283, 312);
+            this.adminBox.Name = "adminBox";
+            this.adminBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.adminBox.Size = new System.Drawing.Size(175, 22);
+            this.adminBox.TabIndex = 17;
+            this.adminBox.Text = "Administrator Account";
+            this.adminBox.UseVisualStyleBackColor = true;
+            this.adminBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // NewUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(557, 494);
+            this.Controls.Add(this.adminBox);
             this.Controls.Add(this.Browse);
             this.Controls.Add(this.FileName);
             this.Controls.Add(this.ProfilePic);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.MaxRating);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -215,11 +230,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox MaxRating;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox ProfilePic;
         private System.Windows.Forms.Label FileName;
         private System.Windows.Forms.Button Browse;
         private System.Windows.Forms.OpenFileDialog PictureSelecter;
+        private System.Windows.Forms.CheckBox adminBox;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace MovieOrganizer
 {
-    partial class Form1
+    partial class HomeScreen
     {
         /// <summary>
         /// Required designer variable.
@@ -31,6 +31,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.ProfilePanel = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // button1
@@ -67,15 +68,27 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // Form1
+            // ProfilePanel
+            // 
+            this.ProfilePanel.AutoScroll = true;
+            this.ProfilePanel.Location = new System.Drawing.Point(64, 103);
+            this.ProfilePanel.Name = "ProfilePanel";
+            this.ProfilePanel.Size = new System.Drawing.Size(701, 210);
+            this.ProfilePanel.TabIndex = 3;
+            this.ProfilePanel.WrapContents = false;
+            this.ProfilePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ProfilePanel_Paint);
+            // 
+            // HomeScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(873, 456);
+            this.Controls.Add(this.ProfilePanel);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
-            this.Name = "Form1";
+            this.Name = "HomeScreen";
             this.Text = "Welcome to the MovieOrganizer!";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
@@ -88,6 +101,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.FlowLayoutPanel ProfilePanel;
     }
 }
 

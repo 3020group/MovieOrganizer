@@ -50,7 +50,7 @@
             // 
             this.movieTitle.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.movieTitle.AutoSize = true;
-            this.movieTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.movieTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.movieTitle.Location = new System.Drawing.Point(0, 84);
             this.movieTitle.Name = "movieTitle";
             this.movieTitle.Size = new System.Drawing.Size(59, 16);

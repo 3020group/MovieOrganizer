@@ -17,7 +17,7 @@ namespace MovieOrganizer
     {
         private string username;
         private string imageLocation;
-
+        private List<List<Movie>> curSearchPages;
         public TabScreen(string username,string imageLocation)
         {
             InitializeComponent();
@@ -65,8 +65,6 @@ namespace MovieOrganizer
         private void collectionTab_Enter(object sender, EventArgs e)
         {
             sortComboBox.Text = "Alphebetical";
-
-            //TODO: load the movies initially
         }
 
         private void suggestionsTab_Enter(object sender, EventArgs e)
@@ -102,7 +100,7 @@ namespace MovieOrganizer
 
                 p.Controls.Add(innerFlow);
                 innerFlow.Dock = DockStyle.Fill;
-                populateResults(innerFlow, null,"");
+                populateResults(null,"");
 
                 p.Controls.Add(seperator);
                 p.Controls.Add(l);
@@ -182,23 +180,46 @@ namespace MovieOrganizer
 
                 doc.Save("users.xml");
             }
-
+           
         }
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            //This should account for what the user type into the search bar
-            populateResults(resultsPanel,textBox1.Text,"exact");
+            if(exactRadio.Checked)
+            {
+                curSearchPages = populateResults(textBox1.Text, "exact");
+            }
+            else
+            {
+                curSearchPages = populateResults(textBox1.Text, "contains");
+            }
+            
+
+            if(curSearchPages.Count>0)
+            {
+                populatePage(resultsPanel, curSearchPages[0]);
+            }
+
+            searchPageCombo.Items.Clear();
+            IEnumerable<int> pageRange = Enumerable.Range(0, curSearchPages.Count);
+
+            foreach (int i in pageRange)
+            {
+                searchPageCombo.Items.Add(i);
+            }
+
+            searchNumPages.Text = curSearchPages.Count.ToString();
+
         }
 
-        private void populateResults(FlowLayoutPanel flow,string search,string searchType)
+        private List<List<Movie>> populateResults(string search,string searchType)
         {
             //TODO: currently this is an exact search for a title. This should be changed to include not-exact searches
 
-            flow.Controls.Clear();
-
+            List<List<Movie>> pages;
             List<Movie> movies= new List<Movie>();
             XDocument doc = System.Xml.Linq.XDocument.Load("movies.xml");
+
 
             foreach (XElement element in doc.Element("movielist").Elements())
             {
@@ -207,7 +228,18 @@ namespace MovieOrganizer
                 {
                     if (string.Equals(element.Element("title").Value.Trim(), search, StringComparison.OrdinalIgnoreCase))
                     {
-                        Console.WriteLine("im here");
+                        //we have found the node were looking for
+                        movies.Add(new Movie(element));
+                    }
+                }
+                else if(searchType.Equals("all"))
+                {
+                    movies.Add(new Movie(element));
+                }
+                else if(searchType.Equals("contains") && search.Trim().Length != 0)
+                {
+                    if (element.Element("title").Value.ToLower().Contains(search.ToLower()))
+                    {
                         //we have found the node were looking for
                         movies.Add(new Movie(element));
                     }
@@ -216,19 +248,51 @@ namespace MovieOrganizer
 
             Console.WriteLine(movies.Count);
 
-            //now the results need to be added to moviePanels and put on the panel
-            foreach(Movie movie in movies)
+            //TODO: this is when the movies can be sorted
+            pages = splitIntoPages(movies);
+
+            return pages;
+        }
+
+        private List<List<Movie>> splitIntoPages(List<Movie> movies)
+        {
+            List<List<Movie>> pages = new List<List<Movie>>();
+            List<Movie> page = new List<Movie>();
+
+            int i = 0;
+            foreach(Movie m in movies)
+            {
+                page.Add(m);
+                
+                if (i == 100)
+                {
+                    pages.Add(page);
+                    i = 0;
+                    page = new List<Movie>();
+                }
+                i++;
+
+            }
+            pages.Add(page);
+
+            return pages;
+        }
+
+        private void populatePage(FlowLayoutPanel flow,List<Movie> page)
+        {
+            flow.Controls.Clear();
+ 
+            //movies need to be added to moviePanels and put on the panel
+            foreach (Movie movie in page)
             {
                 //TODO: add option for custom moviePanel sizes
-                moviePanel p = new moviePanel(movies[0]);
-                p.Size = new System.Drawing.Size(110, 130);
+                moviePanel p = new moviePanel(movie,130,140);
                 p.Anchor = AnchorStyles.None;
                 p.Dock = DockStyle.None;
                 p.Margin = new Padding(20, 5, 0, 0);
                 p.BorderStyle = BorderStyle.FixedSingle;
                 flow.Controls.Add(p);
             }
-          
         }
 
         private void watchedCkeckBox_CheckedChanged(object sender, EventArgs e)
@@ -240,7 +304,19 @@ namespace MovieOrganizer
         {
             string filter = ""; //filter should be constructed based on filter settings
 
-            populateResults(collectionPanel, filter,"");
+            curSearchPages = populateResults(filter,"all");
+            numPages.Text = curSearchPages.Count.ToString();
+            if (curSearchPages.Count > 0)
+            {
+                populatePage(collectionPanel, curSearchPages[0]);
+            }
+            pageCombo.Items.Clear();
+            IEnumerable<int> pageRange = Enumerable.Range(0, curSearchPages.Count);
+
+            foreach(int i in pageRange)
+            {
+                pageCombo.Items.Add(i);
+            }
         }
 
         private void ownedCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -349,9 +425,20 @@ namespace MovieOrganizer
             }
         }
 
-        private void TabScreen_Load(object sender, EventArgs e)
-        {
 
+        private void pageCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            populatePage(collectionPanel, curSearchPages[Int32.Parse(pageCombo.Text)]);
+        }
+
+        private void containsRadio_CheckedChanged(object sender, EventArgs e)
+        {
+                searchButton_Click(sender, e);
+        }
+
+        private void exactRadio_CheckedChanged(object sender, EventArgs e)
+        {
+                searchButton_Click(sender, e);
         }
     }
 }

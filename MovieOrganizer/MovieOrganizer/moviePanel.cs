@@ -12,18 +12,22 @@ namespace MovieOrganizer
     public partial class moviePanel : Panel
     {
 
-        public moviePanel(Movie m)
+        public moviePanel(Movie m,int width,int height)
         {
             InitializeComponent();
 
+            this.Size = new System.Drawing.Size(width, height);
             moviePosterBox.Size = new System.Drawing.Size((this.Size.Height * 2) / 3, (this.Size.Height * 3) / 4);
             moviePosterBox.Location = new System.Drawing.Point((this.Size.Width - moviePosterBox.Size.Width) / 2, (this.Size.Width - moviePosterBox.Size.Width) / 4);
             moviePosterBox.ImageLocation = getImage();
 
             movieTitle.Text = m.Title;
             movieTitle.Show();
+            resizeTitleText(10.75F);
+
             this.movieTitle.Location = new System.Drawing.Point((this.Size.Width / 2), moviePosterBox.Location.X + moviePosterBox.Size.Height);
         }
+
 
         public moviePanel(IContainer container)
         {
@@ -40,6 +44,18 @@ namespace MovieOrganizer
             movieTitle.Show();
             this.movieTitle.Location = new System.Drawing.Point((this.Size.Width / 2), moviePosterBox.Location.X + moviePosterBox.Size.Height);
         }
+
+        public void resizeTitleText(Single size)
+        {
+            System.Drawing.Font font = new System.Drawing.Font("Microsoft Sans Serif", size, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.movieTitle.Font = font;
+ 
+            if (TextRenderer.MeasureText(movieTitle.Text,font).Width > this.Size.Width)
+            {
+                resizeTitleText(size-1);
+            }
+        }
+
 
         private void moviePosterBox_Click(object sender, EventArgs e)
         {

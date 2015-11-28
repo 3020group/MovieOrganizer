@@ -16,12 +16,9 @@ namespace MovieOrganizer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-<<<<<<< HEAD
-            Application.Run(new HomeScreen());
-=======
             //Application.Run(new Form1());
+
             Application.Run(new TabScreen("joe","pinheadLarry.jpg"));
->>>>>>> origin/master
         }
     }
 }

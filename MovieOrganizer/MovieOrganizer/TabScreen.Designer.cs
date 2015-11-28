@@ -49,6 +49,11 @@ namespace MovieOrganizer
             this.collectionTab = new System.Windows.Forms.TabPage();
             this.collectionPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.collectionFilterPanel = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.numPages = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pageCombo = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.ownedCheckBox = new System.Windows.Forms.CheckBox();
             this.watchedCkeckBox = new System.Windows.Forms.CheckBox();
             this.showLabel = new System.Windows.Forms.Label();
@@ -77,6 +82,11 @@ namespace MovieOrganizer
             this.passwordLabel = new System.Windows.Forms.Label();
             this.nameLabel = new System.Windows.Forms.Label();
             this.nameBoxErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.searchNumPages = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.searchPageCombo = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.uInfoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).BeginInit();
@@ -87,6 +97,7 @@ namespace MovieOrganizer
             this.ssPanel.SuspendLayout();
             this.collectionTab.SuspendLayout();
             this.collectionFilterPanel.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.suggestionsTab.SuspendLayout();
             this.settingsTab.SuspendLayout();
             this.pLockPanel.SuspendLayout();
@@ -95,6 +106,7 @@ namespace MovieOrganizer
             ((System.ComponentModel.ISupportInitialize)(this.pPictureEditBox)).BeginInit();
             this.npPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nameBoxErrorProvider)).BeginInit();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // uInfoPanel
@@ -182,6 +194,7 @@ namespace MovieOrganizer
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.ssPanel);
             this.panel1.Controls.Add(this.advancedSearchLink);
@@ -219,6 +232,7 @@ namespace MovieOrganizer
             this.containsRadio.TabStop = true;
             this.containsRadio.Text = "Contains";
             this.containsRadio.UseVisualStyleBackColor = true;
+            this.containsRadio.CheckedChanged += new System.EventHandler(this.containsRadio_CheckedChanged);
             // 
             // exactRadio
             // 
@@ -230,6 +244,7 @@ namespace MovieOrganizer
             this.exactRadio.TabStop = true;
             this.exactRadio.Text = "Exact";
             this.exactRadio.UseVisualStyleBackColor = true;
+            this.exactRadio.CheckedChanged += new System.EventHandler(this.exactRadio_CheckedChanged);
             // 
             // advancedSearchLink
             // 
@@ -279,6 +294,7 @@ namespace MovieOrganizer
             // 
             // collectionFilterPanel
             // 
+            this.collectionFilterPanel.Controls.Add(this.panel2);
             this.collectionFilterPanel.Controls.Add(this.ownedCheckBox);
             this.collectionFilterPanel.Controls.Add(this.watchedCkeckBox);
             this.collectionFilterPanel.Controls.Add(this.showLabel);
@@ -289,6 +305,53 @@ namespace MovieOrganizer
             this.collectionFilterPanel.Name = "collectionFilterPanel";
             this.collectionFilterPanel.Size = new System.Drawing.Size(887, 86);
             this.collectionFilterPanel.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.numPages);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.pageCombo);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Location = new System.Drawing.Point(499, 36);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(240, 34);
+            this.panel2.TabIndex = 6;
+            // 
+            // numPages
+            // 
+            this.numPages.AutoSize = true;
+            this.numPages.Location = new System.Drawing.Point(155, 16);
+            this.numPages.Name = "numPages";
+            this.numPages.Size = new System.Drawing.Size(13, 13);
+            this.numPages.TabIndex = 3;
+            this.numPages.Text = "0";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(124, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(34, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "out of";
+            // 
+            // pageCombo
+            // 
+            this.pageCombo.FormattingEnabled = true;
+            this.pageCombo.Location = new System.Drawing.Point(41, 13);
+            this.pageCombo.Name = "pageCombo";
+            this.pageCombo.Size = new System.Drawing.Size(76, 21);
+            this.pageCombo.TabIndex = 1;
+            this.pageCombo.SelectedIndexChanged += new System.EventHandler(this.pageCombo_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Page";
             // 
             // ownedCheckBox
             // 
@@ -594,6 +657,52 @@ namespace MovieOrganizer
             // 
             this.nameBoxErrorProvider.ContainerControl = this;
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.searchNumPages);
+            this.panel3.Controls.Add(this.label4);
+            this.panel3.Controls.Add(this.searchPageCombo);
+            this.panel3.Controls.Add(this.label5);
+            this.panel3.Location = new System.Drawing.Point(486, 14);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(240, 34);
+            this.panel3.TabIndex = 7;
+            // 
+            // searchNumPages
+            // 
+            this.searchNumPages.AutoSize = true;
+            this.searchNumPages.Location = new System.Drawing.Point(155, 16);
+            this.searchNumPages.Name = "searchNumPages";
+            this.searchNumPages.Size = new System.Drawing.Size(13, 13);
+            this.searchNumPages.TabIndex = 3;
+            this.searchNumPages.Text = "0";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(124, 16);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(34, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "out of";
+            // 
+            // searchPageCombo
+            // 
+            this.searchPageCombo.FormattingEnabled = true;
+            this.searchPageCombo.Location = new System.Drawing.Point(41, 13);
+            this.searchPageCombo.Name = "searchPageCombo";
+            this.searchPageCombo.Size = new System.Drawing.Size(76, 21);
+            this.searchPageCombo.TabIndex = 1;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 16);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(32, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Page";
+            // 
             // TabScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -618,6 +727,8 @@ namespace MovieOrganizer
             this.collectionTab.ResumeLayout(false);
             this.collectionFilterPanel.ResumeLayout(false);
             this.collectionFilterPanel.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.suggestionsTab.ResumeLayout(false);
             this.settingsTab.ResumeLayout(false);
             this.pLockPanel.ResumeLayout(false);
@@ -630,6 +741,8 @@ namespace MovieOrganizer
             this.npPanel.ResumeLayout(false);
             this.npPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nameBoxErrorProvider)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -682,5 +795,15 @@ namespace MovieOrganizer
         private System.Windows.Forms.Label showLabel;
         private System.Windows.Forms.FlowLayoutPanel suggestFlow;
         private System.Windows.Forms.ErrorProvider nameBoxErrorProvider;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label numPages;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox pageCombo;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label searchNumPages;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox searchPageCombo;
+        private System.Windows.Forms.Label label5;
     }
 }

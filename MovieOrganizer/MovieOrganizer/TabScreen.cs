@@ -36,7 +36,7 @@ namespace MovieOrganizer
             tabControl.ItemSize = new Size(tabControl.Width / tabControl.TabCount-1, 30); //need to take away 1 so the tabs dont take up too much space.
 
             //TODO: all we need is the tags file and this should be good to go
-            //tags = getTags();
+            tags = getTags();
         }
 
         private void TabScreen_Resize(object sender, EventArgs e)
@@ -136,7 +136,7 @@ namespace MovieOrganizer
 
                 p.Controls.Add(innerFlow);
                 innerFlow.Dock = DockStyle.Fill;
-                populateSuggestions(null,innerFlow);
+                populateSuggestions(t,innerFlow);
 
                 p.Controls.Add(seperator);
                 p.Controls.Add(l);
@@ -220,9 +220,11 @@ namespace MovieOrganizer
 
             foreach (var element in doc.Element("movielist").Elements())
             {
+                // Console.WriteLine(t.Type, t.Text, element.Element(t.Type));
                 if(element.Element(t.Type).Equals(t.Text) && element.Element("owned").Equals("true"))
                 {
-                    return element.Element("name").Value;
+                    MessageBox.Show("hello");
+                    return element.Element("title").Value;
                 }
             }
 

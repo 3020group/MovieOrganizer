@@ -30,17 +30,71 @@ namespace MovieOrganizer
         private string description;
 
         private Tmdb api;
-        
+
         public Movie(XElement element)
         {
             title = element.Element("title").Value;
             year = Int32.Parse(element.Element("year").Value);
             rating = Int32.Parse(element.Element("rating").Value);
 
-
             api = new Tmdb(key, "en");
-            var result = api.SearchMovie(title, 1).results[0];
-            var theMovie = api.GetMovieInfo(result.id);
+
+            var result = api.SearchMovie(title.Trim(), 1);
+            var theMovie = (TmdbMovie)null;
+            var newResult = (MovieResult)null;
+
+            if(result.results!= null && result.results.Count > 0) // The movie is not in the database
+            {
+                newResult = result.results[0];
+                theMovie = api.GetMovieInfo(newResult.id);
+            }
+
+            if (element.Element("certification") != null)
+            {
+                certification = element.Element("certification").Value;
+            }
+            else
+            {
+                // Get certification:
+                if (theMovie != null && theMovie.adult)
+                {
+                    certification = "R";
+                }
+                else
+                {
+                    certification = "PG";
+                }
+            }
+
+            // 
+            var image = (TmdbMovieImages)null;
+            if(newResult != null)
+                image = api.GetMovieImages(newResult.id);
+
+            string path = @"https://image.tmdb.org/t/p/w185";
+            if (image != null && image.posters != null && image.posters.Count > 0)
+            {
+                path += image.posters[0].file_path;
+
+                poster = path;
+            }
+            else
+            {
+                poster = "notFound.jpg";
+            }
+            
+            if (theMovie != null)
+            {
+                description = theMovie.overview;
+            }
+            else
+            {
+                description = "No Description Available.";
+            }
+
+
+
+
 
             //build the list of actors
             actors = new List<string>();
@@ -61,30 +115,11 @@ namespace MovieOrganizer
 
             runTime = Int32.Parse(element.Element("length").Value.Split(' ')[0]);
 
-            if (element.Element("certification") != null)
-            {
-                certification = element.Element("certification").Value;
-            }
-            else
-            {
-                // Get certification:
-                if(theMovie.adult)
-                {
-                    certification = "R";
-                }
-                else
-                {
-                    certification = "PG";
-                }
-            }
+           
 
-            var image = api.GetMovieImages(theMovie.id);
-            string path = @"https://image.tmdb.org/t/p/w185";
-            path += image.posters[0].file_path;
 
-            poster = path;
-
-            description = theMovie.overview;
+            
+            
 
         }
 

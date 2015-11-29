@@ -18,6 +18,7 @@ namespace MovieOrganizer
         private string username;
         private string imageLocation;
         private List<List<Movie>> curSearchPages;
+        private List<Tag> tags;
         public TabScreen(string username,string imageLocation)
         {
             InitializeComponent();
@@ -33,6 +34,9 @@ namespace MovieOrganizer
             //make the tabe take up the top of the screeen
             tabControl.SizeMode = TabSizeMode.Fixed;
             tabControl.ItemSize = new Size(tabControl.Width / tabControl.TabCount-1, 30); //need to take away 1 so the tabs dont take up too much space.
+
+            //TODO: all we need is the tags file and this should be good to go
+            //tags = getTags();
         }
 
         private void TabScreen_Resize(object sender, EventArgs e)
@@ -58,7 +62,15 @@ namespace MovieOrganizer
             pPictureEditBox.ImageLocation = imageLocation;
             pPictureEditBox.SizeMode = PictureBoxSizeMode.StretchImage;
 
-           //loadPaths(dirBox);
+            //loadPaths(dirBox);
+
+            //need to check if anyone can create a new user
+            var doc = System.Xml.Linq.XDocument.Load("settings.xml");
+
+            if (doc.Element("allowCreate").Value.Equals("true"))
+            {
+                pLockBox.Checked = true;
+            }
 
         }
 
@@ -76,15 +88,39 @@ namespace MovieOrganizer
 
         private void generateSuggestions()
         {
-            for(int i=0;i<10;i++)
+            string suggestText="";
+
+            foreach(Tag t in tags)
             {
                 Panel p = new Panel();
 
                 formatSuggestionPanel(p);
 
+                //build the text saying what the movie is
+                suggestText += "Because you watched " + getOwnedMovie(t);
+
+                if(t.Type.Equals("actor"))
+                {
+                    suggestText += "you might like more movies with " + t.Text;
+                }
+                else if(t.Type.Equals("director"))
+                {
+                    suggestText += "you might like more movies directed by " + t.Text;
+                }
+                else if(t.Type.Equals("genre") )
+                {
+                    suggestText += "you might like more " + t.Text+" movies";
+                }
+                else
+                {
+                    //It shouldent reach here
+                    suggestText = null;
+                }
+                   
+
                 //need to add a label to tell what the suggestion is, and then add a flowlayoutpanel to store the movies
                 Label l = new Label();
-                l.Text = "Because you watched <MOVIE>, you might like more movies with <ACTOR>: ";
+                l.Text = suggestText;
                 l.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 l.Dock = DockStyle.Top;
 
@@ -100,7 +136,7 @@ namespace MovieOrganizer
 
                 p.Controls.Add(innerFlow);
                 innerFlow.Dock = DockStyle.Fill;
-                populateResults(null,"");
+                populateSuggestions(null,innerFlow);
 
                 p.Controls.Add(seperator);
                 p.Controls.Add(l);
@@ -115,6 +151,83 @@ namespace MovieOrganizer
             p.Margin = new Padding((suggestFlow.Size.Width - p.Size.Width) / 2, 0,0,30);
         }
 
+        private List<Tag> getTags()
+        {
+            List<Tag> tags = new List<Tag>();
+            List<Tag> suggest = new List<Tag>();
+            Random r = new Random();
+
+            XDocument doc = System.Xml.Linq.XDocument.Load("tags.xml");
+            List<Movie> movies = new List<Movie>();
+
+            foreach (XElement element in doc.Element("tags").Elements())
+            {
+                tags.Add(new MovieOrganizer.Tag(element));
+            }
+
+            tags.Sort();
+            tags.Reverse(); //needs to be reverse because it should be descending 
+
+            //now we need to pick 5 items from the list
+            for (int i = 0; i < tags.Count; i++)
+            {
+                if (r.Next(0, 10) > 5 || (5 - suggest.Count) >= tags.Count - i - 1)
+                {
+                    suggest.Add(tags[i]);
+                }
+                if (suggest.Count == 5)
+                {
+                    break;
+                }
+            }
+
+            return suggest;
+        }
+
+        private void populateSuggestions(Tag t,FlowLayoutPanel flow)
+        {
+            XDocument doc = System.Xml.Linq.XDocument.Load("movies.xml");
+            List<Movie> movies = new List<Movie>();
+            int j = 0;
+
+            foreach (XElement element in doc.Element("movielist").Elements())
+            {
+                if (j == 10)
+                {
+                    break;
+                }
+                else if (element.Element(t.Type).Value.Equals(t.Text))
+                {
+                    movies.Add(new Movie(element));
+                    j++;
+                }
+            }
+
+            foreach (Movie movie in movies)
+            {
+                moviePanel p = new moviePanel(movie, 130, 140);
+                p.Anchor = AnchorStyles.None;
+                p.Dock = DockStyle.None;
+                p.Margin = new Padding(20, 5, 0, 0);
+                p.BorderStyle = BorderStyle.FixedSingle;
+                flow.Controls.Add(p);
+            }
+        }
+
+        private string getOwnedMovie(Tag t)
+        {
+             var doc = System.Xml.Linq.XDocument.Load("movies.xml");
+
+            foreach (var element in doc.Element("movielist").Elements())
+            {
+                if(element.Element(t.Type).Equals(t.Text) && element.Element("owned").Equals("true"))
+                {
+                    return element.Element("name").Value;
+                }
+            }
+
+            return null;
+        }
 
         private void loadPaths(TextBox box)
         {
@@ -439,6 +552,29 @@ namespace MovieOrganizer
         private void exactRadio_CheckedChanged(object sender, EventArgs e)
         {
                 searchButton_Click(sender, e);
+        }
+
+        private void newProfilebutton_Click(object sender, EventArgs e)
+        {
+            NewUser nu = new NewUser(null);
+            nu.Show();
+        }
+
+        private void pLockBox_CheckedChanged(object sender, EventArgs e)
+        {
+            //need to check if anyone can create a new user
+            var doc = System.Xml.Linq.XDocument.Load("settings.xml");
+
+            if (pLockBox.Checked)
+            {
+                doc.Element("allowCreate").Value = "true";
+            }
+            else
+            {
+                doc.Element("allowCreate").Value = "false";
+            }
+
+            doc.Save("settings.xml");
         }
     }
 }

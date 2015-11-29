@@ -37,6 +37,7 @@
             // 
             this.moviePosterBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.moviePosterBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.moviePosterBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.moviePosterBox.Location = new System.Drawing.Point(10, 10);
             this.moviePosterBox.Name = "moviePosterBox";
             this.moviePosterBox.Size = new System.Drawing.Size(100, 50);
@@ -53,20 +54,20 @@
             this.movieTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.movieTitle.Location = new System.Drawing.Point(0, 84);
             this.movieTitle.Name = "movieTitle";
-            this.movieTitle.Size = new System.Drawing.Size(59, 16);
+            this.movieTitle.Size = new System.Drawing.Size(53, 15);
             this.movieTitle.TabIndex = 0;
             this.movieTitle.Text = "<TITLE>";
             this.movieTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // moviePanel
             // 
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.movieTitle);
             this.Controls.Add(this.moviePosterBox);
             this.Resize += new System.EventHandler(this.moviePanel_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.moviePosterBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-            this.BackColor = System.Drawing.Color.White;
 
         }
 

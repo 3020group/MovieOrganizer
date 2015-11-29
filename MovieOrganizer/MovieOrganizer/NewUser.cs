@@ -73,7 +73,11 @@ namespace MovieOrganizer
                             addUser();
 
                             // Pass name and profile pic to HomeScreen to add picture
-                            homeScreen.addProfileBox(NameField.Text, FileName.Text);
+                            if(homeScreen!= null)
+                            {
+                                homeScreen.addProfileBox(NameField.Text, FileName.Text);
+                            }
+
                             Close();
                         }
                         else

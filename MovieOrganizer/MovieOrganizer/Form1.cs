@@ -51,6 +51,13 @@ namespace MovieOrganizer
                 ProfilePanel.Controls.Add(ps);
             }
 
+            //need to check if anyone can create a new user
+            var doc = System.Xml.Linq.XDocument.Load("settings.xml");
+
+            if(doc.Element("allowCreate").Value.Equals("false"))
+            {
+                button2.Visible = false;
+            }
 
         }
 

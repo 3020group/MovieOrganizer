@@ -64,6 +64,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.movieTitle);
             this.Controls.Add(this.moviePosterBox);
+            this.Click += new System.EventHandler(this.moviePanel_Click);
             this.Resize += new System.EventHandler(this.moviePanel_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.moviePosterBox)).EndInit();
             this.ResumeLayout(false);

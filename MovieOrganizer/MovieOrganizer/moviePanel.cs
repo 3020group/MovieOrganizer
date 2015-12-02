@@ -64,7 +64,8 @@ namespace MovieOrganizer
 
         private void moviePosterBox_Click(object sender, EventArgs e)
         {
-
+            MovieInfo info = new MovieInfo(m);
+            info.Show();
         }
 
         private void moviePanel_Resize(object sender, EventArgs e) 
@@ -79,6 +80,10 @@ namespace MovieOrganizer
             
         }
 
-       
+        private void moviePanel_Click(object sender, EventArgs e)
+        {
+            MovieInfo info = new MovieInfo(m);
+            info.Show();
+        }
     }
 }

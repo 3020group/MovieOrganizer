@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WatTmdb.V3;
+using System.Xml.Linq;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace MovieOrganizer
 {
@@ -24,6 +28,8 @@ namespace MovieOrganizer
     public partial class MovieInfo : Form
     {
         private Movie m;
+        private string moviePath;
+
         public MovieInfo(Movie m)
         {
             InitializeComponent();
@@ -48,6 +54,20 @@ namespace MovieOrganizer
             Released.Text = m.Year.ToString();
             ParentalRating.Text = m.Certification;
             Description.Text = m.Description;
+
+            XDocument doc = System.Xml.Linq.XDocument.Load("paths.xml");
+            string path;
+            moviePath = null;
+
+            foreach (XElement element in doc.Element("paths").Elements())
+            {
+                path = findMovie(element.Value, m.Title.Trim().Replace(" ","_"));
+                if(path !=null)
+                {
+                    moviePath = path;
+                    break;
+                }
+            }
 
         }
 
@@ -81,6 +101,37 @@ namespace MovieOrganizer
                     NewTag.Text = "";
                 }
             }
+        }
+
+        private void playButton_Click(object sender, EventArgs e)
+        {
+            if(moviePath != null)
+            {
+                Process.Start("wmplayer.exe", moviePath);
+            }
+            else
+            {
+                MessageBox.Show("Could not find " + m.Title + "in any directory." + Environment.NewLine + "Try adding another directory through the settings page");
+            }
+
+        }
+
+        private string findMovie(string path,string title)
+        {  
+            string regex = @".*" + @title + @"\.mp4";
+            Regex r = new Regex(regex);
+        
+            string[] dir = Directory.GetFiles(path, "*.mp4");
+
+            foreach(string file in dir)
+            {
+                if(r.IsMatch(file))
+                {
+                    return file;
+                }
+            }
+    
+            return null;
         }
     }
 }

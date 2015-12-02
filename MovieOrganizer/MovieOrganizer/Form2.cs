@@ -27,7 +27,8 @@ namespace MovieOrganizer
         public MovieInfo(Movie m)
         {
             InitializeComponent();
-            
+
+            this.m = m;
         }
 
         private void Form2_Load(object sender, EventArgs e)

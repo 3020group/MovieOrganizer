@@ -40,6 +40,8 @@ namespace MovieOrganizer
             this.searchTab = new System.Windows.Forms.TabPage();
             this.resultsPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.searchNumPages = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -122,6 +124,7 @@ namespace MovieOrganizer
             // 
             // logoPictureBox
             // 
+            this.logoPictureBox.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.logoPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.logoPictureBox.Location = new System.Drawing.Point(706, 3);
             this.logoPictureBox.Name = "logoPictureBox";
@@ -181,6 +184,7 @@ namespace MovieOrganizer
             this.searchTab.TabIndex = 0;
             this.searchTab.Text = "Search";
             this.searchTab.UseVisualStyleBackColor = true;
+            this.searchTab.Enter += new System.EventHandler(this.searchTab_Enter);
             // 
             // resultsPanel
             // 
@@ -194,6 +198,8 @@ namespace MovieOrganizer
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.ssPanel);
@@ -205,16 +211,41 @@ namespace MovieOrganizer
             this.panel1.Size = new System.Drawing.Size(887, 100);
             this.panel1.TabIndex = 0;
             // 
+            // comboBox1
+            // 
+            this.comboBox1.AllowDrop = true;
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Alphabetical",
+            "Rating",
+            "Year"});
+            this.comboBox1.Location = new System.Drawing.Point(499, 14);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 9;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(407, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(86, 25);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Sort by:";
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.searchNumPages);
             this.panel3.Controls.Add(this.label4);
             this.panel3.Controls.Add(this.searchPageCombo);
             this.panel3.Controls.Add(this.label5);
-            this.panel3.Location = new System.Drawing.Point(497, 15);
-            this.panel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel3.Location = new System.Drawing.Point(412, 43);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(180, 28);
+            this.panel3.Size = new System.Drawing.Size(180, 48);
             this.panel3.TabIndex = 7;
             // 
             // searchNumPages
@@ -239,13 +270,14 @@ namespace MovieOrganizer
             // 
             // searchPageCombo
             // 
+            this.searchPageCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.searchPageCombo.FormattingEnabled = true;
             this.searchPageCombo.Location = new System.Drawing.Point(31, 11);
-            this.searchPageCombo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.searchPageCombo.Margin = new System.Windows.Forms.Padding(2);
             this.searchPageCombo.Name = "searchPageCombo";
             this.searchPageCombo.Size = new System.Drawing.Size(58, 21);
             this.searchPageCombo.TabIndex = 1;
-            this.searchPageCombo.Text = "0";
+            this.searchPageCombo.SelectedIndexChanged += new System.EventHandler(this.searchPageCombo_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -366,9 +398,9 @@ namespace MovieOrganizer
             this.panel2.Controls.Add(this.pageCombo);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Location = new System.Drawing.Point(489, 24);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(180, 28);
+            this.panel2.Size = new System.Drawing.Size(180, 46);
             this.panel2.TabIndex = 6;
             // 
             // numPages
@@ -393,13 +425,13 @@ namespace MovieOrganizer
             // 
             // pageCombo
             // 
+            this.pageCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.pageCombo.FormattingEnabled = true;
             this.pageCombo.Location = new System.Drawing.Point(31, 11);
-            this.pageCombo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pageCombo.Margin = new System.Windows.Forms.Padding(2);
             this.pageCombo.Name = "pageCombo";
             this.pageCombo.Size = new System.Drawing.Size(58, 21);
             this.pageCombo.TabIndex = 1;
-            this.pageCombo.Text = "0";
             this.pageCombo.SelectedIndexChanged += new System.EventHandler(this.pageCombo_SelectedIndexChanged);
             // 
             // label1
@@ -450,9 +482,10 @@ namespace MovieOrganizer
             // 
             // sortComboBox
             // 
+            this.sortComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.sortComboBox.FormattingEnabled = true;
             this.sortComboBox.Items.AddRange(new object[] {
-            "Alphebetical",
+            "Alphabetical",
             "Rating",
             "Year"});
             this.sortComboBox.Location = new System.Drawing.Point(94, 23);
@@ -725,6 +758,7 @@ namespace MovieOrganizer
             this.ClientSize = new System.Drawing.Size(897, 596);
             this.Controls.Add(this.tabPanel);
             this.Controls.Add(this.uInfoPanel);
+            this.DoubleBuffered = true;
             this.Name = "TabScreen";
             this.Text = "TabScreen";
             this.Resize += new System.EventHandler(this.TabScreen_Resize);
@@ -820,5 +854,7 @@ namespace MovieOrganizer
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox searchPageCombo;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label3;
     }
 }

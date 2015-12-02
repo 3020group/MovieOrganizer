@@ -19,7 +19,6 @@ namespace MovieOrganizer
             freq = Int32.Parse(element.Element("frequency").Value);
             text = element.Element("text").Value;
             type = element.Element("type").Value;
-            Console.WriteLine(element.Value, freq.ToString(), element.Element("text").Value, element.Element("type").Value);
         }
 
         int IComparable.CompareTo(object obj)

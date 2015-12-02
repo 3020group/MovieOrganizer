@@ -149,7 +149,7 @@ namespace MovieOrganizer
 
             // Adding is_admin
             XmlNode adminNode = doc.CreateElement("is_admin");
-            adminNode.InnerText = adminBox.Checked.ToString();
+            adminNode.InnerText = adminBox.Checked.ToString().ToLower();
 
 
 

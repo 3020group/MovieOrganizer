@@ -19,6 +19,14 @@ namespace MovieOrganizer
         private string imageLocation;
         private List<List<Movie>> curSearchPages;
         private List<Tag> tags;
+        private Boolean supressEvents;
+
+        private enum SearchType {Exact, All, Contains }
+        private enum SortBy { Alphabetical,Year,Rating }
+
+        //set up the dictionary of sorting patterns 
+        private Dictionary<string, SortBy> sortBy;
+
         public TabScreen(string username,string imageLocation)
         {
             InitializeComponent();
@@ -35,7 +43,14 @@ namespace MovieOrganizer
             tabControl.SizeMode = TabSizeMode.Fixed;
             tabControl.ItemSize = new Size(tabControl.Width / tabControl.TabCount-1, 30); //need to take away 1 so the tabs dont take up too much space.
 
-            //TODO: all we need is the tags file and this should be good to go
+            //set up the dictionary of sorting patterns 
+            sortBy = new Dictionary<string, SortBy>();
+            sortBy.Add("Alphabetical", SortBy.Alphabetical);
+            sortBy.Add("Rating", SortBy.Rating);
+            sortBy.Add("Year", SortBy.Year);
+
+            supressEvents = false;
+
             tags = getTags();
         }
 
@@ -47,6 +62,16 @@ namespace MovieOrganizer
             if(newWidth <= 0)
             {
                 newWidth = 0;
+            }
+
+            if (tabControl.SelectedTab.Equals(tabControl.TabPages["suggestionsTab"]))
+            {
+                Console.WriteLine("hello world");
+                foreach(Panel p in tabControl.TabPages["suggestionsTab"].Controls[0].Controls)
+                {
+                    Console.WriteLine(">hello world");
+                    p.Size = new Size((9 * suggestFlow.Size.Width) / 10, 225);
+                }
             }
 
             tabControl.ItemSize = new Size(newWidth, 30);
@@ -62,7 +87,7 @@ namespace MovieOrganizer
             pPictureEditBox.ImageLocation = imageLocation;
             pPictureEditBox.SizeMode = PictureBoxSizeMode.StretchImage;
 
-            //loadPaths(dirBox);
+            loadPaths(dirBox);
 
             //need to check if anyone can create a new user
             var doc = System.Xml.Linq.XDocument.Load("settings.xml");
@@ -72,11 +97,24 @@ namespace MovieOrganizer
                 pLockBox.Checked = true;
             }
 
+            doc = System.Xml.Linq.XDocument.Load("users.xml");
+
+            foreach(XElement element in doc.Element("users").Elements())
+            {
+                if (username.Equals(element.Element("name").Value))
+                {
+                    if (element.Element("is_admin").Value.Equals("false"))
+                    {
+                        
+                        pLockPanel.Visible = false;
+                    }
+                }
+            }
         }
 
         private void collectionTab_Enter(object sender, EventArgs e)
         {
-            sortComboBox.Text = "Alphebetical";
+            sortComboBox.Text = "Alphabetical";
         }
 
         private void suggestionsTab_Enter(object sender, EventArgs e)
@@ -96,20 +134,21 @@ namespace MovieOrganizer
 
                 formatSuggestionPanel(p);
 
+                Console.WriteLine(">>>"+t.Text);
                 //build the text saying what the movie is
                 suggestText += "Because you watched " + getOwnedMovie(t);
 
                 if(t.Type.Equals("actor"))
                 {
-                    suggestText += "you might like more movies with " + t.Text;
+                    suggestText += " you might like more movies with " + t.Text;
                 }
                 else if(t.Type.Equals("director"))
                 {
-                    suggestText += "you might like more movies directed by " + t.Text;
+                    suggestText += " you might like more movies directed by " + t.Text;
                 }
                 else if(t.Type.Equals("genre") )
                 {
-                    suggestText += "you might like more " + t.Text+" movies";
+                    suggestText += " you might like more " + t.Text+" movies";
                 }
                 else
                 {
@@ -141,6 +180,8 @@ namespace MovieOrganizer
                 p.Controls.Add(seperator);
                 p.Controls.Add(l);
                 suggestFlow.Controls.Add(p);
+
+                suggestText = "";
             }
         }
 
@@ -156,13 +197,14 @@ namespace MovieOrganizer
             List<Tag> tags = new List<Tag>();
             List<Tag> suggest = new List<Tag>();
             Random r = new Random();
+            int numGenre = 0;
 
             XDocument doc = System.Xml.Linq.XDocument.Load("tags.xml");
             List<Movie> movies = new List<Movie>();
 
             foreach (XElement element in doc.Element("tags").Elements())
             {
-                tags.Add(new MovieOrganizer.Tag(element));
+                tags.Add(new Tag(element));
             }
 
             tags.Sort();
@@ -173,7 +215,19 @@ namespace MovieOrganizer
             {
                 if (r.Next(0, 10) > 5 || (5 - suggest.Count) >= tags.Count - i - 1)
                 {
-                    suggest.Add(tags[i]);
+                    
+
+                    if (tags[i].Type.Equals("genre") && numGenre < 2 && moreExist(tags[i]))
+                    {
+                        suggest.Add(tags[i]);
+                        numGenre++;
+                    }
+                    else if(!tags[i].Type.Equals("genre") && moreExist(tags[i]))
+                    {
+                        suggest.Add(tags[i]);
+                    }
+
+                    
                 }
                 if (suggest.Count == 5)
                 {
@@ -182,6 +236,21 @@ namespace MovieOrganizer
             }
 
             return suggest;
+        }
+
+        private Boolean moreExist(Tag t)
+        {
+            XDocument doc = System.Xml.Linq.XDocument.Load("movies.xml");
+          
+            foreach (XElement element in doc.Element("movielist").Elements())
+            {
+                if(element.Element(t.Type).Value.Equals(t.Text) && element.Element("owned").Value.Equals("false"))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void populateSuggestions(Tag t,FlowLayoutPanel flow)
@@ -216,15 +285,15 @@ namespace MovieOrganizer
 
         private string getOwnedMovie(Tag t)
         {
-             var doc = System.Xml.Linq.XDocument.Load("movies.xml");
+            Console.WriteLine(">>" + t.Text);
+
+            var doc = System.Xml.Linq.XDocument.Load("movies.xml");
 
             foreach (var element in doc.Element("movielist").Elements())
             {
-                // Console.WriteLine(t.Type, t.Text, element.Element(t.Type));
-                if(element.Element(t.Type).Equals(t.Text) && element.Element("owned").Equals("true"))
+                if(element.Element(t.Type).Value.Equals(t.Text) && element.Element("owned").Value.Equals("true"))
                 {
-                    MessageBox.Show("hello");
-                    return element.Element("title").Value;
+                    return "\""+element.Element("title").Value+"\"";
                 }
             }
 
@@ -252,11 +321,11 @@ namespace MovieOrganizer
 
             if(result == DialogResult.OK)
             {
-                Console.WriteLine(fb.SelectedPath);
+                //Console.WriteLine(fb.SelectedPath);
                 addToPath(fb.SelectedPath);
             }
 
-            //loadPaths(dirBox);
+            loadPaths(dirBox);
         
         }
 
@@ -271,7 +340,7 @@ namespace MovieOrganizer
         private void browseButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog open = new OpenFileDialog();
-            open.Filter = "Images (*.jpg)|*.jpg"; //TODO: what about other types of images?
+            open.Filter = "Images (*.jpg)|*.jpg"; 
             DialogResult result = open.ShowDialog();
 
             if (result == DialogResult.OK)
@@ -280,7 +349,6 @@ namespace MovieOrganizer
                 picturePathBox.Text = imageLocation;
                 profilePictureBox.ImageLocation = imageLocation;
                 pPictureEditBox.ImageLocation = imageLocation;
-                //TODO: update the user's account in xml so the path is current
 
                 var doc = System.Xml.Linq.XDocument.Load("users.xml");
 
@@ -302,11 +370,11 @@ namespace MovieOrganizer
         {
             if(exactRadio.Checked)
             {
-                curSearchPages = populateResults(textBox1.Text, "exact");
+                curSearchPages = populateResults(textBox1.Text, SearchType.Exact,false,sortBy[comboBox1.Text]);
             }
             else
             {
-                curSearchPages = populateResults(textBox1.Text, "contains");
+                curSearchPages = populateResults(textBox1.Text, SearchType.Contains,false, sortBy[comboBox1.Text]);
             }
             
 
@@ -320,16 +388,19 @@ namespace MovieOrganizer
 
             foreach (int i in pageRange)
             {
-                searchPageCombo.Items.Add(i);
+                searchPageCombo.Items.Add(i+1);
             }
+
+            supressEvents = true;
+            searchPageCombo.SelectedIndex = 0;
+            supressEvents = false;
 
             searchNumPages.Text = curSearchPages.Count.ToString();
 
         }
 
-        private List<List<Movie>> populateResults(string search,string searchType)
+        private List<List<Movie>> populateResults(string search, SearchType searchType,Boolean ownedOnly,SortBy sortBy)
         {
-            //TODO: currently this is an exact search for a title. This should be changed to include not-exact searches
 
             List<List<Movie>> pages;
             List<Movie> movies= new List<Movie>();
@@ -338,20 +409,19 @@ namespace MovieOrganizer
 
             foreach (XElement element in doc.Element("movielist").Elements())
             {
-                //TODO: allow for different search types 
-                if(searchType.Equals("exact"))
+                if(searchType == SearchType.Exact)
                 {
-                    if (string.Equals(element.Element("title").Value.Trim(), search, StringComparison.OrdinalIgnoreCase))
+                    if (string.Equals(element.Element("title").Value.Trim(), search, StringComparison.OrdinalIgnoreCase) && (!ownedOnly || (ownedOnly && element.Element("owned").Value.Equals("true"))))
                     {
                         //we have found the node were looking for
                         movies.Add(new Movie(element));
                     }
                 }
-                else if(searchType.Equals("all"))
+                else if(searchType == SearchType.All && (!ownedOnly || (ownedOnly && element.Element("owned").Value.Equals("true"))))
                 {
                     movies.Add(new Movie(element));
                 }
-                else if(searchType.Equals("contains") && search.Trim().Length != 0)
+                else if(searchType == SearchType.Contains && search.Trim().Length != 0)
                 {
                     if (element.Element("title").Value.ToLower().Contains(search.ToLower()))
                     {
@@ -363,7 +433,22 @@ namespace MovieOrganizer
 
             Console.WriteLine(movies.Count);
 
-            //TODO: this is when the movies can be sorted
+            //now we can sort the movies before splitting the into pages
+            if(sortBy == SortBy.Alphabetical)
+            {
+                movies.Sort((x,y)=>x.Title.CompareTo(y.Title));
+            }
+            else if(sortBy == SortBy.Rating)
+            {
+                movies.Sort((x, y) => x.Rating.CompareTo(y.Rating));
+            }
+            else //sort by year
+            {
+                movies.Sort((x, y) => x.Year.CompareTo(y.Year));
+            }
+
+            Console.WriteLine(movies.Count);
+
             pages = splitIntoPages(movies);
 
             return pages;
@@ -419,7 +504,13 @@ namespace MovieOrganizer
         {
             string filter = ""; //filter should be constructed based on filter settings
 
-            curSearchPages = populateResults(filter,"all");
+            //we dont want to keep calling updateCollection so we need to supress events
+            supressEvents = true;
+            pageCombo.Text = "0";
+            supressEvents = false;
+
+           curSearchPages = populateResults(filter,SearchType.All,ownedCheckBox.Checked,sortBy[sortComboBox.Text]);
+
             numPages.Text = curSearchPages.Count.ToString();
             if (curSearchPages.Count > 0)
             {
@@ -430,7 +521,7 @@ namespace MovieOrganizer
 
             foreach(int i in pageRange)
             {
-                pageCombo.Items.Add(i);
+                pageCombo.Items.Add(i+1);
             }
         }
 
@@ -543,7 +634,10 @@ namespace MovieOrganizer
 
         private void pageCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            populatePage(collectionPanel, curSearchPages[Int32.Parse(pageCombo.Text)]);
+            if (!supressEvents)
+            {
+                populatePage(collectionPanel, curSearchPages[Int32.Parse(pageCombo.Text)-1]);
+            }
         }
 
         private void containsRadio_CheckedChanged(object sender, EventArgs e)
@@ -577,6 +671,29 @@ namespace MovieOrganizer
             }
 
             doc.Save("settings.xml");
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(!supressEvents)
+            {
+                searchButton_Click(sender, e);
+            }
+        }
+
+        private void searchTab_Enter(object sender, EventArgs e)
+        {
+            supressEvents = true;
+            comboBox1.SelectedIndex = comboBox1.FindStringExact("Alphabetical");
+            supressEvents = false;
+        }
+
+        private void searchPageCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!supressEvents)
+            {
+                populatePage(resultsPanel, curSearchPages[((int)searchPageCombo.Items[searchPageCombo.SelectedIndex])-1]);
+            }
         }
     }
 }

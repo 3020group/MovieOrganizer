@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using WatTmdb.V3;
 
 
 namespace MovieOrganizer
@@ -15,9 +14,6 @@ namespace MovieOrganizer
     
     public class Movie
     {
-        private string key = "d637d50db401e9af35c47fd0bcda4a4d";
-        //TODO: this should search for the movies image from imdb
-
         private string title;
         private int year;
         private int rating; //user rating (out of 10)
@@ -29,25 +25,11 @@ namespace MovieOrganizer
         private string poster;
         private string description;
 
-        private Tmdb api;
-
         public Movie(XElement element)
         {
             title = element.Element("title").Value;
             year = Int32.Parse(element.Element("year").Value);
             rating = Int32.Parse(element.Element("rating").Value);
-
-            api = new Tmdb(key, "en");
-
-            var result = api.SearchMovie(title.Trim(), 1);
-            var theMovie = (TmdbMovie)null;
-            var newResult = (MovieResult)null;
-
-            if(result.results!= null && result.results.Count > 0) // The movie is not in the database
-            {
-                newResult = result.results[0];
-                theMovie = api.GetMovieInfo(newResult.id);
-            }
 
             if (element.Element("certification") != null)
             {
@@ -55,47 +37,21 @@ namespace MovieOrganizer
             }
             else
             {
-                // Get certification:
-                if (theMovie != null && theMovie.adult)
-                {
-                    certification = "R";
-                }
-                else
-                {
-                    certification = "PG";
-                }
+                certification = null;
             }
 
-            // 
-            var image = (TmdbMovieImages)null;
-            if(newResult != null)
-                image = api.GetMovieImages(newResult.id);
+            poster = element.Element("poster").Value;
 
-            string path = @"https://image.tmdb.org/t/p/w185";
-            if (image != null && image.posters != null && image.posters.Count > 0)
+            if(element.Element("description") != null)
             {
-                path += image.posters[0].file_path;
-
-                poster = path;
+                description = element.Element("description").Value;
             }
-            else
+            else 
             {
-                poster = "notFound.jpg";
-            }
-            
-            if (theMovie != null)
-            {
-                description = theMovie.overview;
-            }
-            else
-            {
-                description = "No Description Available.";
+                description = "No description found.";
             }
 
-
-
-
-
+         
             //build the list of actors
             actors = new List<string>();
 
@@ -114,13 +70,6 @@ namespace MovieOrganizer
             }
 
             runTime = Int32.Parse(element.Element("length").Value.Split(' ')[0]);
-
-           
-
-
-            
-            
-
         }
 
         public string Title
@@ -172,7 +121,5 @@ namespace MovieOrganizer
         {
             get { return description; }
         }
-
-        // Query IMDB/OMDB to get movie poster given the title
     }
 }

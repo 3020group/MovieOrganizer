@@ -27,6 +27,10 @@ namespace MovieOrganizer
         //set up the dictionary of sorting patterns 
         private Dictionary<string, SortBy> sortBy;
 
+        // Adding to settings tab: Add, Edit, Delete a movie options
+        // Add: Blank form where you insert title, pic, desc, etc...
+        // Edit: inherit from add except all fields are filled by dragging & dropping a movie into the form: it will fill all fields
+        // Delete: Just search for a title and if it exists, it will be removed
         public TabScreen(string username,string imageLocation)
         {
             InitializeComponent();
@@ -694,6 +698,48 @@ namespace MovieOrganizer
             {
                 populatePage(resultsPanel, curSearchPages[((int)searchPageCombo.Items[searchPageCombo.SelectedIndex])-1]);
             }
+        }
+
+        private void MovieAdder_Click(object sender, EventArgs e)
+        {
+            // Open Add Movie Form, Empty Textboxes for all fields (No Querying)
+            MovieAdderForm maf = new MovieAdderForm();
+            maf.Show();
+        }
+
+        private void MovieEditor_Click(object sender, EventArgs e)
+        {
+            // Open Editor Window: Drag and Drop a moviepanel should fill fields automatically
+            // Editor window will extend from AdderWindow
+            MovieEditor me = new MovieEditor();
+            me.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            // Open Delete Panel: Search for a title and remove if it exists
+            MovieDeleter md = new MovieDeleter(this);
+            md.Show();
+        }
+
+        public Movie getMovie(string query)
+        {
+            Movie target = null;
+            List<List<Movie>> result = populateResults(query, SearchType.Exact, false, sortBy[comboBox1.Items[0].ToString()]);
+            if(result[0].Count > 0)
+            {
+                target = result[0][0];
+            }
+            return target;
+        }
+
+        private void profilePictureBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void resultsPanel_MouseDown(object sender, MouseEventArgs e)
+        {
         }
     }
 }

@@ -46,6 +46,8 @@
             this.moviePosterBox.TabStop = false;
             this.moviePosterBox.Click += new System.EventHandler(this.moviePosterBox_Click);
             this.moviePosterBox.Paint += new System.Windows.Forms.PaintEventHandler(this.moviePosterBox_Paint);
+            this.moviePosterBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.moviePosterBox_MouseDown);
+            this.moviePosterBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.moviePosterBox_MouseUp);
             // 
             // movieTitle
             // 
@@ -54,10 +56,12 @@
             this.movieTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.movieTitle.Location = new System.Drawing.Point(0, 84);
             this.movieTitle.Name = "movieTitle";
-            this.movieTitle.Size = new System.Drawing.Size(53, 15);
+            this.movieTitle.Size = new System.Drawing.Size(65, 18);
             this.movieTitle.TabIndex = 0;
             this.movieTitle.Text = "<TITLE>";
             this.movieTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.movieTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.movieTitle_MouseDown);
+            this.movieTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.movieTitle_MouseUp);
             // 
             // moviePanel
             // 
@@ -65,6 +69,8 @@
             this.Controls.Add(this.movieTitle);
             this.Controls.Add(this.moviePosterBox);
             this.Click += new System.EventHandler(this.moviePanel_Click);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.moviePanel_MouseDown);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.moviePanel_MouseUp);
             this.Resize += new System.EventHandler(this.moviePanel_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.moviePosterBox)).EndInit();
             this.ResumeLayout(false);

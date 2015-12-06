@@ -170,7 +170,7 @@ namespace MovieOrganizer
 
         }
 
-        public bool alreadyExists(string userName)// Make sure username isn't in the DB
+        private bool alreadyExists(string userName)// Make sure username isn't in the DB
         {
             // Figure out how to iterate through XML doc and find names
             XmlDocument xdoc = new XmlDocument();

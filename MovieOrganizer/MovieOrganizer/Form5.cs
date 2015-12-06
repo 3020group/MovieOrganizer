@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WatTmdb.V3;
 
 namespace MovieOrganizer
 {
@@ -17,19 +16,10 @@ namespace MovieOrganizer
         public TestForm()
         {
             InitializeComponent();
-            WatTmdb.V3.Tmdb api = new Tmdb(key, "en");
-            var result = api.SearchMovie("A Bridge Too Far", 1);
-
-            var image = api.GetMovieImages(result.results[0].id);
-            // MessageBox.Show(image.posters[0].file_path);
-            Console.WriteLine(image.posters[0].file_path);
-
-            string path = @"https://image.tmdb.org/t/p/w185";
-            path += image.posters[0].file_path;
 
 
 
-
+            string path = "";
             TestBox.Load(path);
 
         }

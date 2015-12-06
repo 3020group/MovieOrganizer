@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WatTmdb.V3;
 using System.Xml.Linq;
 using System.IO;
 using System.Text.RegularExpressions;

@@ -27,49 +27,57 @@ namespace MovieOrganizer
 
         public Movie(XElement element)
         {
-            title = element.Element("title").Value;
-            year = Int32.Parse(element.Element("year").Value);
-            rating = Int32.Parse(element.Element("rating").Value);
-
-            if (element.Element("certification") != null)
+            try
             {
-                certification = element.Element("certification").Value;
+                title = element.Element("title").Value;
+                year = Int32.Parse(element.Element("year").Value);
+                rating = Int32.Parse(element.Element("rating").Value);
+
+                if (element.Element("certification") != null)
+                {
+                    certification = element.Element("certification").Value;
+                }
+                else
+                {
+                    certification = null;
+                }
+
+                poster = element.Element("poster").Value;
+
+                if (element.Element("description") != null)
+                {
+                    description = element.Element("description").Value;
+                }
+                else
+                {
+                    description = "No description found.";
+                }
+
+
+                //build the list of actors
+                actors = new List<string>();
+
+                foreach (var actor in element.Elements("actor"))
+                {
+                    actors.Add(actor.Value);
+                }
+
+                director = element.Element("director").Value;
+
+                genres = new List<string>();
+
+                foreach (var genre in element.Elements("genre"))
+                {
+                    genres.Add(genre.Value);
+                }
+
+                runTime = Int32.Parse(element.Element("length").Value.Split(' ')[0]);
             }
-            else
+            catch(Exception e)
             {
-                certification = null;
+                Console.WriteLine("Missing information from: "+element.Element("title").Value);
             }
-
-            poster = element.Element("poster").Value;
-
-            if(element.Element("description") != null)
-            {
-                description = element.Element("description").Value;
-            }
-            else 
-            {
-                description = "No description found.";
-            }
-
-         
-            //build the list of actors
-            actors = new List<string>();
-
-            foreach (var actor in element.Elements("actor"))
-            {
-                actors.Add(actor.Value);
-            }
-
-            director = element.Element("director").Value;
-
-            genres = new List<string>();
-
-            foreach (var genre in element.Elements("genre"))
-            {
-                genres.Add(genre.Value);
-            }
-
-            runTime = Int32.Parse(element.Element("length").Value.Split(' ')[0]);
+            
         }
 
         public string Title

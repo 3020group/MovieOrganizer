@@ -14,6 +14,7 @@ namespace MovieOrganizer
     
     public class Movie
     {
+        // Should we identify if the movie is owned here?
         private string title;
         private int year;
         private int rating; //user rating (out of 10)
@@ -24,9 +25,19 @@ namespace MovieOrganizer
         private string certification; //only for some movies
         private string poster;
         private string description;
+        private bool owned;
 
         public Movie(XElement element)
         {
+            if(element.Element("owned").Value.Equals("true"))
+            {
+                owned = true;
+            }
+            else
+            {
+                owned = false;
+            }
+
             title = element.Element("title").Value;
             year = Int32.Parse(element.Element("year").Value);
             rating = Int32.Parse(element.Element("rating").Value);
@@ -120,6 +131,11 @@ namespace MovieOrganizer
         public string Description
         {
             get { return description; }
+        }
+
+        public bool Owned
+        {
+            get { return owned; }
         }
     }
 }

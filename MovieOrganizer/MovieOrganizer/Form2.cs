@@ -15,16 +15,7 @@ using System.Diagnostics;
 
 namespace MovieOrganizer
 {
-    /* TODO: MovieInfo Form
-    - Load dynamic movie data from IMDB -> Queries based on title. Fill labels upon opening
-    - Add tags: (Max Tags?)
-        - Upon Clicking add:
-            - if textbox has text:
-                - tags.add(textbox.text)
-                - textbox.flush
-                */
-
-    // Somehow the name of the film needs to be passed to this form. At that point I can query the IMDB-DB for filling labels.
+    // Should the genre(s) of the film be included?
     public partial class MovieInfo : Form
     {
         private Movie m;
@@ -45,6 +36,7 @@ namespace MovieOrganizer
             Title.Text = m.Title;
 
             Starring.Text = "";
+
             foreach(string actor in m.Actors)
             {
                 Starring.Text += actor + Environment.NewLine;
@@ -54,6 +46,7 @@ namespace MovieOrganizer
             Released.Text = m.Year.ToString();
             ParentalRating.Text = m.Certification;
             Description.Text = m.Description;
+            Poster.Load(m.Poster);
 
             XDocument doc = System.Xml.Linq.XDocument.Load("paths.xml");
             string path;
@@ -132,6 +125,11 @@ namespace MovieOrganizer
             }
     
             return null;
+        }
+
+        private void Poster_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace MovieOrganizer
 {
     public partial class moviePanel : Panel
     {
-
+        // The picture doesn't load. Also User-Tags need to be put into play
         Movie m;
 
 
@@ -47,7 +48,7 @@ namespace MovieOrganizer
             movieTitle.Text = m.Title;
             Console.WriteLine(movieTitle.Text);
             movieTitle.Show();
-            this.movieTitle.Location = new System.Drawing.Point((this.Size.Width / 2), moviePosterBox.Location.X + moviePosterBox.Size.Height);
+            this.movieTitle.Location = new System.Drawing.Point((this.Size.Width / 2), moviePosterBox.Location.X + moviePosterBox.Size.Height-1000);
         }
 
         public void resizeTitleText(Single size)
@@ -85,5 +86,50 @@ namespace MovieOrganizer
             MovieInfo info = new MovieInfo(m);
             info.Show();
         }
+
+        private void moviePanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && e.Clicks == 1)
+            {
+                this.DoDragDrop(m, DragDropEffects.Copy | DragDropEffects.Move);
+            }
+            else if(e.Button == MouseButtons.Left && e.Clicks == 2)
+            {
+                MovieInfo mi = new MovieInfo(m);
+                mi.Show();
+            }
+        }
+            
+            // What would be really cool would be making a custom cursor to visually identify drag-drop of the specific film. This may be tough though
+        
+
+        
+
+        private void moviePanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            // This needs to trigger te movie panel to open
+        }
+
+
+
+
+
+
+
+
+        private void moviePosterBox_MouseUp(object sender, MouseEventArgs e)
+        {this.moviePanel_MouseUp(sender, e);}
+        private void movieTitle_MouseUp(object sender, MouseEventArgs e)
+        { this.moviePanel_MouseUp(sender, e);}
+
+        private void moviePosterBox_MouseDown(object sender, MouseEventArgs e)
+        { this.moviePanel_MouseDown(sender, e); }
+        private void movieTitle_MouseDown(object sender, MouseEventArgs e)
+        { this.moviePanel_MouseDown(sender, e); }
+
+
+        // New Drag Event (To Go To Edit panel)
+        // React to Mouse down, takes info over
+
     }
 }

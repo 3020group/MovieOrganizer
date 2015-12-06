@@ -70,10 +70,8 @@ namespace MovieOrganizer
 
             if (tabControl.SelectedTab.Equals(tabControl.TabPages["suggestionsTab"]))
             {
-                Console.WriteLine("hello world");
                 foreach(Panel p in tabControl.TabPages["suggestionsTab"].Controls[0].Controls)
                 {
-                    Console.WriteLine(">hello world");
                     p.Size = new Size((9 * suggestFlow.Size.Width) / 10, 225);
                 }
             }
@@ -137,8 +135,7 @@ namespace MovieOrganizer
                 Panel p = new Panel();
 
                 formatSuggestionPanel(p);
-
-                Console.WriteLine(">>>"+t.Text);
+                
                 //build the text saying what the movie is
                 suggestText += "Because you watched " + getOwnedMovie(t);
 

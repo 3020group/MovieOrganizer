@@ -29,6 +29,7 @@ namespace MovieOrganizer
 
         public Movie(XElement element)
         {
+
             try
             {
                 title = element.Element("title").Value;
@@ -71,6 +72,15 @@ namespace MovieOrganizer
                 foreach (var genre in element.Elements("genre"))
                 {
                     genres.Add(genre.Value);
+                }
+
+                if(element.Element("owned").Equals("false"))
+                {
+                    owned = false;
+                }
+                else
+                {
+                    owned = true;
                 }
 
                 runTime = Int32.Parse(element.Element("length").Value.Split(' ')[0]);

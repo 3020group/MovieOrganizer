@@ -28,35 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.TestBox = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.TestBox)).BeginInit();
+            this.components = new System.ComponentModel.Container();
+            this.scatterPlot1 = new MovieOrganizer.ScatterPlot(this.components);
             this.SuspendLayout();
             // 
-            // TestBox
+            // scatterPlot1
             // 
-            this.TestBox.Location = new System.Drawing.Point(12, 12);
-            this.TestBox.Name = "TestBox";
-            this.TestBox.Size = new System.Drawing.Size(194, 229);
-            this.TestBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.TestBox.TabIndex = 0;
-            this.TestBox.TabStop = false;
-            this.TestBox.Click += new System.EventHandler(this.TestBox_Click);
+            this.scatterPlot1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.scatterPlot1.Location = new System.Drawing.Point(12, 12);
+            this.scatterPlot1.Name = "scatterPlot1";
+            this.scatterPlot1.Size = new System.Drawing.Size(723, 468);
+            this.scatterPlot1.TabIndex = 0;
             // 
             // TestForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 253);
-            this.Controls.Add(this.TestBox);
+            this.ClientSize = new System.Drawing.Size(747, 492);
+            this.Controls.Add(this.scatterPlot1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "TestForm";
             this.Text = "Form5";
-            ((System.ComponentModel.ISupportInitialize)(this.TestBox)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox TestBox;
+        private ScatterPlot scatterPlot1;
     }
 }

@@ -12,15 +12,11 @@ namespace MovieOrganizer
 {
     public partial class TestForm : Form
     {
-        private string key = "d637d50db401e9af35c47fd0bcda4a4d";
         public TestForm()
         {
             InitializeComponent();
 
 
-
-            string path = "";
-            TestBox.Load(path);
 
         }
 

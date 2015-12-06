@@ -22,6 +22,7 @@ namespace MovieOrganizer
 
         private void Form8_Load(object sender, EventArgs e)
         {
+            RatingSelecter.SelectedIndex = -1;
             m = null;
             this.AllowDrop = true;
             FinalAdder.Text = "Apply Changes";
@@ -106,10 +107,18 @@ namespace MovieOrganizer
             certs.Add("PG-13", 2);
             certs.Add("R", 3);
 
-            RatingSelecter.SelectedIndex = certs[m.Certification];
+
+            if(m.Certification != null)
+            {
+                RatingSelecter.SelectedIndex = certs[m.Certification];
+            }
 
 
-            DescriptionText.Text = m.Description;
+            if (m.Description != null)
+            {
+                DescriptionText.Text = m.Description;
+            }
+
 
 
 

@@ -29,7 +29,7 @@ namespace MovieOrganizer
 
             movieTitle.Text = m.Title;
             movieTitle.Show();
-            resizeTitleText(9.75F);
+            resizeTitleText(7.75F);
 
             this.movieTitle.Location = new System.Drawing.Point((this.Size.Width / 2), moviePosterBox.Location.X + moviePosterBox.Size.Height);
         }

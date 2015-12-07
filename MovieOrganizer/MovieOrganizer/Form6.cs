@@ -271,5 +271,10 @@ namespace MovieOrganizer
            // doc.Save(path);
       
         }
+
+        private void RatingSelecter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

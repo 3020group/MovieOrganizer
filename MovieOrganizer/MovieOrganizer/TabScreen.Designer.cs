@@ -359,6 +359,7 @@ namespace MovieOrganizer
             this.advancedSearchLink.TabIndex = 4;
             this.advancedSearchLink.TabStop = true;
             this.advancedSearchLink.Text = "Advanced Search";
+            this.advancedSearchLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.advancedSearchLink_LinkClicked);
             // 
             // searchButton
             // 

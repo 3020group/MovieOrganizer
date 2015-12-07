@@ -738,5 +738,11 @@ namespace MovieOrganizer
         private void resultsPanel_MouseDown(object sender, MouseEventArgs e)
         {
         }
+
+        private void advancedSearchLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AdvancedSearch ads = new AdvancedSearch();
+            ads.Show();
+        }
     }
 }

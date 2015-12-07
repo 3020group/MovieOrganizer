@@ -179,6 +179,7 @@
             this.RatingSelecter.Name = "RatingSelecter";
             this.RatingSelecter.Size = new System.Drawing.Size(73, 24);
             this.RatingSelecter.TabIndex = 12;
+            this.RatingSelecter.SelectedIndexChanged += new System.EventHandler(this.RatingSelecter_SelectedIndexChanged);
             // 
             // OwnedCheck
             // 

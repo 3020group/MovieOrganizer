@@ -16,7 +16,8 @@ namespace MovieOrganizer
         {
             InitializeComponent();
 
-
+            scatterPlot1.changeYearRange(1920, 1980);
+            scatterPlot1.changeRatingRange(3, 7);
 
         }
 

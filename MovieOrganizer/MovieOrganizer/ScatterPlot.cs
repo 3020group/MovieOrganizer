@@ -40,6 +40,12 @@ namespace MovieOrganizer
             container.Add(this);
             InitializeComponent();
 
+            lowerYear = 1900;
+            higherYear = 2000;
+
+            lowerPop = 0;
+            higherPop = 10;
+
             setupPlot();
         }
 
@@ -47,10 +53,7 @@ namespace MovieOrganizer
         {
             this.Controls.Clear();
 
-            lowerYear = 1900;
-            higherYear = 2000;
-            lowerPop = 0;
-            higherPop = 10;
+           
             nY = (higherPop - lowerPop);
             nX = (((higherYear - lowerYear) / 10));
             sizeY = getSizeY();
@@ -63,6 +66,8 @@ namespace MovieOrganizer
             tickSpaceY = sizeY / nY;
 
             origin = new System.Drawing.Point(dLeft,dTop+sizeY);
+
+            Refresh();
             
         }
 
@@ -87,27 +92,47 @@ namespace MovieOrganizer
 
             //draw the y axis
             g.DrawLine(p, dLeft, dTop, dLeft, dTop + sizeY);
+            
+            //draw the first x label and line
+            int labelNumber = (lowerYear);
+            string labelText = labelNumber.ToString();
+            Font f = new Font("Microsoft Sans Serif", 7.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            Size textSize = TextRenderer.MeasureText(labelText, f);
+            Point location = new Point(origin.X - (textSize.Width / 2), origin.Y + tickSize + 2);
+            g.DrawString(labelText, f, new SolidBrush(Color.Black), location);
+
+            g.DrawLine(p, origin.X, origin.Y + (tickSize / 2), origin.X  , origin.Y - (tickSize / 2));
+
 
             //draw ticks and add labels for x axis
-            for(int i=0;i< nX;i++)
+            for (int i=0;i< nX;i++)
             {
-                int labelNumber = lowerYear + (10 * (i + 1));
-                string labelText = labelNumber.ToString();
-                Font f = new Font("Microsoft Sans Serif", 7.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                Size textSize = TextRenderer.MeasureText(labelText, f);
-                Point location = new Point(origin.X + ((i + 1) * tickSpaceX) - (textSize.Width / 2), origin.Y + tickSize + 2);
+                labelNumber = lowerYear + (10 * (i + 1));
+                labelText = labelNumber.ToString();
+                f = new Font("Microsoft Sans Serif", 7.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                textSize = TextRenderer.MeasureText(labelText, f);
+                location = new Point(origin.X + ((i + 1) * tickSpaceX) - (textSize.Width / 2), origin.Y + tickSize + 2);
                 g.DrawString(labelText, f, new SolidBrush(Color.Black), location);
 
                 g.DrawLine(p,origin.X+((i+1)*tickSpaceX),origin.Y+(tickSize/2), origin.X + ((i+1) * tickSpaceX),origin.Y-(tickSize/2));
             }
 
+            //draw the first y label and line
+            labelText = (lowerPop).ToString();
+            f = new Font("Microsoft Sans Serif", 7.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            textSize = TextRenderer.MeasureText(labelText, f);
+            location = new Point(origin.X - tickSize - 10, origin.Y - 7);
+            g.DrawString(labelText, f, new SolidBrush(Color.Black), location);
+
+            g.DrawLine(p, dLeft + (tickSize / 2), origin.Y , dLeft - (tickSize / 2), origin.Y);
+
             //draw ticks on the y axis
-            for(int i=0;i< nY;i++)
+            for (int i=0;i< nY;i++)
             {
-                string labelText = (i+1).ToString();
-                Font f = new Font("Microsoft Sans Serif", 7.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                Size textSize = TextRenderer.MeasureText(labelText, f);
-                Point location = new Point(origin.X - tickSize-10, origin.Y - ((i+1)*tickSpaceY)-7);
+                labelText = (i+1+lowerPop).ToString();
+                f = new Font("Microsoft Sans Serif", 7.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                textSize = TextRenderer.MeasureText(labelText, f);
+                location = new Point(origin.X - tickSize-10, origin.Y - ((i+1)*tickSpaceY)-7);
                 g.DrawString(labelText, f, new SolidBrush(Color.Black), location);
 
                 g.DrawLine(p, dLeft+(tickSize/2), origin.Y - ((i + 1) * tickSpaceY), dLeft-(tickSize/2), origin.Y - ((i + 1) * tickSpaceY));
@@ -144,7 +169,7 @@ namespace MovieOrganizer
             return size;
         }
         
-        public void drawMovies(List<Movie> movies)
+        public void drawMovies(List<Movie> movies,Dictionary<string,Color> colorMap,List<string> genres)
         {
             int lX;
             int lY;
@@ -156,10 +181,27 @@ namespace MovieOrganizer
                 lX = getXLocation(m.Year);
                 lY = getYLocation(m.Rating);
                 p.Location = new System.Drawing.Point(lX, lY);
-                p.BackColor = System.Drawing.Color.Black;
+                p.BackColor = getColor(colorMap,genres,m);
                 this.Controls.Add(p);
             }
             
+        }
+
+        public Color getColor(Dictionary<string,Color> colorMap,List<string> genres, Movie m)
+        {
+
+            foreach(string u in m.Genres)
+            {
+                foreach(string v in genres)
+                {
+                    if(u.Equals(v))
+                    {
+                        return colorMap[v];
+                    }
+                }
+            }
+
+            return Color.Black;
         }
 
         private int getXLocation(int year)
@@ -176,7 +218,6 @@ namespace MovieOrganizer
                 offset = tickSpaceX - (tickSpaceX / (year % 10));
             }
 
-            Console.WriteLine(offset);
             return baseLocation+(int)offset+origin.X;
         }
 
@@ -184,5 +225,22 @@ namespace MovieOrganizer
         {
             return origin.Y-(rating * tickSpaceY);
         }
+
+        public void changeYearRange(int newLowest,int newHighest)
+        {
+            lowerYear = newLowest;
+            higherYear = newHighest;
+
+            setupPlot();
+        }
+
+        public void changeRatingRange(int newLowest, int newHighest)
+        {
+            lowerPop = newLowest;
+            higherPop = newHighest;
+
+            setupPlot();
+        }
+
     }
 }

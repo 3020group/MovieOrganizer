@@ -71,7 +71,7 @@ namespace MovieOrganizer
 
                 foreach (var genre in element.Elements("genre"))
                 {
-                    genres.Add(genre.Value);
+                    genres.Add(genre.Value.Trim());
                 }
 
                 if(element.Element("owned").Equals("false"))

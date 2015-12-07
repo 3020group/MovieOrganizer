@@ -166,7 +166,7 @@
             // 
             this.Tags.AutoSize = true;
             this.Tags.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.Tags.Location = new System.Drawing.Point(63, 271);
+            this.Tags.Location = new System.Drawing.Point(13, 303);
             this.Tags.Name = "Tags";
             this.Tags.Size = new System.Drawing.Size(81, 18);
             this.Tags.TabIndex = 12;
@@ -204,7 +204,7 @@
             this.playPanel.Controls.Add(this.playButton);
             this.playPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.playPanel.Location = new System.Drawing.Point(0, 519);
-            this.playPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.playPanel.Margin = new System.Windows.Forms.Padding(4);
             this.playPanel.Name = "playPanel";
             this.playPanel.Size = new System.Drawing.Size(579, 64);
             this.playPanel.TabIndex = 16;
@@ -212,7 +212,7 @@
             // playButton
             // 
             this.playButton.Location = new System.Drawing.Point(229, 14);
-            this.playButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.playButton.Margin = new System.Windows.Forms.Padding(4);
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(100, 46);
             this.playButton.TabIndex = 0;

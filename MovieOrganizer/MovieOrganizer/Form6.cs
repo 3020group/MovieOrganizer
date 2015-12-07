@@ -71,7 +71,21 @@ namespace MovieOrganizer
         protected virtual void FinalAdder_Click(object sender, EventArgs e)
         {
             int year = 0; int time = 0;
-            if(TitleBox.Text.Length > 0 && !alreadyExists(TitleBox.Text))
+
+            List<string> movieGenres = new List<string>();
+            List<string> allGenres = new List<string>();
+            allGenres.Add("Sci-Fi"); allGenres.Add("Crime"); allGenres.Add("Romance"); allGenres.Add("Animation");
+            allGenres.Add("Music"); allGenres.Add("Comedy"); allGenres.Add("War"); allGenres.Add("Horror");
+            allGenres.Add("Film-Noir"); allGenres.Add("Western"); allGenres.Add("Thriller"); allGenres.Add("Adventure");
+            allGenres.Add("Mystery"); allGenres.Add("Short"); allGenres.Add("Drama"); allGenres.Add("Action");
+            allGenres.Add("Sport"); allGenres.Add("Fantasy"); allGenres.Add("Family"); allGenres.Add("History");
+            allGenres.Add("Documentary"); allGenres.Add("Musical"); allGenres.Add("Musical"); allGenres.Add("Biography");
+
+
+            movieGenres.AddRange(GenreText.Text.Split(','));
+
+            // Now we see if all of movieGenres are in AllGenres
+            if (TitleBox.Text.Length > 0 && !alreadyExists(TitleBox.Text))
             {
                 try
                 {
@@ -191,7 +205,10 @@ namespace MovieOrganizer
 
             // Adding rating
             XmlNode ratingNode = doc.CreateElement("rating");
-            ratingNode.InnerText = RatingList.Items[RatingList.SelectedIndex].ToString();
+            if (RatingList.SelectedIndex >= 0)
+                ratingNode.InnerText = RatingList.Items[RatingList.SelectedIndex].ToString();
+            else
+                ratingNode.InnerText = "0";
 
             // Multiple Genre Nodes
             List<XmlNode> genreNodes = new List<XmlNode>();

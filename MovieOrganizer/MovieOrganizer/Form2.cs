@@ -83,16 +83,31 @@ namespace MovieOrganizer
                 if(Tags.Text.Equals("Add a tag...") )
                 {
                     Tags.Text = NewTag.Text;
-                    NewTag.Text = "";
+                    
                 }
                 else
                 {
                     Tags.Text += (", " + NewTag.Text);
 
                     // Add NewTag.Text to tags of movie
-                    NewTag.Text = "";
+                    
                 }
             }
+
+            // Add NewTag.Text to XML
+            XDocument xdoc = XDocument.Load("movies.xml");
+
+            foreach(XElement xel in xdoc.Root.Elements())
+            {
+                if(xel.Element("title").Value.ToString().Equals(Title.Text))
+                {
+                    xel.Add(new XElement("tag", NewTag.Text));
+                }
+            }
+
+
+            
+            xdoc.Save("movies.xml"); NewTag.Text = "";
         }
 
         private void playButton_Click(object sender, EventArgs e)
@@ -103,7 +118,7 @@ namespace MovieOrganizer
             }
             else
             {
-                MessageBox.Show("Could not find " + m.Title + "in any directory." + Environment.NewLine + "Try adding another directory through the settings page");
+                MessageBox.Show("Could not find " + m.Title + " in any directory." + Environment.NewLine + "Try adding another directory through the settings page");
             }
 
         }

@@ -348,12 +348,12 @@ namespace MovieOrganizer
             // MessageBox.Show(results.Count.ToString());
             //    Scatterplot.drawMovies(results);
             
-            if (YearLow.SelectedIndex > -1 && YearHigh.SelectedIndex > -1 && YearHigh.SelectedIndex > YearLow.SelectedIndex)
+            if (YearLow.SelectedIndex > -1 && YearHigh.SelectedIndex > -1 && YearHigh.SelectedIndex >= YearLow.SelectedIndex)
             {
                 scatterPlot1.changeYearRange(Int32.Parse(YearLow.Items[YearLow.SelectedIndex].ToString()), Int32.Parse(YearHigh.Items[YearHigh.SelectedIndex].ToString()));
             }
 
-            if (RatingsLow.SelectedIndex > -1 && RatingsHigh.SelectedIndex > -1 && RatingsHigh.SelectedIndex > RatingsLow.SelectedIndex)
+            if (RatingsLow.SelectedIndex > -1 && RatingsHigh.SelectedIndex > -1 && RatingsHigh.SelectedIndex >= RatingsLow.SelectedIndex)
             {
                 scatterPlot1.changeRatingRange(Int32.Parse(RatingsLow.Items[RatingsLow.SelectedIndex].ToString()), Int32.Parse(RatingsHigh.Items[RatingsHigh.SelectedIndex].ToString()));
             }

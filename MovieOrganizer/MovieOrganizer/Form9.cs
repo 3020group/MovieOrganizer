@@ -16,6 +16,7 @@ namespace MovieOrganizer
     {
         bool pressed;
         List<Movie> results;
+        Dictionary<string, System.Drawing.Color> buttonColors;
         // Three state mechanism for clicking checkboxes.
         // Default: Off, No inclusion into search result consideration
         // First Click: On, Must include in search result
@@ -23,10 +24,44 @@ namespace MovieOrganizer
         // Third click: Back to default
         public AdvancedSearch()
         {
-            
+            buttonColors = new Dictionary<string, System.Drawing.Color>();
             InitializeComponent();
             pressed = false; // Pressed must be true in order for genre selection to do anything
             results = new List<Movie>();
+
+
+            // Let's build te dictionary
+            buttonColors.Add("War", Color.Blue);
+            buttonColors.Add("Sci-fi",Color.Green);
+            buttonColors.Add("Horror",Color.Red);
+            buttonColors.Add("Crime",Color.DarkOrchid);
+            buttonColors.Add("Film-Noir",Color.Gold);
+            buttonColors.Add("Comedy",Color.Khaki);
+            buttonColors.Add("Mystery",Color.HotPink);
+            buttonColors.Add("Short",Color.Purple);
+            buttonColors.Add("Sport",Color.Turquoise);
+            buttonColors.Add("Documentary",Color.Beige);
+            buttonColors.Add("Family",Color.Salmon);
+            buttonColors.Add("Fantasy",Color.Violet);
+            buttonColors.Add("Thriller",Color.Magenta);
+            buttonColors.Add("Music",Color.Navy);
+            buttonColors.Add("Amination",Color.Brown);
+            buttonColors.Add("Western",Color.Wheat);
+            buttonColors.Add("Romance",Color.Yellow);
+            buttonColors.Add("Adventure",Color.Lime);
+            buttonColors.Add("Drama",Color.DarkRed);
+            buttonColors.Add("Action",Color.Teal);
+            buttonColors.Add("Musical",Color.Indigo);
+            buttonColors.Add("History",Color.Orange);
+            buttonColors.Add("Biography",Color.Cyan);
+
+            foreach(Control c in this.Controls)
+            {
+                if(buttonColors.Keys.Contains(c.Text))
+                {
+                    c.BackColor = buttonColors[c.Text];
+                }
+            }
 
         }
 
@@ -257,21 +292,81 @@ namespace MovieOrganizer
                     }
                 }
 
+                CheckBox cb;
+                List<string> movieGenres = new List<string>();
+
+                foreach(XElement ell in xel.Elements("genre"))
+                {
+                    movieGenres.Add(ell.Value);
+                }
+
+                List<string> activeGenres = new List<string>();
+                foreach(Control c in this.Controls)
+                {
+                    if(buttonColors.Keys.Contains(c.Text))
+                    {
+                        cb = (CheckBox)c;
+                        if(cb.Checked)
+                        {
+                            activeGenres.Add(cb.Text);
+                        }
+                    }
+                }
+
+
+                // Now we have a list<string> of movie's genres and a list<string> of selected genres
+                int appear = 0;
+                foreach(string s in movieGenres)
+                {
+                    if(activeGenres.Contains(s))
+                    {
+                        appear++;
+                    }
+                }
+
+                if(appear == 0) // Not a single one of the movie's genres is in our list of pushed down genres
+                {
+                    valid = false;
+                }
+
                 if(valid)
                 {
-                    MessageBox.Show(xel.Element("title").Value.ToString() + " ");
+                //    MessageBox.Show(xel.Element("title").Value.ToString() + " ");
                     results.Add(new Movie(xel));
                 }
 
                 // This will generate all the movies. We will adjust results on genres upon selecting a genre button
 
 
-                
+                // Now pass along movies and genres
             }// FOR
 
 
-            MessageBox.Show(results.Count.ToString());
+           // MessageBox.Show(results.Count.ToString());
            //    Scatterplot.drawMovies(results);
         }
+
+
+
+        // Somehow the genre pushing happens here. If it is checked, color it in and set it up
+        private void FilmNoirCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = (CheckBox)sender;
+            if(cb.Checked)
+            {
+                // color it in and include the stuff
+                cb.BackColor = buttonColors[cb.Text];
+                getMovies();
+            
+            }
+            else
+            {
+                // Lose color
+                cb.BackColor = default(Color);
+            }
+        }
+
+        // Push down genre button. If checked is now true, set color and include
+
     }
 }

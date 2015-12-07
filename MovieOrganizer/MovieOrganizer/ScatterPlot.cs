@@ -147,7 +147,7 @@ namespace MovieOrganizer
 
         private int getSizeY()
         {
-            int size = 400;
+            int size = 500;
 
             while(size % nY != 0)
             {

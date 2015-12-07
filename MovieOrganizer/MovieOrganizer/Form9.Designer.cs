@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.TitleBox = new System.Windows.Forms.TextBox();
             this.ActorsBox = new System.Windows.Forms.TextBox();
             this.RunTimeHigh = new System.Windows.Forms.TextBox();
@@ -77,6 +78,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.scatterPlot1 = new MovieOrganizer.ScatterPlot(this.components);
             this.SuspendLayout();
             // 
             // TitleBox
@@ -344,302 +346,346 @@
             // 
             this.FantasyCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.FantasyCheck.AutoSize = true;
+            this.FantasyCheck.Checked = true;
+            this.FantasyCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.FantasyCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.FantasyCheck.Location = new System.Drawing.Point(799, 718);
+            this.FantasyCheck.Location = new System.Drawing.Point(802, 718);
             this.FantasyCheck.Name = "FantasyCheck";
             this.FantasyCheck.Size = new System.Drawing.Size(78, 30);
             this.FantasyCheck.TabIndex = 22;
             this.FantasyCheck.Text = "Fantasy";
-            this.FantasyCheck.ThreeState = true;
             this.FantasyCheck.UseVisualStyleBackColor = true;
-            this.FantasyCheck.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.FantasyCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // SportCheck
             // 
             this.SportCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.SportCheck.AutoSize = true;
+            this.SportCheck.Checked = true;
+            this.SportCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.SportCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.SportCheck.Location = new System.Drawing.Point(556, 718);
+            this.SportCheck.Location = new System.Drawing.Point(559, 718);
             this.SportCheck.Name = "SportCheck";
             this.SportCheck.Size = new System.Drawing.Size(59, 30);
             this.SportCheck.TabIndex = 23;
             this.SportCheck.Text = "Sport";
-            this.SportCheck.ThreeState = true;
             this.SportCheck.UseVisualStyleBackColor = true;
+            this.SportCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // BiographyCheck
             // 
             this.BiographyCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.BiographyCheck.AutoSize = true;
+            this.BiographyCheck.Checked = true;
+            this.BiographyCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.BiographyCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.BiographyCheck.Location = new System.Drawing.Point(787, 754);
+            this.BiographyCheck.Location = new System.Drawing.Point(790, 754);
             this.BiographyCheck.Name = "BiographyCheck";
             this.BiographyCheck.Size = new System.Drawing.Size(94, 30);
             this.BiographyCheck.TabIndex = 24;
             this.BiographyCheck.Text = "Biography";
-            this.BiographyCheck.ThreeState = true;
             this.BiographyCheck.UseVisualStyleBackColor = true;
+            this.BiographyCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // HistoryCheck
             // 
             this.HistoryCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.HistoryCheck.AutoSize = true;
+            this.HistoryCheck.Checked = true;
+            this.HistoryCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.HistoryCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.HistoryCheck.Location = new System.Drawing.Point(715, 754);
+            this.HistoryCheck.Location = new System.Drawing.Point(718, 754);
             this.HistoryCheck.Name = "HistoryCheck";
             this.HistoryCheck.Size = new System.Drawing.Size(73, 30);
             this.HistoryCheck.TabIndex = 25;
             this.HistoryCheck.Text = "History";
-            this.HistoryCheck.ThreeState = true;
             this.HistoryCheck.UseVisualStyleBackColor = true;
+            this.HistoryCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // DramaCheck
             // 
             this.DramaCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.DramaCheck.AutoSize = true;
+            this.DramaCheck.Checked = true;
+            this.DramaCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.DramaCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.DramaCheck.Location = new System.Drawing.Point(505, 754);
+            this.DramaCheck.Location = new System.Drawing.Point(508, 754);
             this.DramaCheck.Name = "DramaCheck";
             this.DramaCheck.Size = new System.Drawing.Size(70, 30);
             this.DramaCheck.TabIndex = 26;
             this.DramaCheck.Text = "Drama";
-            this.DramaCheck.ThreeState = true;
             this.DramaCheck.UseVisualStyleBackColor = true;
-            this.DramaCheck.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
+            this.DramaCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // MysteryCheck
             // 
             this.MysteryCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.MysteryCheck.AutoSize = true;
+            this.MysteryCheck.Checked = true;
+            this.MysteryCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.MysteryCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.MysteryCheck.Location = new System.Drawing.Point(421, 718);
+            this.MysteryCheck.Location = new System.Drawing.Point(424, 718);
             this.MysteryCheck.Name = "MysteryCheck";
             this.MysteryCheck.Size = new System.Drawing.Size(78, 30);
             this.MysteryCheck.TabIndex = 27;
             this.MysteryCheck.Text = "Mystery";
-            this.MysteryCheck.ThreeState = true;
             this.MysteryCheck.UseVisualStyleBackColor = true;
+            this.MysteryCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // ShortCheck
             // 
             this.ShortCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.ShortCheck.AutoSize = true;
+            this.ShortCheck.Checked = true;
+            this.ShortCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ShortCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.ShortCheck.Location = new System.Drawing.Point(498, 718);
+            this.ShortCheck.Location = new System.Drawing.Point(501, 718);
             this.ShortCheck.Name = "ShortCheck";
             this.ShortCheck.Size = new System.Drawing.Size(59, 30);
             this.ShortCheck.TabIndex = 28;
             this.ShortCheck.Text = "Short";
-            this.ShortCheck.ThreeState = true;
             this.ShortCheck.UseVisualStyleBackColor = true;
+            this.ShortCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // MusicalCheck
             // 
             this.MusicalCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.MusicalCheck.AutoSize = true;
+            this.MusicalCheck.Checked = true;
+            this.MusicalCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.MusicalCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.MusicalCheck.Location = new System.Drawing.Point(639, 754);
+            this.MusicalCheck.Location = new System.Drawing.Point(642, 754);
             this.MusicalCheck.Name = "MusicalCheck";
             this.MusicalCheck.Size = new System.Drawing.Size(77, 30);
             this.MusicalCheck.TabIndex = 29;
             this.MusicalCheck.Text = "Musical";
-            this.MusicalCheck.ThreeState = true;
             this.MusicalCheck.UseVisualStyleBackColor = true;
+            this.MusicalCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // DocumentaryCheck
             // 
             this.DocumentaryCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.DocumentaryCheck.AutoSize = true;
+            this.DocumentaryCheck.Checked = true;
+            this.DocumentaryCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.DocumentaryCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.DocumentaryCheck.Location = new System.Drawing.Point(614, 718);
+            this.DocumentaryCheck.Location = new System.Drawing.Point(617, 718);
             this.DocumentaryCheck.Name = "DocumentaryCheck";
             this.DocumentaryCheck.Size = new System.Drawing.Size(119, 30);
             this.DocumentaryCheck.TabIndex = 30;
             this.DocumentaryCheck.Text = "Documentary";
-            this.DocumentaryCheck.ThreeState = true;
             this.DocumentaryCheck.UseVisualStyleBackColor = true;
+            this.DocumentaryCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // AdventureCheck
             // 
             this.AdventureCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.AdventureCheck.AutoSize = true;
+            this.AdventureCheck.Checked = true;
+            this.AdventureCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.AdventureCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.AdventureCheck.Location = new System.Drawing.Point(412, 754);
+            this.AdventureCheck.Location = new System.Drawing.Point(415, 754);
             this.AdventureCheck.Name = "AdventureCheck";
             this.AdventureCheck.Size = new System.Drawing.Size(94, 30);
             this.AdventureCheck.TabIndex = 31;
             this.AdventureCheck.Text = "Adventure";
-            this.AdventureCheck.ThreeState = true;
             this.AdventureCheck.UseVisualStyleBackColor = true;
+            this.AdventureCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // ComedyCheck
             // 
             this.ComedyCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.ComedyCheck.AutoSize = true;
+            this.ComedyCheck.Checked = true;
+            this.ComedyCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ComedyCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.ComedyCheck.Location = new System.Drawing.Point(342, 718);
+            this.ComedyCheck.Location = new System.Drawing.Point(345, 718);
             this.ComedyCheck.Name = "ComedyCheck";
             this.ComedyCheck.Size = new System.Drawing.Size(80, 30);
             this.ComedyCheck.TabIndex = 32;
             this.ComedyCheck.Text = "Comedy";
-            this.ComedyCheck.ThreeState = true;
             this.ComedyCheck.UseVisualStyleBackColor = true;
+            this.ComedyCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // ActionCheck
             // 
             this.ActionCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.ActionCheck.AutoSize = true;
+            this.ActionCheck.Checked = true;
+            this.ActionCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ActionCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.ActionCheck.Location = new System.Drawing.Point(574, 754);
+            this.ActionCheck.Location = new System.Drawing.Point(577, 754);
             this.ActionCheck.Name = "ActionCheck";
             this.ActionCheck.Size = new System.Drawing.Size(66, 30);
             this.ActionCheck.TabIndex = 33;
             this.ActionCheck.Text = "Action";
-            this.ActionCheck.ThreeState = true;
             this.ActionCheck.UseVisualStyleBackColor = true;
+            this.ActionCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // FamilyCheck
             // 
             this.FamilyCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.FamilyCheck.AutoSize = true;
+            this.FamilyCheck.Checked = true;
+            this.FamilyCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.FamilyCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.FamilyCheck.Location = new System.Drawing.Point(732, 718);
+            this.FamilyCheck.Location = new System.Drawing.Point(735, 718);
             this.FamilyCheck.Name = "FamilyCheck";
             this.FamilyCheck.Size = new System.Drawing.Size(68, 30);
             this.FamilyCheck.TabIndex = 34;
             this.FamilyCheck.Text = "Family";
-            this.FamilyCheck.ThreeState = true;
             this.FamilyCheck.UseVisualStyleBackColor = true;
+            this.FamilyCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // ThrillerCheck
             // 
             this.ThrillerCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.ThrillerCheck.AutoSize = true;
+            this.ThrillerCheck.Checked = true;
+            this.ThrillerCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ThrillerCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.ThrillerCheck.Location = new System.Drawing.Point(17, 754);
+            this.ThrillerCheck.Location = new System.Drawing.Point(20, 754);
             this.ThrillerCheck.Name = "ThrillerCheck";
             this.ThrillerCheck.Size = new System.Drawing.Size(71, 30);
             this.ThrillerCheck.TabIndex = 36;
             this.ThrillerCheck.Text = "Thriller";
-            this.ThrillerCheck.ThreeState = true;
             this.ThrillerCheck.UseVisualStyleBackColor = true;
+            this.ThrillerCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // WarCheck
             // 
             this.WarCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.WarCheck.AutoSize = true;
+            this.WarCheck.Checked = true;
+            this.WarCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.WarCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.WarCheck.Location = new System.Drawing.Point(19, 718);
+            this.WarCheck.Location = new System.Drawing.Point(22, 718);
             this.WarCheck.Name = "WarCheck";
             this.WarCheck.Size = new System.Drawing.Size(50, 30);
             this.WarCheck.TabIndex = 37;
             this.WarCheck.Text = "War";
-            this.WarCheck.ThreeState = true;
             this.WarCheck.UseVisualStyleBackColor = true;
+            this.WarCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // MusicCheck
             // 
             this.MusicCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.MusicCheck.AutoSize = true;
+            this.MusicCheck.Checked = true;
+            this.MusicCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.MusicCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.MusicCheck.Location = new System.Drawing.Point(87, 754);
+            this.MusicCheck.Location = new System.Drawing.Point(90, 754);
             this.MusicCheck.Name = "MusicCheck";
             this.MusicCheck.Size = new System.Drawing.Size(64, 30);
             this.MusicCheck.TabIndex = 38;
             this.MusicCheck.Text = "Music";
-            this.MusicCheck.ThreeState = true;
             this.MusicCheck.UseVisualStyleBackColor = true;
+            this.MusicCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // ScifiCheck
             // 
             this.ScifiCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.ScifiCheck.AutoSize = true;
+            this.ScifiCheck.Checked = true;
+            this.ScifiCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ScifiCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.ScifiCheck.Location = new System.Drawing.Point(68, 718);
+            this.ScifiCheck.Location = new System.Drawing.Point(71, 718);
             this.ScifiCheck.Name = "ScifiCheck";
             this.ScifiCheck.Size = new System.Drawing.Size(58, 30);
             this.ScifiCheck.TabIndex = 39;
             this.ScifiCheck.Text = "Sci-fi";
-            this.ScifiCheck.ThreeState = true;
             this.ScifiCheck.UseVisualStyleBackColor = true;
+            this.ScifiCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // AnimationCheck
             // 
             this.AnimationCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.AnimationCheck.AutoSize = true;
+            this.AnimationCheck.Checked = true;
+            this.AnimationCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.AnimationCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.AnimationCheck.Location = new System.Drawing.Point(150, 754);
+            this.AnimationCheck.Location = new System.Drawing.Point(153, 754);
             this.AnimationCheck.Name = "AnimationCheck";
             this.AnimationCheck.Size = new System.Drawing.Size(93, 30);
             this.AnimationCheck.TabIndex = 40;
-            this.AnimationCheck.Text = "Animation";
-            this.AnimationCheck.ThreeState = true;
+            this.AnimationCheck.Text = "Amination";
             this.AnimationCheck.UseVisualStyleBackColor = true;
+            this.AnimationCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // HorrorCheck
             // 
             this.HorrorCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.HorrorCheck.AutoSize = true;
+            this.HorrorCheck.Checked = true;
+            this.HorrorCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.HorrorCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.HorrorCheck.Location = new System.Drawing.Point(125, 718);
+            this.HorrorCheck.Location = new System.Drawing.Point(128, 718);
             this.HorrorCheck.Name = "HorrorCheck";
             this.HorrorCheck.Size = new System.Drawing.Size(68, 30);
             this.HorrorCheck.TabIndex = 41;
             this.HorrorCheck.Text = "Horror";
-            this.HorrorCheck.ThreeState = true;
             this.HorrorCheck.UseVisualStyleBackColor = true;
+            this.HorrorCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // WesternCheck
             // 
             this.WesternCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.WesternCheck.AutoSize = true;
+            this.WesternCheck.Checked = true;
+            this.WesternCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.WesternCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.WesternCheck.Location = new System.Drawing.Point(242, 754);
+            this.WesternCheck.Location = new System.Drawing.Point(245, 754);
             this.WesternCheck.Name = "WesternCheck";
             this.WesternCheck.Size = new System.Drawing.Size(82, 30);
             this.WesternCheck.TabIndex = 42;
             this.WesternCheck.Text = "Western";
-            this.WesternCheck.ThreeState = true;
             this.WesternCheck.UseVisualStyleBackColor = true;
+            this.WesternCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // CrimeCheck
             // 
             this.CrimeCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.CrimeCheck.AutoSize = true;
+            this.CrimeCheck.Checked = true;
+            this.CrimeCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CrimeCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.CrimeCheck.Location = new System.Drawing.Point(192, 718);
+            this.CrimeCheck.Location = new System.Drawing.Point(195, 718);
             this.CrimeCheck.Name = "CrimeCheck";
             this.CrimeCheck.Size = new System.Drawing.Size(64, 30);
             this.CrimeCheck.TabIndex = 43;
             this.CrimeCheck.Text = "Crime";
-            this.CrimeCheck.ThreeState = true;
             this.CrimeCheck.UseVisualStyleBackColor = true;
+            this.CrimeCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // RomanceCheck
             // 
             this.RomanceCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.RomanceCheck.AutoSize = true;
+            this.RomanceCheck.Checked = true;
+            this.RomanceCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.RomanceCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.RomanceCheck.Location = new System.Drawing.Point(323, 754);
+            this.RomanceCheck.Location = new System.Drawing.Point(326, 754);
             this.RomanceCheck.Name = "RomanceCheck";
             this.RomanceCheck.Size = new System.Drawing.Size(90, 30);
             this.RomanceCheck.TabIndex = 44;
             this.RomanceCheck.Text = "Romance";
-            this.RomanceCheck.ThreeState = true;
             this.RomanceCheck.UseVisualStyleBackColor = true;
+            this.RomanceCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // FilmNoirCheck
             // 
             this.FilmNoirCheck.Appearance = System.Windows.Forms.Appearance.Button;
             this.FilmNoirCheck.AutoSize = true;
+            this.FilmNoirCheck.Checked = true;
+            this.FilmNoirCheck.CheckState = System.Windows.Forms.CheckState.Checked;
             this.FilmNoirCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.FilmNoirCheck.Location = new System.Drawing.Point(255, 718);
+            this.FilmNoirCheck.Location = new System.Drawing.Point(258, 718);
             this.FilmNoirCheck.Name = "FilmNoirCheck";
             this.FilmNoirCheck.Size = new System.Drawing.Size(88, 30);
             this.FilmNoirCheck.TabIndex = 45;
             this.FilmNoirCheck.Text = "Film-Noir";
-            this.FilmNoirCheck.ThreeState = true;
             this.FilmNoirCheck.UseVisualStyleBackColor = true;
+            this.FilmNoirCheck.CheckedChanged += new System.EventHandler(this.FilmNoirCheck_CheckedChanged);
             // 
             // label6
             // 
@@ -691,11 +737,19 @@
             this.label10.TabIndex = 50;
             this.label10.Text = "Title:";
             // 
+            // scatterPlot1
+            // 
+            this.scatterPlot1.Location = new System.Drawing.Point(12, 105);
+            this.scatterPlot1.Name = "scatterPlot1";
+            this.scatterPlot1.Size = new System.Drawing.Size(707, 591);
+            this.scatterPlot1.TabIndex = 51;
+            // 
             // AdvancedSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1058, 817);
+            this.Controls.Add(this.scatterPlot1);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -805,5 +859,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private ScatterPlot scatterPlot1;
     }
 }

@@ -27,11 +27,17 @@ namespace MovieOrganizer
         private int nX;
         private int nY;
         private System.Drawing.Point origin;
-        private Boolean supressDraw;
 
         public ScatterPlot()
         {
             InitializeComponent();
+
+            lowerYear = 1900;
+            higherYear = 2000;
+
+            lowerPop = 0;
+            higherPop = 10;
+
             setupPlot();
         }
 
@@ -177,7 +183,7 @@ namespace MovieOrganizer
             foreach (Movie m in movies)
             {
                 Panel p = new Panel();
-                p.Size = new System.Drawing.Size(7, 7);
+                p.Size = new System.Drawing.Size(10, 10);
                 lX = getXLocation(m.Year);
                 lY = getYLocation(m.Rating);
                 p.Location = new System.Drawing.Point(lX, lY);
@@ -189,6 +195,8 @@ namespace MovieOrganizer
 
         public Color getColor(Dictionary<string,Color> colorMap,List<string> genres, Movie m)
         {
+            if(m.Genres == null)
+                MessageBox.Show(m.Title);
 
             foreach(string u in m.Genres)
             {

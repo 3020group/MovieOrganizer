@@ -24,8 +24,11 @@ namespace MovieOrganizer
         // Third click: Back to default
         public AdvancedSearch()
         {
+            
             buttonColors = new Dictionary<string, System.Drawing.Color>();
             InitializeComponent();
+            YearLow.SelectedIndex = 1;
+            YearHigh.SelectedIndex = 10;
             pressed = false; // Pressed must be true in order for genre selection to do anything
             results = new List<Movie>();
 
@@ -155,7 +158,7 @@ namespace MovieOrganizer
             }
 
             List<string> movieActors = new List<string>();
-
+            List<string> activeGenres = new List<string>();
             int i = 0;
 
             bool valid = true; // Assume the movie is not valid
@@ -283,8 +286,8 @@ namespace MovieOrganizer
                 int loYear = 0; int hiYear = 0;
                 if(YearLow.SelectedIndex > -1 && YearHigh.SelectedIndex > -1)
                 {
-                    loYear = Int32.Parse(YearLow.Items[RatingsLow.SelectedIndex].ToString());
-                    hiYear = Int32.Parse(YearLow.Items[RatingsLow.SelectedIndex].ToString());
+                    loYear = Int32.Parse(YearLow.Items[YearLow.SelectedIndex].ToString());
+                    hiYear = Int32.Parse(YearLow.Items[YearLow.SelectedIndex].ToString());
 
                     if(!Enumerable.Range(loYear, hiYear).Contains(year))
                     {
@@ -300,7 +303,7 @@ namespace MovieOrganizer
                     movieGenres.Add(ell.Value);
                 }
 
-                List<string> activeGenres = new List<string>();
+                activeGenres = new List<string>();
                 foreach(Control c in this.Controls)
                 {
                     if(buttonColors.Keys.Contains(c.Text))
@@ -339,11 +342,25 @@ namespace MovieOrganizer
 
 
                 // Now pass along movies and genres
-            }// FOR
+            }// FOR ----------------------------------------------------------------------
 
 
-           // MessageBox.Show(results.Count.ToString());
-           //    Scatterplot.drawMovies(results);
+            // MessageBox.Show(results.Count.ToString());
+            //    Scatterplot.drawMovies(results);
+            
+            if (YearLow.SelectedIndex > -1 && YearHigh.SelectedIndex > -1 && YearHigh.SelectedIndex > YearLow.SelectedIndex)
+            {
+                scatterPlot1.changeYearRange(Int32.Parse(YearLow.Items[YearLow.SelectedIndex].ToString()), Int32.Parse(YearHigh.Items[YearHigh.SelectedIndex].ToString()));
+            }
+
+            if (RatingsLow.SelectedIndex > -1 && RatingsHigh.SelectedIndex > -1 && RatingsHigh.SelectedIndex > RatingsLow.SelectedIndex)
+            {
+                scatterPlot1.changeRatingRange(Int32.Parse(RatingsLow.Items[RatingsLow.SelectedIndex].ToString()), Int32.Parse(RatingsHigh.Items[RatingsHigh.SelectedIndex].ToString()));
+            }
+
+
+            //MessageBox.Show(results.Count.ToString() + " " + activeGenres.Count.ToString());
+            scatterPlot1.drawMovies(results, buttonColors, activeGenres);
         }
 
 
@@ -362,10 +379,22 @@ namespace MovieOrganizer
             else
             {
                 // Lose color
+               
                 cb.BackColor = default(Color);
+                getMovies();
             }
+
+
+            
+
+            
+
+            
+            
         }
 
+        
+        
         // Push down genre button. If checked is now true, set color and include
 
     }

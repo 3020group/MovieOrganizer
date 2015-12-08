@@ -20,13 +20,15 @@ namespace MovieOrganizer
         private List<List<Movie>> curSearchPages;
         private List<Tag> tags;
         private Boolean supressEvents;
+        private Rating maxRating;
 
         private enum SearchType {Exact, All, Contains }
         private enum SortBy { Alphabetical,Year,Rating }
+        private enum Rating { G,PG,PG13,R }
 
         //set up the dictionary of sorting patterns 
         private Dictionary<string, SortBy> sortBy;
-
+        private Dictionary<string, Rating> ratingsMap;
         // Adding to settings tab: Add, Edit, Delete a movie options
         // Add: Blank form where you insert title, pic, desc, etc...
         // Edit: inherit from add except all fields are filled by dragging & dropping a movie into the form: it will fill all fields
@@ -53,9 +55,35 @@ namespace MovieOrganizer
             sortBy.Add("Rating", SortBy.Rating);
             sortBy.Add("Year", SortBy.Year);
 
+            ratingsMap = new Dictionary<string, Rating>();
+            ratingsMap.Add("R", Rating.R);
+            ratingsMap.Add("U", Rating.R);
+            ratingsMap.Add("PG-14", Rating.PG13);
+            ratingsMap.Add("PG-13", Rating.PG13);
+            ratingsMap.Add("PG", Rating.PG);
+            ratingsMap.Add("G", Rating.G);
+
             supressEvents = false;
 
             tags = getTags();
+
+            var doc = System.Xml.Linq.XDocument.Load("users.xml");
+
+            foreach (XElement element in doc.Element("users").Elements())
+            {
+                if (username.Equals(element.Element("name").Value))
+                {
+                    if(element.Element("max_rating").Value.Equals("None"))
+                    {
+                        maxRating = Rating.R;
+                    }
+                    else
+                    {
+                        maxRating = ratingsMap[element.Element("max_rating").Value];
+                    }
+
+                }
+            }
         }
 
         private void TabScreen_Resize(object sender, EventArgs e)
@@ -77,7 +105,8 @@ namespace MovieOrganizer
             }
 
             tabControl.ItemSize = new Size(newWidth, 30);
-            
+
+           
         }
 
         private void settingsTab_Enter(object sender, EventArgs e)
@@ -410,26 +439,30 @@ namespace MovieOrganizer
 
             foreach (XElement element in doc.Element("movielist").Elements())
             {
-                if(searchType == SearchType.Exact)
+                if (element.Element("certification") == null || !ratingsMap.ContainsKey(element.Element("certification").Value) || ratingsMap[element.Element("certification").Value]<=maxRating)
                 {
-                    if (string.Equals(element.Element("title").Value.Trim(), search, StringComparison.OrdinalIgnoreCase) && (!ownedOnly || (ownedOnly && element.Element("owned").Value.Equals("true"))))
+                    if (searchType == SearchType.Exact)
                     {
-                        //we have found the node were looking for
+                        if (string.Equals(element.Element("title").Value.Trim(), search, StringComparison.OrdinalIgnoreCase) && (!ownedOnly || (ownedOnly && element.Element("owned").Value.Equals("true"))))
+                        {
+                            //we have found the node were looking for
+                            movies.Add(new Movie(element));
+                        }
+                    }
+                    else if (searchType == SearchType.All && (!ownedOnly || (ownedOnly && element.Element("owned").Value.Equals("true"))))
+                    {
                         movies.Add(new Movie(element));
                     }
-                }
-                else if(searchType == SearchType.All && (!ownedOnly || (ownedOnly && element.Element("owned").Value.Equals("true"))))
-                {
-                    movies.Add(new Movie(element));
-                }
-                else if(searchType == SearchType.Contains && search.Trim().Length != 0)
-                {
-                    if (element.Element("title").Value.ToLower().Contains(search.ToLower()))
+                    else if (searchType == SearchType.Contains && search.Trim().Length != 0)
                     {
-                        //we have found the node were looking for
-                        movies.Add(new Movie(element));
+                        if (element.Element("title").Value.ToLower().Contains(search.ToLower()))
+                        {
+                            //we have found the node were looking for
+                            movies.Add(new Movie(element));
+                        }
                     }
                 }
+                
             }
 
             Console.WriteLine(movies.Count);

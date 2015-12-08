@@ -58,7 +58,7 @@ namespace MovieOrganizer
             buttonColors.Add("History",Color.Orange);
             buttonColors.Add("Biography",Color.Cyan);
 
-            foreach(Control c in this.Controls)
+            foreach(Control c in panel1.Controls)
             {
                 if(buttonColors.Keys.Contains(c.Text))
                 {
@@ -167,13 +167,13 @@ namespace MovieOrganizer
                 movieActors = new List<string>();
                 valid = true; // Start off assuming the movie is valid. Let's try to break it
                 //MessageBox.Show(xel.Element("title").Value);
-                if (TitleBox.Text.Length > 0 && !(xel.Element("title").Value.Contains(TitleBox.Text)))
+                if (TitleBox.Text.Length > 0 && !(xel.Element("title").Value.ToLower().Contains(TitleBox.Text.ToLower())))
                 {
                     valid = false;
                 }
 
                 // Now we do actors.
-                if (valid)
+                if (valid && ActorsBox.Text.Trim().Length > 0)
                 {
                     // Add element("actor") to list movieActor
                     foreach(XElement ell in xel.Elements("actor"))
@@ -304,7 +304,7 @@ namespace MovieOrganizer
                 }
 
                 activeGenres = new List<string>();
-                foreach(Control c in this.Controls)
+                foreach(Control c in panel1.Controls)
                 {
                     if(buttonColors.Keys.Contains(c.Text))
                     {
@@ -334,7 +334,7 @@ namespace MovieOrganizer
 
                 if(valid)
                 {
-                //    MessageBox.Show(xel.Element("title").Value.ToString() + " ");
+                    //    MessageBox.Show(xel.Element("title").Value.ToString() + " ");
                     results.Add(new Movie(xel));
                 }
 
@@ -359,6 +359,7 @@ namespace MovieOrganizer
             }
 
 
+            Console.WriteLine(results.Count);
             //MessageBox.Show(results.Count.ToString() + " " + activeGenres.Count.ToString());
             scatterPlot1.drawMovies(results, buttonColors, activeGenres);
         }
@@ -383,18 +384,15 @@ namespace MovieOrganizer
                 cb.BackColor = default(Color);
                 getMovies();
             }
-
-
-            
-
-            
-
-            
-            
         }
 
-        
-        
+        private void FilmNoirCheck_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+
+
         // Push down genre button. If checked is now true, set color and include
 
     }

@@ -28,7 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // ScatterPlot
+            // 
+            this.Resize += new System.EventHandler(this.ScatterPlot_Resize);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

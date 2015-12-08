@@ -27,6 +27,7 @@ namespace MovieOrganizer
         private int nX;
         private int nY;
         private System.Drawing.Point origin;
+        Dictionary<Panel, Movie> curMovies;
 
         public ScatterPlot()
         {
@@ -37,6 +38,8 @@ namespace MovieOrganizer
 
             lowerPop = 0;
             higherPop = 10;
+
+            curMovies = new Dictionary<Panel, Movie>();
 
             setupPlot();
         }
@@ -52,6 +55,8 @@ namespace MovieOrganizer
             lowerPop = 0;
             higherPop = 10;
 
+            curMovies = new Dictionary<Panel, Movie>();
+
             setupPlot();
         }
 
@@ -66,7 +71,7 @@ namespace MovieOrganizer
             sizeX = getSizeX();
             dTop = 20;
             dBot = this.Size.Height - sizeY - dTop;
-            dLeft = 70;
+            dLeft = 50;
             tickSize = 20;
             tickSpaceX = sizeX/nX;
             tickSpaceY = sizeY / nY;
@@ -153,7 +158,7 @@ namespace MovieOrganizer
 
         private int getSizeY()
         {
-            int size = 500;
+            int size = (3*this.Size.Height)/4;
 
             while(size % nY != 0)
             {
@@ -165,7 +170,7 @@ namespace MovieOrganizer
 
         private int getSizeX()
         {
-            int size = 610;
+            int size = (5*this.Size.Width)/6;
 
             while (size % nX != 0)
             {
@@ -177,20 +182,67 @@ namespace MovieOrganizer
         
         public void drawMovies(List<Movie> movies,Dictionary<string,Color> colorMap,List<string> genres)
         {
+            curMovies.Clear();
+
+            //need to free memory from the panels
+            foreach(Control c in this.Controls)
+            {
+                c.Dispose();
+            }
+
+            this.Controls.Clear();
+
             int lX;
             int lY;
 
+            ToolTip toolTip1 = new ToolTip();
+            Panel p;
+
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 500;
+            toolTip1.ReshowDelay = 500;
+            toolTip1.ShowAlways = true;
+
             foreach (Movie m in movies)
             {
-                Panel p = new Panel();
-                p.Size = new System.Drawing.Size(10, 10);
-                lX = getXLocation(m.Year);
-                lY = getYLocation(m.Rating);
-                p.Location = new System.Drawing.Point(lX, lY);
-                p.BackColor = getColor(colorMap,genres,m);
-                this.Controls.Add(p);
+                if(m.Year >= lowerYear && m.Year <= higherYear && m.Rating >= lowerPop && m.Rating <= higherPop)
+                {
+                   
+
+                    try
+                    {
+                        p = new Panel();
+                        p.Size = new System.Drawing.Size(10, 10);
+                        lX = getXLocation(m.Year);
+                        lY = getYLocation(m.Rating);
+                        p.Location = new System.Drawing.Point(lX, lY);
+                        p.BackColor = getColor(colorMap, genres, m);
+                        toolTip1.SetToolTip(p, m.Title);
+                        p.Click += new System.EventHandler(this.openMovieInfo);
+
+                        curMovies[p] = m;
+                        this.Controls.Add(p);
+                    }
+                    catch(Exception e)
+                    {
+                        ((Form)this.TopLevelControl).Close();
+                        AdvancedSearch adv = new AdvancedSearch();
+                        adv.Show();
+                        
+                    }
+
+                }
+          
             }
             
+        }
+
+        private void openMovieInfo(object sender, EventArgs e)
+        {
+            Panel p = (Panel)sender;
+
+            MovieInfo m = new MovieInfo(curMovies[p]);
+            m.Show();
         }
 
         public Color getColor(Dictionary<string,Color> colorMap,List<string> genres, Movie m)
@@ -217,6 +269,8 @@ namespace MovieOrganizer
             decimal d = year / 10;
             double offset = 0;
 
+            
+
             int baseLocation = (int)Math.Floor(d);
             baseLocation = baseLocation - (lowerYear/10);
             baseLocation *= tickSpaceX;
@@ -226,12 +280,12 @@ namespace MovieOrganizer
                 offset = tickSpaceX - (tickSpaceX / (year % 10));
             }
 
-            return baseLocation+(int)offset+origin.X;
+            return baseLocation+(int)offset+dLeft;
         }
 
         private int getYLocation(int rating)
         {
-            return origin.Y-(rating * tickSpaceY);
+            return origin.Y-((rating-lowerPop) * tickSpaceY);
         }
 
         public void changeYearRange(int newLowest,int newHighest)
@@ -250,5 +304,9 @@ namespace MovieOrganizer
             setupPlot();
         }
 
+        private void ScatterPlot_Resize(object sender, EventArgs e)
+        {
+            setupPlot();
+        }
     }
 }

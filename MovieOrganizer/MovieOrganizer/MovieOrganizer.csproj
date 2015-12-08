@@ -182,6 +182,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ScatterPlot.resx">
+      <DependentUpon>ScatterPlot.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TabScreen.resx">
       <DependentUpon>TabScreen.cs</DependentUpon>
     </EmbeddedResource>

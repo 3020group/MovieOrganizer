@@ -29,10 +29,38 @@ namespace MovieOrganizer
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            
             // We accepted a Movie object. This object contains the parameters to be filled and queried
 
             // The other issue: What about tags? Tags need to be kept persistent somehow (What database are they going to be in?)
             Title.Text = m.Title;
+            XElement xel = null;
+            XDocument xdoc = XDocument.Load("movies.xml");
+            foreach (XElement ell in xdoc.Root.Elements())
+            {
+                if (ell.Element("title").Value.ToString().Equals(Title.Text))
+                {
+                    xel = ell;
+                }
+            }
+            List<string> tags = new List<string>();
+            if (xel.Elements("tag") != null)
+            {
+                foreach (XElement ell in xel.Elements("tag"))
+                {
+                    tags.Add(ell.Value);
+                }
+            }
+
+            if (tags.Count > 0)
+            {
+                Tags.Text = "";
+                foreach (string s in tags)
+                {
+                    Tags.Text += (s + ", ");
+                }
+                Tags.Text = Tags.Text.Remove(Tags.Text.Length - 2);
+            }
 
             Starring.Text = "";
 
@@ -77,6 +105,8 @@ namespace MovieOrganizer
 
         private void button1_Click(object sender, EventArgs e) // Do we allow multi word tags?
         {
+            //
+            
             // Add tag to collection
             if(NewTag.Text.Length > 0) // What if it's just blank spaces?
             {

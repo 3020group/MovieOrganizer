@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Linq;
 using System.Text.RegularExpressions;
 
 namespace MovieOrganizer
@@ -74,80 +75,94 @@ namespace MovieOrganizer
 
             List<string> movieGenres = new List<string>();
             List<string> allGenres = new List<string>();
-            allGenres.Add("Sci-Fi"); allGenres.Add("Crime"); allGenres.Add("Romance"); allGenres.Add("Animation");
-            allGenres.Add("Music"); allGenres.Add("Comedy"); allGenres.Add("War"); allGenres.Add("Horror");
-            allGenres.Add("Film-Noir"); allGenres.Add("Western"); allGenres.Add("Thriller"); allGenres.Add("Adventure");
-            allGenres.Add("Mystery"); allGenres.Add("Short"); allGenres.Add("Drama"); allGenres.Add("Action");
-            allGenres.Add("Sport"); allGenres.Add("Fantasy"); allGenres.Add("Family"); allGenres.Add("History");
-            allGenres.Add("Documentary"); allGenres.Add("Musical"); allGenres.Add("Musical"); allGenres.Add("Biography");
+            allGenres.Add("SCI-FI"); allGenres.Add("CRIME"); allGenres.Add("ROMANCE"); allGenres.Add("ANIMATION");
+            allGenres.Add("MUSIC"); allGenres.Add("COMEDY"); allGenres.Add("WAR"); allGenres.Add("HORROR");
+            allGenres.Add("FILM-NOIR"); allGenres.Add("WESTERN"); allGenres.Add("THRILLER"); allGenres.Add("ADVENTURE");
+            allGenres.Add("MYSTERY"); allGenres.Add("SHORT"); allGenres.Add("DRAMA"); allGenres.Add("ACTION");
+            allGenres.Add("SPORT"); allGenres.Add("FANTASY"); allGenres.Add("FAMILY"); allGenres.Add("HISTORY");
+            allGenres.Add("DOCUMENTARY"); allGenres.Add("MUSICAL"); allGenres.Add("BIOGRAPHY");
 
 
-            movieGenres.AddRange(GenreText.Text.Split(','));
-
-            // Now we see if all of movieGenres are in AllGenres
-            if (TitleBox.Text.Length > 0 && !alreadyExists(TitleBox.Text))
+            movieGenres.AddRange(GenreText.Text.Replace(" ", "").ToUpper().Split(','));
+            if (!movieGenres.Except(allGenres).Any())
             {
-                try
+                // Now we see if all of movieGenres are in AllGenres
+                if (TitleBox.Text.Length > 0 && !alreadyExists(TitleBox.Text))
                 {
-                    year = Int32.Parse(YearBox.Text);
-                    if(year < 9999 && year > 1500) // Make sure the year makes sense.
+                    try
                     {
-                       // Keep going. Check Time Next
-                       try
+                        year = Int32.Parse(YearBox.Text);
+                        if (year < 9999 && year > 1500) // Make sure the year makes sense.
                         {
-                            time = Int32.Parse(TimeBox.Text);
-                            if(time > 0)
+                            // Keep going. Check Time Next
+                            try
                             {
-                                // Now Let's add the Movie's Info!
-                                DialogResult makeSure = MessageBox.Show("Movie \"" + TitleBox.Text + "\" will be added. Make sure all information is correct before pressing OK", "Are You Sure?", MessageBoxButtons.OKCancel);
-                                if (makeSure == DialogResult.OK)
+                                time = Int32.Parse(TimeBox.Text);
+                                if (time > 0)
                                 {
-                                    XmlDocument doc = new XmlDocument();
-                                    string path = "movies.xml";
-                                    doc.Load(path);
-                                    addMovie(doc);
-                                    doc.Save(path);
-                                    foreach (Control ctrl in this.Controls)
+                                    // Now Let's add the Movie's Info!
+                                    if (!(sender is MovieEditor))
                                     {
-                                        if (ctrl is TextBox)
-                                            (ctrl as TextBox).Clear();
+                                        DialogResult makeSure = MessageBox.Show("Movie \"" + TitleBox.Text + "\" will be added. Make sure all information is correct before pressing OK", "Are You Sure?", MessageBoxButtons.OKCancel);
+                                        if (makeSure == DialogResult.OK)
+                                        {
+                                            XmlDocument doc = new XmlDocument();
+                                            string path = "movies.xml";
+                                            doc.Load(path);
+                                            addMovie(doc);
+                                            doc.Save(path);
+                                            foreach (Control ctrl in this.Controls)
+                                            {
+                                                if (ctrl is TextBox)
+                                                    (ctrl as TextBox).Clear();
+                                            }
+                                            Poster.Image = null;
+                                            RatingList.SelectedIndex = -1;
+                                            RatingSelecter.SelectedIndex = -1;
+                                            OwnedCheck.Checked = false;
+                                            PosterPath.Text = "None";
+                                        }
                                     }
-                                    Poster.Image = null;
-                                    RatingList.SelectedIndex = -1;
-                                    RatingSelecter.SelectedIndex = -1;
-                                    OwnedCheck.Checked = false;
-                                    PosterPath.Text = "None";
+                                    else
+                                    {
+                                        MovieEditor s = (MovieEditor)sender;
+                                        s.build();
+                                    }
                                 }
+                                else
+                                {
+                                    MessageBox.Show("The movie must have some kind of length!", "Time Too Short");
+                                }
+
                             }
-                            else
+                            catch (FormatException)
                             {
-                                MessageBox.Show("The movie must have some kind of length!", "Time Too Short");
+                                time = 0;
+                                MessageBox.Show("You need to enter the runtime as an integer.", "Runtime Format Not Permitted");
                             }
 
                         }
-                        catch(FormatException)
+                        else
                         {
-                            time = 0;
-                            MessageBox.Show("You need to enter the runtime as an integer.", "Runtime Format Not Permitted");
+                            MessageBox.Show("Try Picking a year closer to our time.", "Year too far away");
                         }
-                       
                     }
-                    else
+                    catch (FormatException)
                     {
-                        MessageBox.Show("Try Picking a year closer to our time.", "Year too far away");
+                        year = 0;
+                        MessageBox.Show("You need to enter a year as an integer.", "Year Format Not Permitted");
                     }
                 }
-                catch (FormatException)
+                else
                 {
-                    year = 0;
-                    MessageBox.Show("You need to enter a year as an integer.", "Year Format Not Permitted");
+                    MessageBox.Show("You need to choose a unique title of at least one character.", "Title Not Permitted");
                 }
+                // Put All The Fields Together, Validate and if(valid) Add a new Movie Node to XML File.
             }
             else
             {
-                MessageBox.Show("You need to choose a unique title of at least one character.", "Title Not Permitted");
+                MessageBox.Show("You may not introduce new genres.", "Genre Undefined");
             }
-            // Put All The Fields Together, Validate and if(valid) Add a new Movie Node to XML File.
         }
 
         private bool alreadyExists(string newTitle)// Make sure username isn't in the DB
@@ -180,12 +195,15 @@ namespace MovieOrganizer
         protected void addMovie(XmlDocument doc)
         {
             // Given all of our attributes, let's add this movie to the XML Database
-           // string path = "movies.xml";
-           // XmlDocument doc = new XmlDocument();
-           // doc.Load(path);
+            // string path = "movies.xml";
+            // XmlDocument doc = new XmlDocument();
+            // doc.Load(path);
+
+            
 
             XmlNode node = doc.CreateNode(XmlNodeType.Element, "movie", null);
 
+           
 
             // Adding title
             XmlNode titleNode = doc.CreateElement("title");
@@ -230,6 +248,15 @@ namespace MovieOrganizer
                 actorNodes.Add(actorNode);
             }
 
+            // Multiple Tag Nodes
+            List<XmlNode> tagNodes = new List<XmlNode>();
+            string[] tags = TagBox.Text.Split(',');
+            foreach(string tag in tags)
+            {
+                XmlNode tagNode = doc.CreateElement("tag");
+                tagNode.InnerText = tag.Trim();
+                tagNodes.Add(tagNode);
+            }
 
             // Adding isOwned
             XmlNode ownedNode = doc.CreateElement("owned");
@@ -278,6 +305,12 @@ namespace MovieOrganizer
                 node.AppendChild(actorNode);
             }
 
+            // Add all tag nodes
+            foreach(XmlNode tagNode in tagNodes)
+            {
+                node.AppendChild(tagNode);
+            }
+
             node.AppendChild(ownedNode);
             node.AppendChild(posterNode);
             node.AppendChild(certNode);
@@ -285,11 +318,81 @@ namespace MovieOrganizer
 
 
             doc.DocumentElement.AppendChild(node);
-           // doc.Save(path);
-      
+            doc.Save("movies.xml");
+
+
+            // Also increment tags: Genre, Actor, Director
+            
+
+            // Let's just lower case all of it just in case
+            for(int i = 0; i <actors.Length; i++)
+            {
+                actors[i] = actors[i].ToLower();
+            }
+
+            for(int i = 0; i<genres.Length; i++)
+            {
+                genres[i] = genres[i].ToLower();
+            }
+            string director = DirectorBox.Text.ToLower();
+            // we have actors, genres to play with, also DirectorBox.Text
+
+            // This adds frequencies to already existing tags. We need a way to add NEW tags
+            // Let's join up all of the strings in our actors, genres, director. These are the "attributes" of the film
+            List<string> movieAttrs = new List<string>();
+            movieAttrs.AddRange(actors); movieAttrs.AddRange(genres); movieAttrs.Add(director);
+
+            XDocument xdoc = XDocument.Load("tags.xml");
+
+            // For every attr, let's find the tags that matches. If we don't find a match, we add our own
+            bool found = false;
+
+            foreach(string s in movieAttrs)
+            {
+                found = false; // this string s is not found
+                foreach(XElement ell in xdoc.Root.Elements())
+                {
+                    if(ell.Element("text").Value.ToString().ToLower().Equals(s))
+                    {
+                        ell.Element("frequency").Value = (Int32.Parse(ell.Element("frequency").Value.ToString()) + 1).ToString();
+                        found = true; // we found our attrib in the xml
+                    }
+                }
+                if(!found) // that tag was not in the xml file
+                {
+                    if(actors.Contains(s))
+                    {
+                        XElement tag = new XElement("tag");
+                        tag.Add(new XElement("type", "actor"));
+                        tag.Add(new XElement("text", s));
+                        
+                        tag.Add(new XElement("frequency", "1"));
+                        xdoc.Root.Add(tag);
+                        
+
+                    }
+
+                    if(director.Equals(s))
+                    {
+                        XElement tag = new XElement("tag");
+                        tag.Add(new XElement("type", "director"));
+                        tag.Add(new XElement("text", s));
+                        
+                        tag.Add(new XElement("frequency", "1"));
+                        xdoc.Root.Add(tag);
+                    }
+                }
+            }
+            xdoc.Save("tags.xml");
+
         }
 
         private void RatingSelecter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MovieAdderForm_Validated(object sender, EventArgs e)
         {
 
         }

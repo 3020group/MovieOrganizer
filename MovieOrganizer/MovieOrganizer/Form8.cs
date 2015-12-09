@@ -142,17 +142,21 @@ namespace MovieOrganizer
         // Finally, Press the button to edit attributes then close window. This is the last part
         protected override void FinalAdder_Click(object sender, EventArgs e)
         {
-                DialogResult makeSure = MessageBox.Show("The movie \"" + m.Title + "\" will be changed. Are you sure you want to edit this movie?", "Confirm Action", MessageBoxButtons.YesNo);
-                if (makeSure == DialogResult.Yes)
-                {
-                    // Remove Title from xml db
-                    editNode();
-
-                    // Reset
-                    Close();
-                }            
+               base.FinalAdder_Click(this, e);        
         }
 
+        public void build()
+        {
+            DialogResult makeSure = MessageBox.Show("The movie \"" + m.Title + "\" will be changed. Are you sure you want to edit this movie?", "Confirm Action", MessageBoxButtons.YesNo);
+            if (makeSure == DialogResult.Yes)
+            {
+                // Remove Title from xml db
+                editNode();
+
+                // Reset
+                Close();
+            }
+        }
 
 
 

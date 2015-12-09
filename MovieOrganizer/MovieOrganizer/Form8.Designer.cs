@@ -46,45 +46,45 @@
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(7, 145);
+            this.label4.Location = new System.Drawing.Point(7, 161);
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(11, 215);
+            this.label5.Location = new System.Drawing.Point(8, 250);
             // 
             // label7
             // 
-            this.label7.Location = new System.Drawing.Point(11, 310);
+            this.label7.Location = new System.Drawing.Point(6, 429);
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(11, 335);
+            this.label8.Location = new System.Drawing.Point(6, 454);
             // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(11, 360);
+            this.label9.Location = new System.Drawing.Point(8, 479);
             // 
             // DescriptionText
             // 
-            this.DescriptionText.Location = new System.Drawing.Point(16, 388);
+            this.DescriptionText.Location = new System.Drawing.Point(11, 507);
             // 
             // PosterPath
             // 
-            this.PosterPath.Location = new System.Drawing.Point(81, 335);
+            this.PosterPath.Location = new System.Drawing.Point(84, 454);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(369, 313);
+            this.button1.Location = new System.Drawing.Point(375, 446);
             this.button1.Size = new System.Drawing.Size(105, 33);
             // 
             // RatingSelecter
             // 
-            this.RatingSelecter.Location = new System.Drawing.Point(74, 313);
+            this.RatingSelecter.Location = new System.Drawing.Point(70, 432);
             this.RatingSelecter.Size = new System.Drawing.Size(73, 24);
             // 
             // OwnedCheck
             // 
-            this.OwnedCheck.Location = new System.Drawing.Point(11, 278);
+            this.OwnedCheck.Location = new System.Drawing.Point(11, 397);
             // 
             // YearBox
             // 
@@ -96,19 +96,19 @@
             // 
             // GenreText
             // 
-            this.GenreText.Location = new System.Drawing.Point(12, 173);
+            this.GenreText.Location = new System.Drawing.Point(12, 189);
             // 
             // ActorText
             // 
-            this.ActorText.Location = new System.Drawing.Point(12, 243);
+            this.ActorText.Location = new System.Drawing.Point(11, 278);
             // 
             // FinalAdder
             // 
-            this.FinalAdder.Location = new System.Drawing.Point(155, 504);
+            this.FinalAdder.Location = new System.Drawing.Point(155, 623);
             // 
             // Poster
             // 
-            this.Poster.Location = new System.Drawing.Point(336, 189);
+            this.Poster.Location = new System.Drawing.Point(342, 308);
             // 
             // label6
             // 
@@ -131,6 +131,14 @@
             this.RatingList.Location = new System.Drawing.Point(174, 123);
             this.RatingList.Size = new System.Drawing.Size(44, 24);
             // 
+            // tags
+            // 
+            this.tags.Location = new System.Drawing.Point(11, 334);
+            // 
+            // TagBox
+            // 
+            this.TagBox.Location = new System.Drawing.Point(12, 362);
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -147,7 +155,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(523, 540);
+            this.ClientSize = new System.Drawing.Size(527, 666);
             this.Controls.Add(this.label11);
             this.Name = "MovieEditor";
             this.Text = "Edit A Movie";
@@ -155,6 +163,8 @@
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MovieEditor_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MovieEditor_DragEnter);
             this.MouseEnter += new System.EventHandler(this.MovieEditor_MouseEnter);
+            this.Controls.SetChildIndex(this.tags, 0);
+            this.Controls.SetChildIndex(this.TagBox, 0);
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.label3, 0);

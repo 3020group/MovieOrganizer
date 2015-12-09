@@ -53,6 +53,8 @@
             this.label10 = new System.Windows.Forms.Label();
             this.TimeBox = new System.Windows.Forms.TextBox();
             this.RatingList = new System.Windows.Forms.ComboBox();
+            this.tags = new System.Windows.Forms.Label();
+            this.TagBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.Poster)).BeginInit();
             this.SuspendLayout();
             // 
@@ -110,7 +112,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.5F);
-            this.label7.Location = new System.Drawing.Point(12, 249);
+            this.label7.Location = new System.Drawing.Point(12, 318);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(69, 25);
             this.label7.TabIndex = 6;
@@ -120,7 +122,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.5F);
-            this.label8.Location = new System.Drawing.Point(12, 274);
+            this.label8.Location = new System.Drawing.Point(12, 343);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(74, 25);
             this.label8.TabIndex = 7;
@@ -130,7 +132,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.5F);
-            this.label9.Location = new System.Drawing.Point(12, 299);
+            this.label9.Location = new System.Drawing.Point(12, 368);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(115, 25);
             this.label9.TabIndex = 8;
@@ -138,7 +140,7 @@
             // 
             // DescriptionText
             // 
-            this.DescriptionText.Location = new System.Drawing.Point(17, 327);
+            this.DescriptionText.Location = new System.Drawing.Point(17, 396);
             this.DescriptionText.Multiline = true;
             this.DescriptionText.Name = "DescriptionText";
             this.DescriptionText.Size = new System.Drawing.Size(458, 110);
@@ -148,7 +150,7 @@
             // 
             this.PosterPath.AutoSize = true;
             this.PosterPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.5F);
-            this.PosterPath.Location = new System.Drawing.Point(82, 274);
+            this.PosterPath.Location = new System.Drawing.Point(85, 343);
             this.PosterPath.Name = "PosterPath";
             this.PosterPath.Size = new System.Drawing.Size(59, 25);
             this.PosterPath.TabIndex = 10;
@@ -157,7 +159,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.5F);
-            this.button1.Location = new System.Drawing.Point(370, 252);
+            this.button1.Location = new System.Drawing.Point(370, 318);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(105, 31);
             this.button1.TabIndex = 11;
@@ -175,7 +177,7 @@
             "PG",
             "PG-13",
             "R"});
-            this.RatingSelecter.Location = new System.Drawing.Point(75, 252);
+            this.RatingSelecter.Location = new System.Drawing.Point(87, 319);
             this.RatingSelecter.Name = "RatingSelecter";
             this.RatingSelecter.Size = new System.Drawing.Size(73, 24);
             this.RatingSelecter.TabIndex = 12;
@@ -186,7 +188,7 @@
             this.OwnedCheck.AutoSize = true;
             this.OwnedCheck.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.OwnedCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.5F);
-            this.OwnedCheck.Location = new System.Drawing.Point(12, 217);
+            this.OwnedCheck.Location = new System.Drawing.Point(13, 286);
             this.OwnedCheck.Name = "OwnedCheck";
             this.OwnedCheck.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.OwnedCheck.Size = new System.Drawing.Size(179, 29);
@@ -234,7 +236,7 @@
             // FinalAdder
             // 
             this.FinalAdder.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.5F);
-            this.FinalAdder.Location = new System.Drawing.Point(156, 443);
+            this.FinalAdder.Location = new System.Drawing.Point(156, 512);
             this.FinalAdder.Name = "FinalAdder";
             this.FinalAdder.Size = new System.Drawing.Size(180, 31);
             this.FinalAdder.TabIndex = 23;
@@ -248,7 +250,7 @@
             // 
             // Poster
             // 
-            this.Poster.Location = new System.Drawing.Point(337, 128);
+            this.Poster.Location = new System.Drawing.Point(337, 182);
             this.Poster.Name = "Poster";
             this.Poster.Size = new System.Drawing.Size(138, 118);
             this.Poster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -314,11 +316,32 @@
             this.RatingList.Size = new System.Drawing.Size(44, 24);
             this.RatingList.TabIndex = 29;
             // 
+            // tags
+            // 
+            this.tags.AutoSize = true;
+            this.tags.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.5F);
+            this.tags.Location = new System.Drawing.Point(12, 229);
+            this.tags.Name = "tags";
+            this.tags.Size = new System.Drawing.Size(269, 25);
+            this.tags.TabIndex = 30;
+            this.tags.Text = "Tag(s), seperated by comma:";
+            // 
+            // TagBox
+            // 
+            this.TagBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.5F);
+            this.TagBox.Location = new System.Drawing.Point(13, 257);
+            this.TagBox.MaxLength = 200;
+            this.TagBox.Name = "TagBox";
+            this.TagBox.Size = new System.Drawing.Size(318, 29);
+            this.TagBox.TabIndex = 31;
+            // 
             // MovieAdderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(530, 512);
+            this.ClientSize = new System.Drawing.Size(534, 626);
+            this.Controls.Add(this.TagBox);
+            this.Controls.Add(this.tags);
             this.Controls.Add(this.RatingList);
             this.Controls.Add(this.TimeBox);
             this.Controls.Add(this.label10);
@@ -346,6 +369,7 @@
             this.Name = "MovieAdderForm";
             this.Text = "Add A New Movie";
             this.Load += new System.EventHandler(this.MovieAdderForm_Load);
+            this.Validated += new System.EventHandler(this.MovieAdderForm_Validated);
             ((System.ComponentModel.ISupportInitialize)(this.Poster)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -379,5 +403,7 @@
         protected System.Windows.Forms.Label label10;
         protected System.Windows.Forms.TextBox TimeBox;
         protected System.Windows.Forms.ComboBox RatingList;
+        protected System.Windows.Forms.Label tags;
+        protected System.Windows.Forms.TextBox TagBox;
     }
 }

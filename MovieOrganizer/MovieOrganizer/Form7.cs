@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace MovieOrganizer
 {
     // TODO: This could probably look a little better. Class Interaction could be smoother too.
     public partial class MovieDeleter : Form
     {
+        Movie result;
         private TabScreen caller;
         bool found = false;
         public MovieDeleter(TabScreen caller)
@@ -25,7 +27,7 @@ namespace MovieOrganizer
         private void Searcher_Click(object sender, EventArgs e)
         {
             // Run An Exact Text Search for MovieTarget.Text
-            Movie result = caller.getMovie(MovieTarget.Text);
+            result = caller.getMovie(MovieTarget.Text);
             if (result != null)
             {
                 TargetPoster.Load(result.Poster); found = true;
@@ -66,6 +68,7 @@ namespace MovieOrganizer
 
         private void removeNode()
         {
+            // Also decrement tags
             XmlDocument doc = new XmlDocument();
             string path = "movies.xml";
             doc.Load(path);
@@ -79,6 +82,41 @@ namespace MovieOrganizer
                     node.RemoveChild(curr);
                 }
             }
+
+            // Let's just lower case all of it just in case
+            string[] actors = result.Actors.ToArray();
+            string[] genres = result.Genres.ToArray();
+            for (int i = 0; i < actors.Length; i++)
+            {
+                actors[i] = actors[i].ToLower();
+            }
+
+            for (int i = 0; i < genres.Length; i++)
+            {
+                genres[i] = genres[i].ToLower();
+            }
+            string director = result.Director.ToLower();
+            // we have actors, genres to play with, also DirectorBox.Text
+            XDocument xdoc = XDocument.Load("tags.xml");
+            List<string> movieAttrs = new List<string>();
+            movieAttrs.AddRange(actors); movieAttrs.AddRange(genres); movieAttrs.Add(director);
+
+            foreach (string s in movieAttrs)
+            {
+                foreach (XElement ell in xdoc.Root.Elements())
+                {
+                    if (ell.Element("text").Value.ToString().ToLower().Equals(s))
+                    {
+                        ell.Element("frequency").Value = (Int32.Parse(ell.Element("frequency").Value.ToString()) - 1).ToString();
+                        found = true; // we found our attrib in the xml
+                    }
+                }
+            }
+            xdoc.Save("tags.xml");
+
+
+           
+
             doc.Save(path);
         }
 

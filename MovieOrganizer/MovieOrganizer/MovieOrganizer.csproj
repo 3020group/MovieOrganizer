@@ -52,11 +52,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Homescreen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Homescreen.Designer.cs">
+      <DependentUpon>Homescreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MovieOrganizerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MovieOrganizerForm.Designer.cs">
+      <DependentUpon>MovieOrganizerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PwValidator.cs">
       <SubType>Form</SubType>
@@ -64,53 +70,47 @@
     <Compile Include="Form10.Designer.cs">
       <DependentUpon>PwValidator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form2.cs">
+    <Compile Include="MovieInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <Compile Include="MovieInfo.Designer.cs">
+      <DependentUpon>MovieInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form3.cs">
+    <Compile Include="HelpModule.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form3.Designer.cs">
-      <DependentUpon>Form3.cs</DependentUpon>
+    <Compile Include="HelpModule.Designer.cs">
+      <DependentUpon>HelpModule.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form4.cs">
+    <Compile Include="PlotTemplate.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form4.Designer.cs">
-      <DependentUpon>Form4.cs</DependentUpon>
+    <Compile Include="PlotTemplate.Designer.cs">
+      <DependentUpon>PlotTemplate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form5.cs">
+    <Compile Include="NewMovieAdder.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form5.Designer.cs">
-      <DependentUpon>Form5.cs</DependentUpon>
+    <Compile Include="NewMovieAdder.Designer.cs">
+      <DependentUpon>NewMovieAdder.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form6.cs">
+    <Compile Include="MovieDeleter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form6.Designer.cs">
-      <DependentUpon>Form6.cs</DependentUpon>
+    <Compile Include="MovieDeleter.Designer.cs">
+      <DependentUpon>MovieDeleter.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form7.cs">
+    <Compile Include="MovieEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form7.Designer.cs">
-      <DependentUpon>Form7.cs</DependentUpon>
+    <Compile Include="MovieEditor.Designer.cs">
+      <DependentUpon>MovieEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form8.cs">
+    <Compile Include="AdvancedSearch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form8.Designer.cs">
-      <DependentUpon>Form8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form9.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form9.Designer.cs">
-      <DependentUpon>Form9.cs</DependentUpon>
+    <Compile Include="AdvancedSearch.Designer.cs">
+      <DependentUpon>AdvancedSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="Movie.cs" />
     <Compile Include="moviePanel.cs">
@@ -146,35 +146,32 @@
     <Compile Include="UserControl1.Designer.cs">
       <DependentUpon>UserControl1.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Homescreen.resx">
+      <DependentUpon>Homescreen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form10.resx">
-      <DependentUpon>PwValidator.cs</DependentUpon>
+    <EmbeddedResource Include="MovieInfo.resx">
+      <DependentUpon>MovieInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <EmbeddedResource Include="HelpModule.resx">
+      <DependentUpon>HelpModule.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form3.resx">
-      <DependentUpon>Form3.cs</DependentUpon>
+    <EmbeddedResource Include="MovieOrganizerForm.resx">
+      <DependentUpon>MovieOrganizerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form4.resx">
-      <DependentUpon>Form4.cs</DependentUpon>
+    <EmbeddedResource Include="PlotTemplate.resx">
+      <DependentUpon>PlotTemplate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form5.resx">
-      <DependentUpon>Form5.cs</DependentUpon>
+    <EmbeddedResource Include="NewMovieAdder.resx">
+      <DependentUpon>NewMovieAdder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form6.resx">
-      <DependentUpon>Form6.cs</DependentUpon>
+    <EmbeddedResource Include="MovieDeleter.resx">
+      <DependentUpon>MovieDeleter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form7.resx">
-      <DependentUpon>Form7.cs</DependentUpon>
+    <EmbeddedResource Include="MovieEditor.resx">
+      <DependentUpon>MovieEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form8.resx">
-      <DependentUpon>Form8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form9.resx">
-      <DependentUpon>Form9.cs</DependentUpon>
+    <EmbeddedResource Include="AdvancedSearch.resx">
+      <DependentUpon>AdvancedSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="moviePanel.resx">
       <DependentUpon>moviePanel.cs</DependentUpon>
@@ -191,6 +188,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="PwValidator.resx">
+      <DependentUpon>PwValidator.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ScatterPlot.resx">
       <DependentUpon>ScatterPlot.cs</DependentUpon>
     </EmbeddedResource>

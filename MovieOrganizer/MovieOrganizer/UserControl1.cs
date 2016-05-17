@@ -14,9 +14,10 @@ namespace MovieOrganizer
     public partial class ProfileSelector : UserControl
     {
         private string myPath;
-        public ProfileSelector(string user, string imagePath)
+        private HomeScreen homeScreen;
+        public ProfileSelector(string user, string imagePath, HomeScreen homeScreen)
         {
-
+            this.homeScreen = homeScreen;
             InitializeComponent();
             this.UserName.Text = user;
 
@@ -54,21 +55,10 @@ namespace MovieOrganizer
             }
             else
             {
-                PwValidator pw = new PwValidator(this.UserName.Text, myPath, password);
+                PwValidator pw = new PwValidator(this.UserName.Text, myPath, password, homeScreen);
                 pw.Show();
-            }
-            
-
+            }    
         }
 
-        private void ProfileSelector_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ProfileSelector_MouseClick(object sender, MouseEventArgs e)
-        {
-
-        }
     }
 }

@@ -32,7 +32,8 @@ namespace MovieOrganizer
         {
             this.components = new System.ComponentModel.Container();
             this.uInfoPanel = new System.Windows.Forms.Panel();
-            this.logoPictureBox = new System.Windows.Forms.PictureBox();
+            this.SignOut = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.usernameLabel = new System.Windows.Forms.Label();
             this.profilePictureBox = new System.Windows.Forms.PictureBox();
             this.tabPanel = new System.Windows.Forms.Panel();
@@ -56,6 +57,7 @@ namespace MovieOrganizer
             this.collectionTab = new System.Windows.Forms.TabPage();
             this.collectionPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.collectionFilterPanel = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.numPages = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -93,7 +95,6 @@ namespace MovieOrganizer
             this.nameLabel = new System.Windows.Forms.Label();
             this.nameBoxErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.uInfoPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).BeginInit();
             this.tabPanel.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -116,7 +117,8 @@ namespace MovieOrganizer
             // 
             // uInfoPanel
             // 
-            this.uInfoPanel.Controls.Add(this.logoPictureBox);
+            this.uInfoPanel.Controls.Add(this.SignOut);
+            this.uInfoPanel.Controls.Add(this.button1);
             this.uInfoPanel.Controls.Add(this.usernameLabel);
             this.uInfoPanel.Controls.Add(this.profilePictureBox);
             this.uInfoPanel.Dock = System.Windows.Forms.DockStyle.Top;
@@ -125,15 +127,29 @@ namespace MovieOrganizer
             this.uInfoPanel.Size = new System.Drawing.Size(897, 70);
             this.uInfoPanel.TabIndex = 0;
             // 
-            // logoPictureBox
+            // SignOut
             // 
-            this.logoPictureBox.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.logoPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.logoPictureBox.Location = new System.Drawing.Point(706, 3);
-            this.logoPictureBox.Name = "logoPictureBox";
-            this.logoPictureBox.Size = new System.Drawing.Size(188, 64);
-            this.logoPictureBox.TabIndex = 2;
-            this.logoPictureBox.TabStop = false;
+            this.SignOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SignOut.Location = new System.Drawing.Point(808, 11);
+            this.SignOut.Margin = new System.Windows.Forms.Padding(2);
+            this.SignOut.Name = "SignOut";
+            this.SignOut.Size = new System.Drawing.Size(81, 46);
+            this.SignOut.TabIndex = 3;
+            this.SignOut.Text = "Sign Out";
+            this.SignOut.UseVisualStyleBackColor = true;
+            this.SignOut.Click += new System.EventHandler(this.SignOut_Click);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(723, 11);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(81, 46);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Help";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // usernameLabel
             // 
@@ -152,7 +168,6 @@ namespace MovieOrganizer
             this.profilePictureBox.Size = new System.Drawing.Size(73, 64);
             this.profilePictureBox.TabIndex = 0;
             this.profilePictureBox.TabStop = false;
-            this.profilePictureBox.Click += new System.EventHandler(this.profilePictureBox_Click);
             // 
             // tabPanel
             // 
@@ -189,6 +204,7 @@ namespace MovieOrganizer
             this.searchTab.Text = "Search";
             this.searchTab.UseVisualStyleBackColor = true;
             this.searchTab.Enter += new System.EventHandler(this.searchTab_Enter);
+            this.searchTab.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.resultsPanel_Scroll);
             // 
             // resultsPanel
             // 
@@ -199,7 +215,6 @@ namespace MovieOrganizer
             this.resultsPanel.Name = "resultsPanel";
             this.resultsPanel.Size = new System.Drawing.Size(887, 398);
             this.resultsPanel.TabIndex = 5;
-            this.resultsPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.resultsPanel_MouseDown);
             // 
             // panel1
             // 
@@ -248,7 +263,7 @@ namespace MovieOrganizer
             this.panel3.Controls.Add(this.searchPageCombo);
             this.panel3.Controls.Add(this.label5);
             this.panel3.Location = new System.Drawing.Point(412, 43);
-            this.panel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(180, 48);
             this.panel3.TabIndex = 7;
@@ -278,7 +293,7 @@ namespace MovieOrganizer
             this.searchPageCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.searchPageCombo.FormattingEnabled = true;
             this.searchPageCombo.Location = new System.Drawing.Point(31, 11);
-            this.searchPageCombo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.searchPageCombo.Margin = new System.Windows.Forms.Padding(2);
             this.searchPageCombo.Name = "searchPageCombo";
             this.searchPageCombo.Size = new System.Drawing.Size(58, 21);
             this.searchPageCombo.TabIndex = 1;
@@ -301,6 +316,7 @@ namespace MovieOrganizer
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(270, 29);
             this.textBox1.TabIndex = 1;
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // ssPanel
             // 
@@ -382,9 +398,11 @@ namespace MovieOrganizer
             this.collectionPanel.Name = "collectionPanel";
             this.collectionPanel.Size = new System.Drawing.Size(887, 412);
             this.collectionPanel.TabIndex = 0;
+            this.collectionPanel.MouseEnter += new System.EventHandler(this.collectionPanel_MouseEnter);
             // 
             // collectionFilterPanel
             // 
+            this.collectionFilterPanel.Controls.Add(this.button2);
             this.collectionFilterPanel.Controls.Add(this.panel2);
             this.collectionFilterPanel.Controls.Add(this.ownedCheckBox);
             this.collectionFilterPanel.Controls.Add(this.watchedCkeckBox);
@@ -397,6 +415,18 @@ namespace MovieOrganizer
             this.collectionFilterPanel.Size = new System.Drawing.Size(887, 86);
             this.collectionFilterPanel.TabIndex = 0;
             // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.button2.Location = new System.Drawing.Point(752, 24);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(118, 27);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "Add New Movie";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.numPages);
@@ -404,7 +434,7 @@ namespace MovieOrganizer
             this.panel2.Controls.Add(this.pageCombo);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Location = new System.Drawing.Point(489, 24);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(180, 46);
             this.panel2.TabIndex = 6;
@@ -434,7 +464,7 @@ namespace MovieOrganizer
             this.pageCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.pageCombo.FormattingEnabled = true;
             this.pageCombo.Location = new System.Drawing.Point(31, 11);
-            this.pageCombo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pageCombo.Margin = new System.Windows.Forms.Padding(2);
             this.pageCombo.Name = "pageCombo";
             this.pageCombo.Size = new System.Drawing.Size(58, 21);
             this.pageCombo.TabIndex = 1;
@@ -556,7 +586,7 @@ namespace MovieOrganizer
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.button3.Location = new System.Drawing.Point(715, 377);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(162, 51);
             this.button3.TabIndex = 6;
@@ -568,7 +598,7 @@ namespace MovieOrganizer
             // 
             this.MovieEditor.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.MovieEditor.Location = new System.Drawing.Point(715, 321);
-            this.MovieEditor.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MovieEditor.Margin = new System.Windows.Forms.Padding(2);
             this.MovieEditor.Name = "MovieEditor";
             this.MovieEditor.Size = new System.Drawing.Size(162, 51);
             this.MovieEditor.TabIndex = 5;
@@ -580,11 +610,11 @@ namespace MovieOrganizer
             // 
             this.MovieAdder.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.MovieAdder.Location = new System.Drawing.Point(715, 265);
-            this.MovieAdder.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MovieAdder.Margin = new System.Windows.Forms.Padding(2);
             this.MovieAdder.Name = "MovieAdder";
             this.MovieAdder.Size = new System.Drawing.Size(164, 51);
             this.MovieAdder.TabIndex = 4;
-            this.MovieAdder.Text = "Add A New Movie";
+            this.MovieAdder.Text = "Add New Movie";
             this.MovieAdder.UseVisualStyleBackColor = true;
             this.MovieAdder.Click += new System.EventHandler(this.MovieAdder_Click);
             // 
@@ -732,6 +762,7 @@ namespace MovieOrganizer
             this.textBox2.Location = new System.Drawing.Point(222, 111);
             this.textBox2.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.textBox2.Name = "textBox2";
+            this.textBox2.PasswordChar = '*';
             this.textBox2.Size = new System.Drawing.Size(160, 31);
             this.textBox2.TabIndex = 5;
             this.textBox2.Validating += new System.ComponentModel.CancelEventHandler(this.textBox2_Validating);
@@ -744,9 +775,9 @@ namespace MovieOrganizer
             this.passwordBox.Location = new System.Drawing.Point(222, 74);
             this.passwordBox.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.passwordBox.Name = "passwordBox";
+            this.passwordBox.PasswordChar = '*';
             this.passwordBox.Size = new System.Drawing.Size(160, 31);
             this.passwordBox.TabIndex = 4;
-            this.passwordBox.TextChanged += new System.EventHandler(this.passwordBox_TextChanged);
             this.passwordBox.Validating += new System.ComponentModel.CancelEventHandler(this.passwordBox_Validating);
             this.passwordBox.Validated += new System.EventHandler(this.passwordBox_Validated);
             // 
@@ -805,11 +836,11 @@ namespace MovieOrganizer
             this.Controls.Add(this.uInfoPanel);
             this.DoubleBuffered = true;
             this.Name = "TabScreen";
-            this.Text = "TabScreen";
+            this.Text = "Movie Organizer";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TabScreen_FormClosed);
             this.Resize += new System.EventHandler(this.TabScreen_Resize);
             this.uInfoPanel.ResumeLayout(false);
             this.uInfoPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).EndInit();
             this.tabPanel.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
@@ -846,7 +877,6 @@ namespace MovieOrganizer
         private System.Windows.Forms.Panel uInfoPanel;
         private System.Windows.Forms.PictureBox profilePictureBox;
         private System.Windows.Forms.Label usernameLabel;
-        private System.Windows.Forms.PictureBox logoPictureBox;
         private System.Windows.Forms.Panel tabPanel;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage searchTab;
@@ -904,5 +934,8 @@ namespace MovieOrganizer
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button MovieEditor;
         private System.Windows.Forms.Button MovieAdder;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button SignOut;
     }
 }

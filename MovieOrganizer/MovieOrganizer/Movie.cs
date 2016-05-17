@@ -85,7 +85,7 @@ namespace MovieOrganizer
 
                 runTime = Int32.Parse(element.Element("length").Value.Split(' ')[0]);
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 Console.WriteLine("Missing information from: "+element.Element("title").Value);
             }

@@ -223,7 +223,7 @@ namespace MovieOrganizer
                         curMovies[p] = m;
                         this.Controls.Add(p);
                     }
-                    catch(Exception e)
+                    catch(Exception)
                     {
                         ((Form)this.TopLevelControl).Close();
                         AdvancedSearch adv = new AdvancedSearch();

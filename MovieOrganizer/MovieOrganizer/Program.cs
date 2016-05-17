@@ -16,10 +16,8 @@ namespace MovieOrganizer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            Application.Run(new HomeScreen());
-
-
+            (new HomeScreen()).Show();
+            Application.Run();
         }
     }
 }

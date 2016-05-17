@@ -123,6 +123,7 @@
             // 
             // MaxRating
             // 
+            this.MaxRating.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.MaxRating.FormattingEnabled = true;
             this.MaxRating.Items.AddRange(new object[] {
             "None",
@@ -190,7 +191,6 @@
             this.adminBox.TabIndex = 17;
             this.adminBox.Text = "Administrator Account";
             this.adminBox.UseVisualStyleBackColor = true;
-            this.adminBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // NewUser
             // 

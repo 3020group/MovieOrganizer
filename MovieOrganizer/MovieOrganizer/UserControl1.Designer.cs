@@ -61,8 +61,6 @@
             this.Controls.Add(this.ProfilePic);
             this.Name = "ProfileSelector";
             this.Size = new System.Drawing.Size(137, 150);
-            this.Load += new System.EventHandler(this.ProfileSelector_Load);
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ProfileSelector_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

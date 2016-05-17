@@ -62,7 +62,7 @@
             this.textBox1.Size = new System.Drawing.Size(168, 29);
             this.textBox1.TabIndex = 2;
             this.textBox1.UseSystemPasswordChar = true;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // PwValidator
             // 
@@ -74,7 +74,6 @@
             this.Controls.Add(this.label1);
             this.Name = "PwValidator";
             this.Text = "Enter Password";
-            this.Load += new System.EventHandler(this.PwValidator_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

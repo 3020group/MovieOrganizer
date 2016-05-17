@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace MovieOrganizer
 {
-    public partial class TabScreen : Form
+    public partial class TabScreen : MovieOrganizerForm
     {
         private string username;
         private string imageLocation;
@@ -84,6 +84,9 @@ namespace MovieOrganizer
 
                 }
             }
+
+            //resize the screen to avoid the tab-bug
+            this.Size = new Size(this.Size.Width + 1, this.Size.Height);
         }
 
         private void TabScreen_Resize(object sender, EventArgs e)
@@ -103,10 +106,7 @@ namespace MovieOrganizer
                     p.Size = new Size((9 * suggestFlow.Size.Width) / 10, 225);
                 }
             }
-
-            tabControl.ItemSize = new Size(newWidth, 30);
-
-           
+            tabControl.ItemSize = new Size(newWidth, 30);        
         }
 
         private void settingsTab_Enter(object sender, EventArgs e)
@@ -151,7 +151,6 @@ namespace MovieOrganizer
         private void suggestionsTab_Enter(object sender, EventArgs e)
         {
             suggestFlow.Controls.Clear();
-
             generateSuggestions();
         }
 
@@ -166,7 +165,7 @@ namespace MovieOrganizer
                 formatSuggestionPanel(p);
                 
                 //build the text saying what the movie is
-                suggestText += "Because you watched " + getOwnedMovie(t);
+                suggestText += "Because you own " + getOwnedMovie(t);
 
                 if(t.Type.Equals("actor"))
                 {
@@ -182,11 +181,10 @@ namespace MovieOrganizer
                 }
                 else
                 {
-                    //It shouldent reach here
-                    suggestText = null;
+                    // If this code runs, there was a problem
+                    suggestText = "";
                 }
-                   
-
+                 
                 //need to add a label to tell what the suggestion is, and then add a flowlayoutpanel to store the movies
                 Label l = new Label();
                 l.Text = suggestText;
@@ -241,7 +239,7 @@ namespace MovieOrganizer
             tags.Reverse(); //needs to be reverse because it should be descending 
 
             //now we need to pick 5 items from the list
-            for (int i = 0; i < tags.Count; i++)
+            for (int i = 0; (i < tags.Count && suggest.Count < 5); i++)
             {
                 if (r.Next(0, 10) > 5 || (5 - suggest.Count) >= tags.Count - i - 1)
                 {
@@ -255,16 +253,9 @@ namespace MovieOrganizer
                     else if(!tags[i].Type.Equals("genre") && moreExist(tags[i]))
                     {
                         suggest.Add(tags[i]);
-                    }
-
-                    
-                }
-                if (suggest.Count == 5)
-                {
-                    break;
+                    }            
                 }
             }
-
             return suggest;
         }
 
@@ -327,7 +318,7 @@ namespace MovieOrganizer
                 }
             }
 
-            return null;
+            return "";
         }
 
         private void loadPaths(TextBox box)
@@ -580,16 +571,11 @@ namespace MovieOrganizer
             }
         }
 
-        private void passwordBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void passwordBox_Validating(object sender, CancelEventArgs e)
         {
             Regex re = new Regex(@"^\w+\d(\d*|\w*)+$");
 
-            if (!re.IsMatch(passwordBox.Text))
+            if (!re.IsMatch(passwordBox.Text) && !passwordBox.Text.Trim().Equals(""))
             {
                 e.Cancel = true;
                 nameBoxErrorProvider.SetError(passwordBox, "Invalid password");
@@ -663,6 +649,9 @@ namespace MovieOrganizer
 
                 doc.Save("users.xml");
             }
+            // Empty text boxes
+            passwordBox.Text = "";
+            textBox2.Text = "";
         }
 
 
@@ -763,19 +752,61 @@ namespace MovieOrganizer
             return target;
         }
 
-        private void profilePictureBox_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void resultsPanel_MouseDown(object sender, MouseEventArgs e)
-        {
-        }
-
         private void advancedSearchLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             AdvancedSearch ads = new AdvancedSearch();
             ads.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            HelpModule hm = new HelpModule();
+            hm.Show();
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Return)
+            {
+                searchButton_Click(sender, e);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MovieAdderForm ma = new MovieAdderForm();
+            ma.Show();
+        }
+
+        private void resultsPanel_Scroll(object sender, EventArgs e)
+        {
+            resultsPanel.Focus();
+        }
+
+        private void SignOut_Click(object sender, EventArgs e)
+        {
+            (new HomeScreen()).Show();
+            Close();
+        }
+
+        private void collectionPanel_MouseEnter(object sender, EventArgs e)
+        {
+            if(this.TopLevel) // Get focus without causing a hassle for windows in front
+                collectionPanel.Focus();
+        }
+
+        private void TabScreen_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FormCollection fc = Application.OpenForms;
+
+            for(int i = 0; i < fc.Count; i++ )
+            {
+                if( ! fc[i].Name.Equals("HomeScreen") ) // A new homescreen is loaded when we sign out. Make sure this is not closed by accident
+                {
+                    fc[i].Close();
+                    i--;
+                }
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace MovieOrganizer
      - Load from DB and pass to tab view
      - Soon: Query IMDB with input parameters
      */
-    public partial class NewUser : Form
+    public partial class NewUser : MovieOrganizerForm
     {
         HomeScreen homeScreen;
         public NewUser(HomeScreen homeScreen)
@@ -104,12 +104,6 @@ namespace MovieOrganizer
             
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
         // Take all the data from the components and form it into a new XML node, add the node into the user DB
         private void addUser()
         {
@@ -150,9 +144,6 @@ namespace MovieOrganizer
             // Adding is_admin
             XmlNode adminNode = doc.CreateElement("is_admin");
             adminNode.InnerText = adminBox.Checked.ToString().ToLower();
-
-
-
 
             // We need to append all the child nodes based on component data
 
